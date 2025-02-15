@@ -1,0 +1,11 @@
+{
+    "name": "septiandwica/moodle-theme_president",
+    "type": "moodle-theme",
+    "require": {
+        "composer/installers": "~1.0"
+    },
+    "extra": {
+        "installer-name": "president"
+    }
+}
+

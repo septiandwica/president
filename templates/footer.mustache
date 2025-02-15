@@ -1,0 +1,209 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_president/footer
+
+    Page footer.
+
+    Example context (json):
+    {
+        "output": {
+            "page_doc_link": "Help and documentation",
+            "supportemail": "<a href=\"#\">Support</a>",
+            "has_popover_links": true,
+            "services_support": "Services and support",
+            "login_info": "You are logged in as cute kitten",
+            "moodle_release": "90210"
+        }
+    }
+}}
+
+<footer id="page-footer">
+    <div class="president-container-fluid footer-columns">
+        <div class="row d-flex flex-column-reverse flex-lg-row ">
+            <div class="col-12 col-lg-4">
+                <div class="section-html-content">
+                    <center>
+                        {{# output.should_display_footer_logo }}
+                        <img src="{{output.get_footer_logo}}" class="logo mr-1" alt="{{sitename}}">
+                        {{/ output.should_display_footer_logo }}
+                        {{^ output.should_display_footer_logo }}
+                        {{{ sitename }}}
+                        {{/ output.should_display_footer_logo }}
+                    </center>
+                </div>
+            </div>
+                <hr class="d-block d-lg-none my-3">
+            <div class="col-12 col-lg-3">
+                <hr class="d-sm-block d-md-none my-0">
+                <div class="section-html-content">
+                    <h3 class="footer-title">
+                        <strong>
+                        Address
+                        </strong> 
+                    </h3>
+                   
+                    <ul>
+                        <li>
+                        {{#address}}
+                            <p>
+                                {{{address}}}
+                            </p>
+                             {{/address}}
+                        </li>
+                        {{#website}}
+                        <li>
+                            <a href="{{{website}}}" target="_blank">
+                                <i class="fa fa-globe"></i> {{{website}}}
+                            </a>
+                        </li>
+                        {{/website}}
+                        {{#mobile}}
+                        <li>
+                            <a href="tel:{{{mobile}}}" target="_blank" >
+                                <i class="fa fa-mobile"></i> {{{mobile}}}
+                            </a>
+                        </li>
+                        {{/mobile}}
+                        {{#mail}}
+                        <li>
+                            <a href="mailto:{{{mail}}}" target="_blank">
+                                <i class="fa fa-envelope"></i> {{{mail}}}
+                            </a>
+                        </li>
+                        {{/mail}}
+                    </ul>
+                </div>
+            </div>
+                <hr class="d-block d-lg-none my-3">
+
+            <div class="col-12 col-lg-2 column-left">
+                
+                <div class="socialnetworks">
+                    <h3 class="footer-title">
+                        <strong>
+                            {{#str}}followus, theme_president{{/str}}
+                        </strong>
+                    </h3>
+
+                    <ul class="mb-0">
+                        {{#facebook}}
+                            <li>
+                                <a
+                                    href="{{{facebook}}}"
+                                    target="_blank"
+                                    class="facebook btn btn-link btn-rounded">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                            </li>
+                        {{/facebook}}
+
+                        {{#twitter}}
+                            <li>
+                                <a
+                                    href="{{{twitter}}}"
+                                    target="_blank"
+                                    class="twitter btn btn-link btn-rounded">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                        {{/twitter}}
+
+                        {{#linkedin}}
+                            <li>
+                                <a
+                                    href="{{{linkedin}}}"
+                                    target="_blank"
+                                    class="linkedin btn btn-link btn-rounded">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </li>
+                        {{/linkedin}}
+
+                        {{#youtube}}
+                            <li>
+                                <a
+                                    href="{{{youtube}}}"
+                                    target="_blank"
+                                    class="youtube btn btn-link btn-rounded">
+                                    <i class="fa fa-youtube"></i>
+                                </a>
+                            </li>
+                        {{/youtube}}
+
+                        {{#instagram}}
+                            <li>
+                                <a
+                                    href="{{{instagram}}}"
+                                    target="_blank"
+                                    class="instagram btn btn-link btn-rounded">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                            </li>
+                        {{/instagram}}
+
+                        {{#whatsapp}}
+                            <li>
+                                <a
+                                    href="https://api.whatsapp.com/send?phone={{{whatsapp}}}"
+                                    target="_blank"
+                                    class="whatsapp btn btn-link btn-rounded">
+                                    <i class="fa fa-whatsapp"></i>
+                                </a>
+                            </li>
+                        {{/whatsapp}}
+
+                        {{#telegram}}
+                            <li>
+                                <a
+                                    href="{{{telegram}}}"
+                                    target="_blank"
+                                    class="telegram btn btn-link btn-rounded">
+                                    <i class="fa fa-telegram"></i>
+                                </a>
+                            </li>
+                        {{/telegram}}
+                    </ul>
+                    {{# output.supportemail }}
+                        <div class="supportemail">
+                        {{{ output.supportemail }}}
+                        </div>
+                    {{/ output.supportemail }}
+                </div>
+            </div>
+                <hr class="d-block d-lg-none my-3">
+
+            <div class="col-12 col-lg-3 column-right">
+               
+
+                {{{ output.login_info }}}
+
+
+                <div class="tool_usertours-resettourcontainer"></div>
+
+            </div>
+
+        </div>
+        <div>
+        
+        </div>
+    </div>
+    <hr class="d-sm-block d-md-none my-0">
+
+</footer>
+{{{ output.standard_end_of_body_html }}}
+

@@ -1,0 +1,167 @@
+.path-login {
+    #page {
+        max-width: 100%;
+    }
+
+    .login-identityprovider-btn.facebook {
+        background-color: $facebook-color;
+        color: #fff;
+    }
+}
+
+#page-login-index {
+    .login-container {
+        background-color: initial;
+        box-shadow: none;
+        padding: 0;
+        background-color: #fff;
+
+        .loginform {
+            margin: 0 auto;
+            
+            .left-column {
+                padding-right: 2rem;
+            }
+
+            .right-column {
+                padding-left: 2rem;
+                border-left: 1px solid $gray-300;
+
+                .column-content {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+                }
+            }
+        }
+    }
+    #loginContainer.slide-in {
+        right: 0; /* Slide in to the screen */
+      }
+}
+
+#page-login-signup {
+    #page-content {
+        padding-top: 2rem;
+    }
+}
+
+@include media-breakpoint-up(md) {
+    #page-login-index {
+        .login-container {
+            max-width: 100%;
+            width: 100% !important; /* stylelint-disable-line declaration-no-important */
+        }
+
+        .loginform {
+            width: 60%;
+
+            &.hastwocolumns {
+                width: 60%;
+            }
+        }
+    }
+
+    .login-container {
+        width: 100% !important; /* stylelint-disable-line declaration-no-important */
+    }
+}
+
+@include media-breakpoint-down(md) {
+    #page-login-index {
+        #page {
+            padding-top: 1rem;
+        }
+
+        .login-container {
+            .loginform {
+                .left-column {
+                    padding-right: 0;
+                }
+
+                .right-column {
+                    padding-left: 0;
+                    border-left: none;
+
+                    .column-content {
+                        display: block;
+
+                        .login-heading {
+                            margin-top: 1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #page-login-signup #page-content {
+        padding-top: 15px;
+
+        .login-container {
+            max-width: 100%;
+            padding: 1rem;
+
+            .mform {
+                padding: 0;
+
+                #fgroup_id_buttonar {
+                    .col-md-9 {
+                        .d-flex.flex-wrap.align-items-center {
+                            flex-direction: column;
+
+                            #id_submitbutton {
+                                margin-bottom: 1rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* SCSS untuk Offcanvas */
+.offcanvas {
+    position: fixed;
+    top: 0;
+    right: -100%;  /* Mulai di luar layar */
+    height: 100%;
+    width: 700px;  /* Ukuran modal */
+    background-color: #fff;
+    transition: right 1s ease-in-out;  /* Efek animasi slide */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1050;
+  }
+  
+  .offcanvas.open {
+    right: 0;
+  }
+  
+  .offcanvas-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .offcanvas-body {
+    padding: 0;
+  }
+  
+  /* Responsif SCSS untuk Offcanvas */
+  @media (max-width: 768px) {
+    .offcanvas {
+      position: static;
+      margin: 0 auto;
+      width: 90%;
+      height: 600px;
+      max-width: 400px;
+      transition: none;
+    }
+  
+    .offcanvas.open {
+      display: block;
+    }
+  }

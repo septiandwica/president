@@ -1,0 +1,99 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_boost/login
+
+    Login page template
+
+    Example context (json):
+    {
+        "output": {
+            "doctype": "<!DOCTYPE html>",
+            "page_title": "Login page",
+            "favicon": "favicon.ico",
+            "main_content": "<h1>Headers keep HTML validators happy</h1>"
+        }
+    }
+}}
+{{> theme_president/head }}
+
+<body {{{ bodyattributes }}}>
+{{> core/local/toast/wrapper}}
+
+<div id="page-wrapper">
+
+    {{{ output.standard_top_of_body_html }}}
+
+    <div id="page" class="container-fluid mt-0">
+        <div id="page-content" class="row d-flex align-items-center justify-content-center">
+        <!-- Offcanvas (Modal yang muncul dari kanan ke kiri) -->
+<div id="offcanvasRight" class="offcanvas">
+
+    <div class="offcanvas-body">
+        <!-- Konten login -->
+        <div class="login-wrapper">
+            <div class="login-container d-flex align-items-center justify-content-center flex-column pt-5 pb-5">
+                <div class="login-head text-center mb-3">
+                    <h3>Hi, Welcome to {{sitename}}</h3>
+                    <p>Enter your details to log in your account</p>
+                </div>
+                {{{ output.main_content }}}
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="d-none">
+    {{{ output.standard_footer_html }}}
+    {{{ output.standard_end_of_body_html }}}
+</div>
+</body>
+</html>
+
+{{#js}}
+    M.util.js_pending('theme_boost/loader');
+    require(['theme_boost/loader'], function() {
+      M.util.js_complete('theme_boost/loader');
+    });
+    require(['jquery'], function($) {
+        $(document).ready(function() {
+            // Menambahkan kelas 'open' untuk membuat offcanvas muncul di layar besar
+            if ($(window).width() > 768) {  // Hanya buka offcanvas di layar besar
+                $('#offcanvasRight').addClass('open');
+            } else {
+                // Untuk ukuran layar kecil, langsung tampilkan tanpa animasi
+                $('#offcanvasRight').addClass('open').css('transition', 'none');
+            }
+        });
+
+        // Mengatur agar offcanvas tersembunyi jika ukuran layar berubah
+        $(window).resize(function() {
+            if ($(window).width() <= 768) {
+                $('#offcanvasRight').removeClass('open');  // Menyembunyikan offcanvas ketika layar kecil
+            } else {
+                $('#offcanvasRight').addClass('open');  // Menampilkan offcanvas di layar besar
+            }
+        });
+    });
+{{/js}}
