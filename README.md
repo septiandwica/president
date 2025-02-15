@@ -19,7 +19,7 @@ For complete documentation, visit: [Documentation Link](#)
 **Septian Dwi Cahyo**  
 - 🛠️ **GitHub**: [github.com/septiandwica](https://github.com/septiandwica)  
 - 💼 **LinkedIn**: [linkedin.com/in/septiandwica](https://www.linkedin.com/in/septiandwica)  
-- 🌐 **Personal Website**: [tiancode.me](https://tiancode.me)  
+- 🌐 **Personal Website**: [tiancode.me](https://tiancode.my.id)  
 
 **📍 Location**: Banyuwangi, Jawa Timur, Indonesia  
 **👨‍🎨 Profession**: Full Stack Developer, UI/UX Designer, and Content Creator
