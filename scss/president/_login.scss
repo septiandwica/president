@@ -131,7 +131,7 @@
     height: 100%;
     width: 700px;  /* Ukuran modal */
     background-color: #fff;
-    transition: right 1s ease-in-out;  /* Efek animasi slide */
+    transition: right .5s ease-in-out;  /* Efek animasi slide */
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
     padding: 20px;
     z-index: 1050;
