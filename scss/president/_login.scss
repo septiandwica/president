@@ -127,7 +127,7 @@
 .offcanvas {
     position: fixed;
     top: 0;
-    right: -100%;  /* Mulai di luar layar */
+    right: 0;  /* Mulai di luar layar */
     height: 100%;
     width: 700px;  /* Ukuran modal */
     background-color: #fff;

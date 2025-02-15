@@ -30,7 +30,8 @@
     }
 }}
 {{> theme_president/head }}
-
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 <body {{{ bodyattributes }}}>
 {{> core/local/toast/wrapper}}
 
@@ -40,13 +41,11 @@
 
     <div id="page" class="container-fluid mt-0">
         <div id="page-content" class="row d-flex align-items-center justify-content-center">
-        <!-- Offcanvas (Modal yang muncul dari kanan ke kiri) -->
-<div id="offcanvasRight" class="offcanvas">
-
+       <div id="offcanvasRight" class="offcanvas" data-aos="fade-left" data-aos-duration="500">
     <div class="offcanvas-body">
         <!-- Konten login -->
         <div class="login-wrapper">
-            <div class="login-container d-flex align-items-center justify-content-center flex-column pt-5 pb-5">
+            <div class="login-container d-flex d-sm-flex align-items-center justify-content-center flex-column pt-5 pb-5">
                 <div class="login-head text-center mb-3">
                     <h3>Hi, Welcome to {{sitename}}</h3>
                     <p>Enter your details to log in your account</p>
@@ -55,6 +54,8 @@
             </div>
         </div>
     </div>
+</div>
+
 </div>
 
         </div>
@@ -70,19 +71,23 @@
 </div>
 </body>
 </html>
-
 {{#js}}
     M.util.js_pending('theme_boost/loader');
     require(['theme_boost/loader'], function() {
       M.util.js_complete('theme_boost/loader');
     });
+
+    // Inisialisasi AOS
+    AOS.init();
+
     require(['jquery'], function($) {
         $(document).ready(function() {
-            // Menambahkan kelas 'open' untuk membuat offcanvas muncul di layar besar
-            if ($(window).width() > 768) {  // Hanya buka offcanvas di layar besar
+            // Untuk ukuran layar besar, hanya tambahkan kelas 'open' tanpa animasi
+            if ($(window).width() > 768) {
+                // Tidak perlu animasi, cukup posisikan di kanan
                 $('#offcanvasRight').addClass('open');
             } else {
-                // Untuk ukuran layar kecil, langsung tampilkan tanpa animasi
+                // Untuk layar kecil, tampilkan dengan animasi
                 $('#offcanvasRight').addClass('open').css('transition', 'none');
             }
         });
