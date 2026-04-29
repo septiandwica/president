@@ -188,6 +188,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         $context->errorformatted = $this->error_text($context->error);
         $context->logourl = $this->get_logo();
+        
+        $theme = theme_config::load('president');
+        $context->logodark_url = $theme->setting_file_url('logodark', 'logodark');
+
         $context->sitename = format_string($SITE->fullname, true,
             ['context' => context_course::instance(SITEID), "escape" => false]);
 

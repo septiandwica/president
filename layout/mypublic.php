@@ -95,5 +95,10 @@ if (user_can_view_profile($user, null, $context)) {
 $themesettings = new \theme_president\util\settings();
 
 $templatecontext = array_merge($templatecontext, $themesettings->footer());
+$templatecontext = array_merge($templatecontext, $themesettings->navbar());
+// Force normal navbar for internal pages.
+$templatecontext['navbartype'] = 'normal';
+$templatecontext['is_floating'] = false;
+$templatecontext['is_normal'] = true;
 
 echo $OUTPUT->render_from_template('theme_president/mypublic', $templatecontext);

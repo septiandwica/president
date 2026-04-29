@@ -129,5 +129,10 @@ $templatecontext = [
 ];
 
 $templatecontext = array_merge($templatecontext, $themesettings->footer());
+$templatecontext = array_merge($templatecontext, $themesettings->navbar());
+// Force normal navbar for internal pages.
+$templatecontext['navbartype'] = 'normal';
+$templatecontext['is_floating'] = false;
+$templatecontext['is_normal'] = true;
 
 echo $OUTPUT->render_from_template('theme_president/incourse', $templatecontext);

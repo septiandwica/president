@@ -44,8 +44,10 @@ $string['signinwith'] = 'Sign in with';
 
 // General settings tab.
 $string['generalsettings'] = 'General';
-$string['logo'] = 'Logo';
-$string['logodesc'] = 'The logo is displayed in the header.';
+$string['logo'] = 'Navbar Light Logo';
+$string['logodesc'] = 'The logo is displayed in the header when using the light theme.';
+$string['logodark'] = 'Navbar Dark Logo';
+$string['logodarkdesc'] = 'The alternative logo displayed in the header when Dark Mode is active (usually a white/light version of your logo).';
 $string['favicon'] = 'Custom favicon';
 $string['favicondesc'] = 'Upload your own favicon.  It should be an .ico file.';
 $string['preset'] = 'Theme preset';

@@ -42,7 +42,7 @@ class settings {
      * @var array $files Theme file settings.
      */
     protected $files = [
-        'loginbg',
+        'loginbg', 'logodark',
         'sliderimage1', 'sliderimage2', 'sliderimage3', 'sliderimage4', 'sliderimage5', 'sliderimage6',
         'sliderimage7', 'sliderimage8', 'sliderimage9', 'sliderimage10', 'sliderimage11', 'sliderimage12',
         'marketing1icon', 'marketing2icon', 'marketing3icon', 'marketing4icon','marketing5icon',
@@ -261,11 +261,14 @@ class settings {
      */
     public function navbar() {
         $navbartype = $this->navbartype ?: 'normal';
+        $logodark = $this->logodark;
+        
         return [
             'navbartype' => $navbartype,
             'is_normal' => $navbartype === 'normal',
             'is_floating' => $navbartype === 'floating',
             'is_sticky' => $navbartype === 'sticky',
+            'logodark_url' => $logodark ? $logodark : false,
         ];
     }
 }

@@ -47,6 +47,14 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'logo', 0, $opts);
     $page->add($setting);
 
+    // Dark Logo file setting.
+    $name = 'theme_president/logodark';
+    $title = get_string('logodark', 'theme_president');
+    $description = get_string('logodarkdesc', 'theme_president');
+    $opts = ['accepted_types' => ['.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'], 'maxfiles' => 1];
+    $setting = new admin_setting_configstoredfile($name, $title, $description, 'logodark', 0, $opts);
+    $page->add($setting);
+
     // Favicon setting.
     $name = 'theme_president/favicon';
     $title = get_string('favicon', 'theme_president');
