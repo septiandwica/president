@@ -1,7 +1,22 @@
 $brand-primary: #0f47ad !default;
-$green: #64a44e !default;
-$gold: #f7bf29 !default;
-$background: #f2f3f7;
+$brand-accent: #f7b731 !default;
+$brand-dark: #0d1b2a !default;
+$background: #f4f7fb;
+
+:root {
+    --presuniv-primary: #0f47ad;
+    --presuniv-primary-dark: #0a3580;
+    --presuniv-primary-light: #1a5ec9;
+    --presuniv-accent: #f7b731;
+    --presuniv-red: #e31e24; /* Official Red */
+    --presuniv-dark: #0d1b2a;
+    --presuniv-gray-bg: #f4f7fb;
+    --presuniv-text: #2d3748;
+    --presuniv-text-light: #718096;
+    --presuniv-radius: 16px;
+    --presuniv-shadow: 0 4px 24px rgba(15, 71, 173, 0.08);
+    --presuniv-shadow-hover: 0 12px 40px rgba(15, 71, 173, 0.16);
+}
 
 $secondary-menu-color: $brand-primary !default;
 

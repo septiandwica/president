@@ -253,4 +253,19 @@ class settings {
     public function getAnimeScriptUrl() {
         return (new \moodle_url('/theme/president/scripts/anime.min.js'))->out();
     }
+
+    /**
+     * Get navbar settings
+     *
+     * @return array
+     */
+    public function navbar() {
+        $navbartype = $this->navbartype ?: 'normal';
+        return [
+            'navbartype' => $navbartype,
+            'is_normal' => $navbartype === 'normal',
+            'is_floating' => $navbartype === 'floating',
+            'is_sticky' => $navbartype === 'sticky',
+        ];
+    }
 }

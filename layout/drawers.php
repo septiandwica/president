@@ -96,6 +96,9 @@ $header = $PAGE->activityheader;
 $headercontent = $header->export_for_template($renderer);
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
+if ($themesettings->navbartype === 'floating') {
+    $bodyattributes = str_replace('class="', 'class="navbar-floating-enabled ', $bodyattributes);
+}
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => \core\context\course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
@@ -120,5 +123,11 @@ $templatecontext = [
 ];
 
 $templatecontext = array_merge($templatecontext, $themesettings->footer());
+$templatecontext = array_merge($templatecontext, $themesettings->navbar());
+// Force normal navbar for logged in users to avoid layout issues in internal pages.
+$templatecontext['navbartype'] = 'normal';
+$templatecontext['is_floating'] = false;
+$templatecontext['is_sticky'] = false; // Or keep sticky if you want, but user said 'normal'
+$templatecontext['is_normal'] = true;
 
 echo $OUTPUT->render_from_template('theme_president/drawers', $templatecontext);

@@ -60,20 +60,20 @@
                 <div class="divider border-left h-75 align-self-center mx-2"></div>
             {{/guest}}
             {{#url}}
-                <a href="{{url}}">{{#str}} login, core {{/str}}</a>
+                <a href="{{url}}" class="btn btn-presuniv-login">{{#str}} login, core {{/str}}</a>
             {{/url}}
         </span>
     {{/unauthenticateduser}}
     {{^unauthenticateduser}}
         <div class="dropdown show">
-            <a href="#" role="button" id="user-menu-toggle" data-toggle="dropdown" aria-label="{{#str}}usermenu{{/str}}"
+            <a href="#" role="button" id="user-menu-toggle" data-bs-toggle="dropdown" aria-label="{{#str}}usermenu{{/str}}"
                aria-haspopup="true" aria-controls="user-action-menu" class="btn dropdown-toggle">
                 <span class="userbutton">
                     {{> core/user_menu_metadata }}
                 </span>
             </a>
             <div id="user-action-menu" class="dropdown-menu dropdown-menu-right">
-                <div id="usermenu-carousel" class="carousel slide" data-touch="false" data-interval="false" data-keyboard="false">
+                <div id="usermenu-carousel" class="carousel slide" data-bs-touch="false" data-bs-interval="false" data-bs-keyboard="false">
                     <div class="carousel-inner">
                         <div id="carousel-item-main" class="carousel-item active" role="menu" tabindex="-1" aria-label="{{#str}}user{{/str}}">
                             <a id="accessibilitysettings-control" href="#" class="dropdown-item" role="menuitem" tabindex="-1" aria-label="{{#str}}themesettings:accessibility, theme_president{{/str}}">

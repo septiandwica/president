@@ -69,6 +69,12 @@ $string['enablecourseindex_desc'] = 'You can show/hide course index navigation';
 $string['enableclassicbreadcrumb'] = 'Enable classic breadcrumb';
 $string['enableclassicbreadcrumb_desc'] = 'This setting enables the classic breadcrumb, showing it on pages like course and categories.';
 
+$string['navbartype'] = 'Navbar style';
+$string['navbartype_desc'] = 'Choose the visual style for the top navigation bar.';
+$string['navbartype_normal'] = 'Normal (Default)';
+$string['navbartype_floating'] = 'Floating (Modern)';
+$string['navbartype_sticky'] = 'Sticky (Fixed on Top)';
+
 // Advanced settings tab.
 $string['advancedsettings'] = 'Advanced';
 $string['rawscsspre'] = 'Raw initial SCSS';

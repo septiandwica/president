@@ -9,23 +9,91 @@
     }
 }
 
+/* ==============================
+   Login Page - Centered Floating Card
+   ============================== */
+
 #page-login-index {
+
+    /* Full viewport background */
+    #page {
+        min-height: 100vh;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    /* Center the content area */
+    #page-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 100vh;
+        padding: 1rem;
+    }
+
+    /* Floating login card */
+    .login-panel {
+        width: 100%;
+        max-width: 480px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 20px;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18),
+                    0 4px 12px rgba(0, 0, 0, 0.08);
+        padding: 2.5rem 2rem;
+        animation: loginFadeIn 0.5s ease-out;
+    }
+
+    /* Login head styling */
+    .login-head {
+        h3 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #1a1a2e;
+            margin-bottom: 0.25rem;
+        }
+
+        p {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Logo spacing */
+    .login-logo {
+        text-align: center;
+        margin-bottom: 1.5rem;
+
+        img {
+            max-height: 80px;
+            width: auto;
+        }
+    }
+
+    /* Login container overrides */
     .login-container {
-        background-color: initial;
+        background-color: transparent !important; /* stylelint-disable-line declaration-no-important */
         box-shadow: none;
         padding: 0;
-        background-color: #fff;
 
         .loginform {
             margin: 0 auto;
-            
+            width: 100% !important; /* stylelint-disable-line declaration-no-important */
+
             .left-column {
-                padding-right: 2rem;
+                padding-right: 0;
             }
 
             .right-column {
-                padding-left: 2rem;
-                border-left: 1px solid $gray-300;
+                padding-left: 0;
+                border-left: none;
 
                 .column-content {
                     display: flex;
@@ -37,9 +105,22 @@
             }
         }
     }
+
     #loginContainer.slide-in {
-        right: 0; /* Slide in to the screen */
-      }
+        right: 0;
+    }
+}
+
+/* Fade-in animation */
+@keyframes loginFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 #page-login-signup {
@@ -48,31 +129,36 @@
     }
 }
 
+/* Medium+ screens */
 @include media-breakpoint-up(md) {
     #page-login-index {
-        .login-container {
-            max-width: 100%;
-            width: 100% !important; /* stylelint-disable-line declaration-no-important */
+        .login-panel {
+            max-width: 480px;
+            padding: 3rem 2.5rem;
         }
 
         .loginform {
-            width: 60%;
+            width: 100% !important; /* stylelint-disable-line declaration-no-important */
 
             &.hastwocolumns {
-                width: 60%;
+                width: 100% !important; /* stylelint-disable-line declaration-no-important */
             }
         }
     }
-
-    .login-container {
-        width: 100% !important; /* stylelint-disable-line declaration-no-important */
-    }
 }
 
+/* Small screens */
 @include media-breakpoint-down(md) {
     #page-login-index {
         #page {
-            padding-top: 1rem;
+            padding-top: 0;
+        }
+
+        .login-panel {
+            max-width: 100%;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            margin: 0.5rem;
         }
 
         .login-container {
@@ -122,46 +208,3 @@
         }
     }
 }
-
-/* SCSS untuk Offcanvas */
-.offcanvas {
-    position: fixed;
-    top: 0;
-    right: 0;  /* Mulai di luar layar */
-    height: 100%;
-    width: 700px;  /* Ukuran modal */
-    background-color: #fff;
-    transition: right .5s ease-in-out;  /* Efek animasi slide */
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    z-index: 1050;
-  }
-  
-  .offcanvas.open {
-    right: 0;
-  }
-  
-  .offcanvas-header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .offcanvas-body {
-    padding: 0;
-  }
-  
-  /* Responsif SCSS untuk Offcanvas */
-  @media (max-width: 768px) {
-    .offcanvas {
-      position: static;
-      margin: 0 auto;
-      width: 90%;
-      height: 600px;
-      max-width: 400px;
-      transition: none;
-    }
-  
-    .offcanvas.open {
-      display: block;
-    }
-  }

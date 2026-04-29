@@ -154,6 +154,18 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
+    $name = 'theme_president/navbartype';
+    $title = get_string('navbartype', 'theme_president');
+    $description = get_string('navbartype_desc', 'theme_president');
+    $default = 'normal';
+    $choices = [
+        'normal' => get_string('navbartype_normal', 'theme_president'),
+        'floating' => get_string('navbartype_floating', 'theme_president'),
+        'sticky' => get_string('navbartype_sticky', 'theme_president'),
+    ];
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $page->add($setting);
+
     // Must add the page after definiting all the settings!
     $settings->add($page);
 

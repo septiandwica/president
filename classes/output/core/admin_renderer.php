@@ -78,7 +78,7 @@ class admin_renderer extends \core_admin_renderer {
         $output .= $this->header();
         $output .= $this->output->heading(get_string('notifications', 'admin'));
         $output .= $this->tiancode_services_and_support_content();
-        $output .= $this->upgrade_news_message();
+        // Method upgrade_news_message is not available in this Moodle version.
         $output .= $this->maturity_info($maturity);
         $output .= empty($CFG->disableupdatenotifications) ? $this->available_updates($availableupdates, $availableupdatesfetch) : '';
         $output .= $this->insecure_dataroot_warning($insecuredataroot);

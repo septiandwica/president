@@ -55,14 +55,16 @@
         ]
     }
 }}
-<nav id="navbar" class="navbar fixed-top navbar-light bg-white navbar-expand" aria-label="{{#str}}sitemenubar, admin{{/str}}">
+<nav id="navbar" class="navbar fixed-top navbar-light bg-white navbar-expand-md navbar-{{{navbartype}}} {{#secondarymoremenu}}has-secondary{{/secondarymoremenu}}" aria-label="{{#str}}sitemenubar, admin{{/str}}">
     <div class="container-fluid">
-        <button class="navbar-toggler aabtn d-block d-md-none px-1 my-1 border-0" data-toggler="drawers" data-action="toggle" data-target="theme_president-drawers-primary">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler aabtn d-block d-md-none px-2 py-1 border-0" 
+            {{#is_floating}}data-bs-toggle="collapse" data-bs-target="#floatingMobileMenu" aria-expanded="false" aria-controls="floatingMobileMenu"{{/is_floating}}
+            {{^is_floating}}data-toggler="drawers" data-action="toggle" data-target="theme_president-drawers-primary"{{/is_floating}}>
+            <span class="navbar-toggler-icon" style="width: 1.2rem; height: 1.2rem;"></span>
             <span class="sr-only">{{#str}}sidepanel, core{{/str}}</span>
         </button>
 
-        <a href="{{{ config.homeurl }}}" class="navbar-brand d-none  d-md-flex align-items-center m-0 mr-4 p-0 aabtn">
+        <a href="{{{ config.homeurl }}}" class="navbar-brand d-none d-md-flex align-items-center m-0 mr-4 p-0 aabtn">
             {{# output.should_display_logo }}
                 <img src="{{output.get_logo}}" class="logo" alt="{{sitename}}">
             {{/ output.should_display_logo }}
@@ -70,8 +72,15 @@
                 {{{ sitename }}}
             {{/ output.should_display_logo }}
         </a>
+
+        <a href="{{{ config.homeurl }}}" class="navbar-brand d-flex d-md-none align-items-center m-0 p-0 aabtn">
+             {{# output.should_display_logo }}
+                <img src="{{output.get_logo}}" class="logo" style="max-height: 35px;" alt="{{sitename}}">
+            {{/ output.should_display_logo }}
+        </a>
+
         {{#primarymoremenu}}
-        <div class="primary-navigation">
+        <div class="primary-navigation d-none d-md-block">
             {{> core/moremenu}}
         </div>
         {{/primarymoremenu}}
@@ -101,6 +110,27 @@
             </div>
             {{{ output.edit_switch }}}
         </div>
+
+        {{#is_floating}}
+        <div class="collapse w-100 d-md-none" id="floatingMobileMenu">
+            <div class="list-group list-group-flush py-2 mt-2 border-top">
+                {{#mobileprimarynav}}
+                    <a href="{{{url}}}" class="list-group-item list-group-item-action border-0 px-1 py-3 {{#isactive}}active{{/isactive}}">{{{text}}}</a>
+                {{/mobileprimarynav}}
+                {{^mobileprimarynav}}
+                    {{#primarymoremenu}}
+                        {{#moremenu}}
+                            {{#nodecollection}}
+                                {{#children}}
+                                    <a href="{{{action}}}" class="list-group-item list-group-item-action border-0 px-1 py-3">{{{text}}}</a>
+                                {{/children}}
+                            {{/nodecollection}}
+                        {{/moremenu}}
+                    {{/primarymoremenu}}
+                {{/mobileprimarynav}}
+            </div>
+        </div>
+        {{/is_floating}}
     </div>
 </nav>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -122,7 +152,7 @@
     let navbar = document.getElementById('navbar');
     if (navbar) { 
       window.addEventListener('scroll', function() {
-        if (window.scrollY > 0) {
+        if (window.scrollY > 10) {
           navbar.classList.add('shadow');
         } else {
           navbar.classList.remove('shadow');
