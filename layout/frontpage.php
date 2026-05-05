@@ -77,6 +77,23 @@ if ($PAGE->has_secondary_navigation()) {
     }
 }
 
+// Add Quick Management to primary navigation if authorized.
+$managementitems = \theme_president_get_management_menu();
+if ($managementitems && !empty($managementitems['items'])) {
+    $primarynav = $PAGE->primarynav;
+    $managenode = $primarynav->add('Quick Management', null, \navigation_node::TYPE_CONTAINER, null, 'quick_management');
+    $managenode->showinflatnavigation = true;
+    
+    $currenturl = $PAGE->url->out_as_local_url(false);
+    foreach ($managementitems['items'] as $item) {
+        $node = $managenode->add($item['text'], $item['url'], \navigation_node::TYPE_SETTING);
+        // Check if this item is the current page.
+        if (strpos($currenturl, $item['url']->out_as_local_url(false)) !== false) {
+            $extraclasses[] = 'is-quick-management';
+        }
+    }
+}
+
 $primary = new core\navigation\output\primary($PAGE);
 $renderer = $PAGE->get_renderer('core');
 $primarymenu = $primary->export_for_template($renderer);
@@ -112,6 +129,8 @@ $templatecontext = [
     'overflow' => $overflow,
     'headercontent' => $headercontent,
     'addblockbutton' => $addblockbutton,
+    'management_menu' => theme_president_get_management_menu(),
+    'themepreference' => theme_president_get_theme_preference(),
 ];
 
 $themesettings = new \theme_president\util\settings();

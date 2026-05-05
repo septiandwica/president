@@ -269,6 +269,36 @@ if ($ADMIN->fulltree) {
             $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
             $page->add($setting);
         }
+
+        // Slider CTA 1.
+        $name = 'theme_president/slidercta1text';
+        $title = get_string('slidercta1text', 'theme_president');
+        $description = get_string('slidercta1textdesc', 'theme_president');
+        $default = 'Apply Now';
+        $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_TEXT);
+        $page->add($setting);
+
+        $name = 'theme_president/slidercta1url';
+        $title = get_string('slidercta1url', 'theme_president');
+        $description = get_string('slidercta1urldesc', 'theme_president');
+        $default = 'https://admission.president.ac.id/join';
+        $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_URL);
+        $page->add($setting);
+
+        // Slider CTA 2.
+        $name = 'theme_president/slidercta2text';
+        $title = get_string('slidercta2text', 'theme_president');
+        $description = get_string('slidercta2textdesc', 'theme_president');
+        $default = 'Explore Programs';
+        $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_TEXT);
+        $page->add($setting);
+
+        $name = 'theme_president/slidercta2url';
+        $title = get_string('slidercta2url', 'theme_president');
+        $description = get_string('slidercta2urldesc', 'theme_president');
+        $default = 'https://president.ac.id';
+        $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_URL);
+        $page->add($setting);
     }
 
     $setting = new admin_setting_heading('slidercountseparator', '', '<hr>');

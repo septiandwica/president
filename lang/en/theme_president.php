@@ -111,6 +111,14 @@ $string['slidertitle'] = 'Slide title';
 $string['slidertitledesc'] = 'Add the slide\'s title.';
 $string['slidercaption'] = 'Slider caption';
 $string['slidercaptiondesc'] = 'Add a caption for your slide';
+$string['slidercta1text'] = 'Slider CTA 1 Button Text';
+$string['slidercta1textdesc'] = 'The text for the first call-to-action button on the slider.';
+$string['slidercta1url'] = 'Slider CTA 1 Button URL';
+$string['slidercta1urldesc'] = 'The URL for the first call-to-action button on the slider.';
+$string['slidercta2text'] = 'Slider CTA 2 Button Text';
+$string['slidercta2textdesc'] = 'The text for the second call-to-action button on the slider.';
+$string['slidercta2url'] = 'Slider CTA 2 Button URL';
+$string['slidercta2urldesc'] = 'The URL for the second call-to-action button on the slider.';
 
 $string['numbersfrontpage'] = 'Show site numberss';
 $string['numbersfrontpagedesc'] = 'If enabled, display the number of active users and courses in the frontpage.';

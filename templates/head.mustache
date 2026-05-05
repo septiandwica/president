@@ -24,17 +24,55 @@
     }
 }}
 {{{ output.doctype }}}
-<html {{{ output.htmlattributes }}}>
+<html {{{ output.htmlattributes }}} {{#themepreference}}data-theme="{{.}}"{{/themepreference}}>
 <head>
     <script>
         (function() {
-            const theme = localStorage.getItem('theme_president_mode') || 'auto';
-            const isDark = theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-            if (isDark) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            } else {
-                document.documentElement.removeAttribute('data-theme');
-            }
+            const getSavedTheme = () => {
+                let theme = 'auto';
+                try {
+                    theme = localStorage.getItem('presuniv_theme_preference') || 'auto';
+                    if (theme !== 'auto') return theme;
+                } catch (e) {}
+                
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let c = cookies[i].trim();
+                    if (c.indexOf('presuniv_theme_preference=') === 0) {
+                        return c.substring('presuniv_theme_preference='.length, c.length);
+                    }
+                }
+                return theme;
+            };
+            const applyTheme = () => {
+                const theme = getSavedTheme();
+                const isDark = theme === 'dark' || (theme === 'auto' && (window.matchMedia('(prefers-color-scheme: dark)').matches || document.documentElement.getAttribute('data-bs-theme') === 'dark'));
+                if (isDark) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.documentElement.removeAttribute('data-theme');
+                }
+            };
+            applyTheme();
+            
+            // Observer to keep the attribute if some other script tries to remove it
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'attributes' && (mutation.attributeName === 'data-theme' || mutation.attributeName === 'data-bs-theme')) {
+                        const theme = getSavedTheme();
+                        if (theme === 'auto') return; // Let auto mode be flexible
+                        
+                        const isDark = theme === 'dark';
+                        const hasAttr = document.documentElement.hasAttribute('data-theme');
+                        if (isDark && !hasAttr) {
+                            document.documentElement.setAttribute('data-theme', 'dark');
+                        } else if (!isDark && hasAttr) {
+                            document.documentElement.removeAttribute('data-theme');
+                        }
+                    }
+                });
+            });
+            observer.observe(document.documentElement, { attributes: true });
         })();
     </script>
     <title>{{{ output.page_title }}}</title>

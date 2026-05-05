@@ -30,6 +30,7 @@ $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => \core\context\course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
     'bodyattributes' => $bodyattributes,
+    'themepreference' => theme_president_get_theme_preference(),
 ];
 
 echo $OUTPUT->render_from_template('theme_president/login', $templatecontext);

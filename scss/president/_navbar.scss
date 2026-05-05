@@ -19,6 +19,12 @@
                     font-weight: 700;
                     border-bottom: 2px solid #fff;
                 }
+                
+                /* Disable active indicator for Quick Management */
+                &[data-key="quick_management"].active {
+                    font-weight: 500 !important; /* stylelint-disable-line */
+                    border-bottom: none !important; /* stylelint-disable-line */
+                }
             }
         }
     }
@@ -26,6 +32,22 @@
     .navbarcallbacks {
         display: flex;
         flex-direction: row-reverse;
+    }
+
+    .theme-switcher-container {
+        position: relative !important; /* stylelint-disable-line */
+        .dropdown-menu {
+            position: absolute !important; /* stylelint-disable-line */
+            top: 100% !important; /* stylelint-disable-line */
+            margin-top: 0 !important; /* stylelint-disable-line */
+            right: 0 !important; /* stylelint-disable-line */
+            left: auto !important; /* stylelint-disable-line */
+
+            @include media-breakpoint-down(md) {
+                top: 100% !important; /* stylelint-disable-line - Stay below navbar */
+                right: 0 !important; /* stylelint-disable-line */
+            }
+        }
     }
 }
 
@@ -326,22 +348,29 @@
             padding: 0;
             display: flex;
             align-items: center;
+            justify-content: center;
+            height: 100%;
 
             .input-group {
                 margin-bottom: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             label {
-                display: none !important; /* stylelint-disable-line - Ensure hidden */
+                display: none !important; /* stylelint-disable-line - Ensure hidden on mobile */
             }
 
             .form-check {
                 padding: 0;
                 margin: 0;
                 min-height: auto;
+                display: flex;
+                align-items: center;
                 
                 .form-check-input {
-                    margin-left: 0;
+                    margin: 0 !important; /* stylelint-disable-line */
                     float: none;
                 }
             }
@@ -379,6 +408,12 @@
             left: auto !important; /* stylelint-disable-line */
             border-radius: var(--presuniv-radius);
             box-shadow: var(--presuniv-shadow-hover);
+        }
+
+        /* Specific override for theme switcher on mobile to ensure it doesn't overlap */
+        .theme-switcher-container .dropdown-menu {
+            top: 100% !important; /* stylelint-disable-line */
+            right: 0 !important; /* stylelint-disable-line */
         }
 
         /* Fix Search button overlap */
@@ -508,6 +543,15 @@
                 }
             }
         }
+    }
+}
+
+/* Fix duplicate active highlight when in Quick Management */
+body.is-quick-management {
+    .navbar .primary-navigation .nav-link[data-key="siteadministration"] {
+        font-weight: 500 !important; /* stylelint-disable-line */
+        border-bottom: none !important; /* stylelint-disable-line */
+        box-shadow: none !important; /* stylelint-disable-line */
     }
 }
 

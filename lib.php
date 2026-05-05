@@ -258,3 +258,112 @@ function theme_president_serve_hvp_css($filename, $theme) {
 
     die;
 }
+
+/**
+ * Returns the management menu items if the user has permission.
+ *
+ * @return array|null
+ */
+function theme_president_get_management_menu() {
+    global $CFG;
+
+    // Check if user is logged in.
+    if (!isloggedin() || isguestuser()) {
+        return null;
+    }
+
+    $isadmin = is_siteadmin();
+    $systemcontext = \core\context\system::instance();
+    
+    // Check for general admin/manager capabilities.
+    $canmanageusers = $isadmin || has_capability('moodle/user:update', $systemcontext);
+    $canmanagecourses = $isadmin || has_capability('moodle/course:update', $systemcontext);
+
+    if (!$canmanageusers && !$canmanagecourses) {
+        return null;
+    }
+
+    $items = [];
+
+    if ($canmanageusers) {
+        $items[] = [
+            'text' => 'Browse list of users',
+            'url' => new \moodle_url('/admin/user.php'),
+            'icon' => 'fa-users'
+        ];
+        $items[] = [
+            'text' => 'Upload users',
+            'url' => new \moodle_url('/admin/tool/uploaduser/index.php'),
+            'icon' => 'fa-user-plus'
+        ];
+    }
+
+    if ($canmanagecourses) {
+        $items[] = [
+            'text' => 'Manage courses and categories',
+            'url' => new \moodle_url('/course/management.php'),
+            'icon' => 'fa-graduation-cap'
+        ];
+        $items[] = [
+            'text' => 'Upload courses',
+            'url' => new \moodle_url('/admin/tool/uploadcourse/index.php'),
+            'icon' => 'fa-upload'
+        ];
+    }
+
+    if (empty($items)) {
+        return null;
+    }
+
+    return [
+        'has_items' => true,
+        'items' => $items
+    ];
+}
+
+/**
+ * Extends the primary navigation with custom items.
+ *
+ * @param \core\navigation\views\primary $navigation The primary navigation object.
+ */
+function theme_president_extend_navigation_primary(\core\navigation\views\primary $navigation) {
+    // Check if user is logged in.
+    if (!isloggedin() || isguestuser()) {
+        return;
+    }
+
+    $isadmin = is_siteadmin();
+    $systemcontext = \core\context\system::instance();
+    
+    // Check for general admin/manager capabilities.
+    $canmanageusers = $isadmin || has_capability('moodle/user:update', $systemcontext);
+    $canmanagecourses = $isadmin || has_capability('moodle/course:update', $systemcontext);
+
+    if (!$canmanageusers && !$canmanagecourses) {
+        return;
+    }
+
+    // Add "Manage" as a top-level node.
+    $managenode = $navigation->add('Manage', null, \navigation_node::TYPE_CONTAINER, null, 'management_menu');
+    
+    if ($canmanageusers) {
+        $managenode->add('Browse list of users', new \moodle_url('/admin/user.php'), \navigation_node::TYPE_CUSTOM);
+        $managenode->add('Upload users', new \moodle_url('/admin/tool/uploaduser/index.php'), \navigation_node::TYPE_CUSTOM);
+    }
+
+    if ($canmanagecourses) {
+        $managenode->add('Manage courses and categories', new \moodle_url('/course/management.php'), \navigation_node::TYPE_CUSTOM);
+        $managenode->add('Upload courses', new \moodle_url('/admin/tool/uploadcourse/index.php'), \navigation_node::TYPE_CUSTOM);
+    }
+}
+/**
+ * Returns the user's theme preference from cookies.
+ *
+ * @return string
+ */
+function theme_president_get_theme_preference() {
+    if (isset($_COOKIE['presuniv_theme_preference'])) {
+        return $_COOKIE['presuniv_theme_preference'];
+    }
+    return 'auto';
+}

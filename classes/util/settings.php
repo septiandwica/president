@@ -163,6 +163,11 @@ class settings {
         }
 
         $templatecontext['slidersingleslide'] = $this->slidercount == 1;
+        
+        $templatecontext['slidercta1text'] = $this->slidercta1text ?: 'Apply Now';
+        $templatecontext['slidercta1url'] = $this->slidercta1url ?: 'https://admission.president.ac.id/join';
+        $templatecontext['slidercta2text'] = $this->slidercta2text ?: 'Explore Programs';
+        $templatecontext['slidercta2url'] = $this->slidercta2url ?: 'https://president.ac.id';
 
         return $templatecontext;
     }
@@ -269,6 +274,7 @@ class settings {
             'is_floating' => $navbartype === 'floating',
             'is_sticky' => $navbartype === 'sticky',
             'logodark_url' => $logodark ? $logodark : false,
+            'management_menu' => \theme_president_get_management_menu(),
         ];
     }
 }

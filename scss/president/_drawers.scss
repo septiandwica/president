@@ -119,3 +119,64 @@ body.has-secondarynavigation {
     }
 }
 
+
+/* Primary drawer mobile styling */
+.drawer-primary {
+    background-color: #1e293b !important; /* stylelint-disable-line */
+    
+    .drawerheader {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 1.5rem;
+    }
+
+    .list-group-item {
+        border: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        background-color: transparent;
+        color: #f1f5f9;
+        padding: 1rem 1.5rem;
+        transition: all 0.2s ease;
+        
+        &:hover, &:focus {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        &.active {
+            background-color: rgba(15, 71, 173, 0.2) !important; /* stylelint-disable-line */
+            color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+            font-weight: 600;
+        }
+
+        &.icons-collapse-expand {
+            .expanded-icon, .collapsed-icon {
+                display: none;
+                font-size: 0.8rem;
+                opacity: 0.7;
+            }
+            
+            &.collapsed .collapsed-icon {
+                display: flex;
+            }
+            
+            &:not(.collapsed) .expanded-icon {
+                display: flex;
+            }
+        }
+    }
+    
+    .collapse.list-group-item {
+        background-color: rgba(0, 0, 0, 0.15) !important; /* stylelint-disable-line */
+        padding: 0 !important; /* stylelint-disable-line */
+        
+        .list-group-item {
+            padding-left: 3rem !important; /* stylelint-disable-line */
+            font-size: 0.85rem;
+            border-bottom-color: rgba(255, 255, 255, 0.03);
+            
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+}

@@ -91,6 +91,8 @@
         </div>
         {{/primarymoremenu}}
 
+
+
         <ul class="navbar-nav d-none d-md-flex my-1 px-1">
             <!-- page_heading_menu -->
             {{{ output.page_heading_menu }}}
@@ -108,15 +110,16 @@
                 {{> theme_president/language_menu }}
                 <div class="divider border-left h-75 align-self-center mx-1"></div>
             {{/langmenu}}
+
             
             <!-- Theme Switcher (Light/Dark/System) -->
-            <div class="dropdown mr-2 h-100 d-flex align-items-center theme-switcher-container">
+            <div class="dropdown mr-2 h-100 {{^usermenu}}d-none d-md-flex{{/usermenu}} {{#usermenu}}d-flex{{/usermenu}} align-items-center theme-switcher-container">
                 <button class="btn btn-icon d-flex align-items-center justify-content-center rounded-circle border-0 p-0" 
                         id="theme-switcher-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
                         title="Appearance" style="background: transparent; width: 38px; height: 38px;">
                     <i class="icon fa-solid fa-circle-half-stroke m-0" id="current-theme-icon" style="font-size: 1.1rem;"></i>
                 </button>
-                <div class="dropdown-menu dropdown-menu-right shadow-lg border-0 mt-2" aria-labelledby="theme-switcher-btn" style="border-radius: 12px; padding: 0.5rem; min-width: 140px;">
+                <div class="dropdown-menu dropdown-menu-right shadow-lg border-0" aria-labelledby="theme-switcher-btn" style="border-radius: 12px; padding: 0.5rem; min-width: 140px;">
                     <a class="dropdown-item d-flex align-items-center rounded mb-1 py-2" href="#" data-theme-value="light">
                         <i class="fa-regular fa-sun mr-3" style="width: 18px;"></i> Light
                     </a>
@@ -142,7 +145,19 @@
         <div class="collapse w-100 d-md-none" id="floatingMobileMenu">
             <div class="list-group list-group-flush py-2 mt-2 border-top">
                 {{#mobileprimarynav}}
-                    <a href="{{{url}}}" class="list-group-item list-group-item-action border-0 px-1 py-3 {{#isactive}}active{{/isactive}}">{{{text}}}</a>
+                    {{#haschildren}}
+                        <div class="list-group-item border-0 px-1 py-2">
+                            <div class="font-weight-bold small text-muted text-uppercase mb-2 px-2">{{{text}}}</div>
+                            <div class="list-group list-group-flush ml-3">
+                                {{#children}}
+                                    <a href="{{{url}}}" class="list-group-item list-group-item-action border-0 py-2 rounded">{{{text}}}</a>
+                                {{/children}}
+                            </div>
+                        </div>
+                    {{/haschildren}}
+                    {{^haschildren}}
+                        <a href="{{{url}}}" class="list-group-item list-group-item-action border-0 px-1 py-3 {{#isactive}}active{{/isactive}}">{{{text}}}</a>
+                    {{/haschildren}}
                 {{/mobileprimarynav}}
                 {{^mobileprimarynav}}
                     {{#primarymoremenu}}
@@ -155,6 +170,23 @@
                         {{/moremenu}}
                     {{/primarymoremenu}}
                 {{/mobileprimarynav}}
+
+                {{^usermenu}}
+                <div class="list-group-item border-0 px-1 py-2">
+                    <div class="font-weight-bold small text-muted text-uppercase mb-2 px-2">Appearance</div>
+                    <div class="list-group list-group-flush ml-3">
+                        <a href="#" class="list-group-item list-group-item-action border-0 py-2 rounded d-flex align-items-center" data-theme-value="light">
+                            <i class="fa-regular fa-sun mr-3" style="width: 20px;"></i> Light
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action border-0 py-2 rounded d-flex align-items-center" data-theme-value="dark">
+                            <i class="fa-regular fa-moon mr-3" style="width: 20px;"></i> Dark
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action border-0 py-2 rounded d-flex align-items-center" data-theme-value="auto">
+                            <i class="fa-solid fa-circle-half-stroke mr-3" style="width: 20px;"></i> System
+                        </a>
+                    </div>
+                </div>
+                {{/usermenu}}
             </div>
         </div>
         {{/is_floating}}
@@ -187,7 +219,8 @@
                 }
             }
             
-            localStorage.setItem('theme_president_mode', value);
+            localStorage.setItem('presuniv_theme_preference', value);
+            document.cookie = "presuniv_theme_preference=" + value + "; path=/; max-age=31536000; SameSite=Lax";
             
             // Mark active in dropdown
             themeItems.forEach(item => {
@@ -200,7 +233,26 @@
         };
 
         // Initialize UI state
-        const savedTheme = localStorage.getItem('theme_president_mode') || 'auto';
+        const getSavedTheme = () => {
+            let theme = localStorage.getItem('presuniv_theme_preference');
+            if (theme) return theme;
+            
+            // Try cookie as fallback
+            const name = "presuniv_theme_preference=";
+            const ca = document.cookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            
+            // Try server attribute
+            const serverAttr = document.documentElement.getAttribute('data-theme');
+            if (serverAttr) return serverAttr;
+
+            return 'auto';
+        };
+
+        const savedTheme = getSavedTheme();
         updateTheme(savedTheme);
 
         themeItems.forEach(item => {
@@ -212,7 +264,7 @@
 
         // Listen for system theme changes
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            if (localStorage.getItem('theme_president_mode') === 'auto') {
+            if (localStorage.getItem('presuniv_theme_preference') === 'auto') {
                 updateTheme('auto');
             }
         });

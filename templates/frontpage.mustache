@@ -84,8 +84,12 @@
                 {{! Hero content pinned to bottom, outside carousel-inner for consistent position }}
                 <div class="hero-content">
                     <div class="hero-cta">
-                        <a href="https://admission.president.ac.id/join" class="btn btn-hero-primary" target="_blank">Apply Now</a>
-                        <a href="https://president.ac.id" class="btn btn-hero-outline" target="_blank">Explore Programs</a>
+                        {{#slidercta1text}}
+                        <a href="{{slidercta1url}}" class="btn btn-hero-primary" target="_blank">{{slidercta1text}}</a>
+                        {{/slidercta1text}}
+                        {{#slidercta2text}}
+                        <a href="{{slidercta2url}}" class="btn btn-hero-outline" target="_blank">{{slidercta2text}}</a>
+                        {{/slidercta2text}}
                     </div>
                 </div>
             </section>
