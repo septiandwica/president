@@ -268,7 +268,7 @@
     }
 
     /* FIX: Make all Moodle icons visible in dark mode */
-    .icon, .icon-no-margin, .navbar-nav .nav-link, i.fa, i.fas, i.far {
+    .icon, .icon-no-margin, .navbar-nav .nav-link, .guest-nav-link, i.fa, i.fas, i.far {
         color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
     }
 
@@ -552,6 +552,14 @@
     .popover-region-footer-container {
         border-color: $border-color;
         background-color: var(--presuniv-gray-bg);
+    }
+
+    .popover-region-notifications .popover-region-container .popover-region-content-container .content-item-container.unread {
+        background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+        
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.08) !important; /* stylelint-disable-line */
+        }
     }
 
     /* FIX: Login Page overrides */
@@ -1861,6 +1869,28 @@
             &.readonly {
                 background-color: rgba(255, 255, 255, 0.02) !important; /* stylelint-disable-line */
                 color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            }
+        }
+    }
+
+    /* 19. Custom Guest Pages (Programs, FAQ, etc.) */
+    .custom-page-container {
+        .custom-page-content {
+            background-color: transparent !important; /* stylelint-disable-line */
+            border: none !important; /* stylelint-disable-line */
+            box-shadow: none !important; /* stylelint-disable-line */
+            
+            h1, h2, h3, h4, h5, h6 {
+                color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            }
+            
+            .content-wrapper {
+                color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+                line-height: 1.8;
+                
+                p, li {
+                    font-size: 1.1rem;
+                }
             }
         }
     }

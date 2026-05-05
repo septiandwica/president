@@ -94,6 +94,40 @@
                 </div>
             </section>
         {{/slidercount}}
+        
+        {{! ============================== }}
+        {{! GLOBAL RECOGNITION SECTION }}
+        {{! ============================== }}
+        {{#recognitionlogos.0}}
+        <section id="recognition" class="recognition-section py-4">
+            <div class="president-container-fluid">
+                <div class="recognition-header text-center mb-4">
+                    <h5 class="section-badge mb-3">{{#str}}globalrecognition, theme_president{{/str}}</h5>
+                </div>
+                <div class="logo-slider">
+                    <div class="logo-track">
+                        {{#recognitionlogos}}
+                        <div class="logo-item">
+                            <img src="{{image}}" alt="Recognition Logo">
+                        </div>
+                        {{/recognitionlogos}}
+                        {{! Duplicate for seamless loop }}
+                        {{#recognitionlogos}}
+                        <div class="logo-item">
+                            <img src="{{image}}" alt="Recognition Logo">
+                        </div>
+                        {{/recognitionlogos}}
+                        {{! One more time to ensure no gaps on large screens }}
+                        {{#recognitionlogos}}
+                        <div class="logo-item">
+                            <img src="{{image}}" alt="Recognition Logo">
+                        </div>
+                        {{/recognitionlogos}}
+                    </div>
+                </div>
+            </div>
+        </section>
+        {{/recognitionlogos.0}}
 
         {{! ============================== }}
         {{! IMPACT - WHY CHOOSE US }}

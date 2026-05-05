@@ -887,3 +887,88 @@ p#typed-text {
     color: var(--presuniv-accent);
     font-weight: 600;
 }
+
+/* Custom Guest Pages (Programs, FAQ, etc.) */
+.custom-page-container {
+    .custom-page-content {
+        padding: 3rem 0 !important;
+        
+        .content-wrapper {
+            color: inherit;
+            
+            p, li {
+                font-size: 1.05rem;
+                margin-bottom: 1rem;
+            }
+        }
+    }
+}
+
+/* ==============================
+   RECOGNITION SECTION
+   ============================== */
+.recognition-section {
+    background: transparent;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    .logo-slider {
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+    }
+
+    .logo-track {
+        display: flex;
+        width: calc(250px * 30); /* Enough space for the loop */
+        animation: scroll-logos 40s linear infinite;
+        
+        &:hover {
+            animation-play-state: paused;
+        }
+    }
+
+    .logo-item {
+        width: 250px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 40px;
+
+        img {
+            max-width: 100%;
+            max-height: 50px;
+            object-fit: contain;
+            filter: grayscale(100%) opacity(0.6);
+            transition: all 0.3s ease;
+            
+            &:hover {
+                filter: none;
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+@keyframes scroll-logos {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-250px * 6)); } /* Adjust based on original logo count */
+}
+
+/* Dark Mode overrides for recognition */
+[data-theme="dark"] .recognition-section {
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+    
+    .logo-item img {
+        filter: grayscale(100%) brightness(2) opacity(0.5);
+        
+        &:hover {
+            filter: brightness(1);
+            opacity: 1;
+        }
+    }
+}

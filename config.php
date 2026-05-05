@@ -166,6 +166,12 @@ $THEME->layouts = [
         'regions' => ['side-pre'],
         'defaultregion' => 'side-pre',
     ],
+    // Custom informative pages.
+    'custom' => [
+        'file' => 'custom.php',
+        'regions' => [],
+        'options' => ['nonavbar' => true],
+    ],
 ];
 
 $THEME->parents = ['boost'];

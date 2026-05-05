@@ -42,10 +42,12 @@ class settings {
      * @var array $files Theme file settings.
      */
     protected $files = [
-        'loginbg', 'logodark',
+        'loginbgimg', 'logodark', 'footerlogo',
         'sliderimage1', 'sliderimage2', 'sliderimage3', 'sliderimage4', 'sliderimage5', 'sliderimage6',
         'sliderimage7', 'sliderimage8', 'sliderimage9', 'sliderimage10', 'sliderimage11', 'sliderimage12',
-        'marketing1icon', 'marketing2icon', 'marketing3icon', 'marketing4icon','marketing5icon',
+        'marketing1icon', 'marketing2icon', 'marketing3icon', 'marketing4icon','marketing5icon', 'marketing6icon', 'marketing7icon',
+        'recognitionimage1', 'recognitionimage2', 'recognitionimage3', 'recognitionimage4', 'recognitionimage5',
+        'recognitionimage6', 'recognitionimage7', 'recognitionimage8', 'recognitionimage9', 'recognitionimage10',
     ];
 
     /**
@@ -125,6 +127,7 @@ class settings {
             $this->frontpage_slideshow(),
             $this->frontpage_marketingboxes(),
             $this->frontpage_numbers(),
+            $this->frontpage_recognition(),
             $this->faq()
         );
     
@@ -219,6 +222,28 @@ class settings {
     }
 
     /**
+     * Get recognition logos
+     *
+     * @return array
+     */
+    public function frontpage_recognition() {
+        $templatecontext = [];
+        $templatecontext['recognitioncount'] = $this->recognitioncount;
+        
+        if ($this->recognitioncount) {
+            for ($i = 1; $i <= $this->recognitioncount; $i++) {
+                $imagefield = 'recognitionimage' . $i;
+                $url = $this->$imagefield;
+                if ($url) {
+                    $templatecontext['recognitionlogos'][] = ['image' => $url];
+                }
+            }
+        }
+
+        return $templatecontext;
+    }
+
+    /**
      * Get config theme slideshow
      *
      * @return array
@@ -265,16 +290,46 @@ class settings {
      * @return array
      */
     public function navbar() {
+        global $CFG;
         $navbartype = $this->navbartype ?: 'normal';
         $logodark = $this->logodark;
         
-        return [
+        $templatecontext = [
             'navbartype' => $navbartype,
             'is_normal' => $navbartype === 'normal',
             'is_floating' => $navbartype === 'floating',
             'is_sticky' => $navbartype === 'sticky',
             'logodark_url' => $logodark ? $logodark : false,
+            'enabledarkmode' => $this->enabledarkmode,
             'management_menu' => \theme_president_get_management_menu(),
         ];
+
+        // Add guest page links.
+        $is_guest = !isloggedin() || isguestuser();
+        $templatecontext['is_guest'] = $is_guest;
+
+        if ($is_guest) {
+            global $CFG, $PAGE;
+            $currentview = optional_param('view', '', PARAM_ALPHANUM);
+            $is_home = ($PAGE->url->out_as_local_url(false) === $CFG->wwwroot . '/' || $PAGE->url->out_as_local_url(false) === '/');
+            
+            $links = [
+                ['title' => get_string('home'), 'url' => new \moodle_url('/'), 'active' => $is_home],
+                ['title' => get_string('programs', 'theme_president'), 'url' => new \moodle_url('/programs'), 'active' => ($currentview === 'programs')],
+                ['title' => get_string('faq', 'theme_president'), 'url' => new \moodle_url('/faq'), 'active' => ($currentview === 'faq')],
+                ['title' => get_string('about', 'theme_president'), 'url' => new \moodle_url('/about'), 'active' => ($currentview === 'about')],
+            ];
+
+            $templatecontext['guest_links'] = [];
+            foreach ($links as $link) {
+                $templatecontext['guest_links'][] = [
+                    'title' => $link['title'],
+                    'url' => $link['url'],
+                    'isactive' => $link['active']
+                ];
+            }
+        }
+
+        return $templatecontext;
     }
 }

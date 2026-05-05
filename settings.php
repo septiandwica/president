@@ -174,6 +174,14 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
+    $name = 'theme_president/enabledarkmode';
+    $title = get_string('enabledarkmode', 'theme_president');
+    $description = get_string('enabledarkmode_desc', 'theme_president');
+    $default = 1;
+    $choices = [0 => get_string('no'), 1 => get_string('yes')];
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $page->add($setting);
+
     // Must add the page after definiting all the settings!
     $settings->add($page);
 
@@ -206,6 +214,36 @@ if ($ADMIN->fulltree) {
 
     // H5P custom CSS.
     $setting = new admin_setting_configtextarea('theme_president/hvpcss', get_string('hvpcss', 'theme_president'), get_string('hvpcss_desc', 'theme_president'), '');
+    $page->add($setting);
+
+    $settings->add($page);
+
+    /*
+    * ----------------------
+    * Guest Pages tab
+    * ----------------------
+    */
+    $page = new admin_settingpage('theme_president_guestpages', get_string('guestpages', 'theme_president'));
+
+    // Programs Content.
+    $name = 'theme_president/programs_content';
+    $title = get_string('programs_content', 'theme_president');
+    $description = get_string('programs_content_desc', 'theme_president');
+    $setting = new admin_setting_confightmleditor($name, $title, $description, '');
+    $page->add($setting);
+
+    // FAQ Content.
+    $name = 'theme_president/faq_content';
+    $title = get_string('faq_content', 'theme_president');
+    $description = get_string('faq_content_desc', 'theme_president');
+    $setting = new admin_setting_confightmleditor($name, $title, $description, '');
+    $page->add($setting);
+
+    // About Us Content.
+    $name = 'theme_president/about_content';
+    $title = get_string('about_content', 'theme_president');
+    $description = get_string('about_content_desc', 'theme_president');
+    $setting = new admin_setting_confightmleditor($name, $title, $description, '');
     $page->add($setting);
 
     $settings->add($page);
@@ -311,6 +349,35 @@ if ($ADMIN->fulltree) {
     $choices = [0 => get_string('no'), 1 => get_string('yes')];
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
+
+    // Recognition logos.
+    $setting = new admin_setting_heading('recognitionseparator', '', '<hr>');
+    $page->add($setting);
+
+    $name = 'theme_president/recognitioncount';
+    $title = get_string('recognitioncount', 'theme_president');
+    $description = get_string('recognitioncountdesc', 'theme_president');
+    $default = 0;
+    $options = [];
+    for ($i = 0; $i <= 10; $i++) {
+        $options[$i] = $i;
+    }
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $options);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $recognitioncount = get_config('theme_president', 'recognitioncount');
+    if ($recognitioncount) {
+        for ($i = 1; $i <= $recognitioncount; $i++) {
+            $fileid = 'recognitionimage' . $i;
+            $name = 'theme_president/recognitionimage' . $i;
+            $title = get_string('recognitionimage', 'theme_president') . ' ' . $i;
+            $description = get_string('recognitionimagedesc', 'theme_president');
+            $opts = ['accepted_types' => ['.png', '.jpg', '.gif', '.webp', '.svg'], 'maxfiles' => 1];
+            $setting = new admin_setting_configstoredfile($name, $title, $description, $fileid, 0, $opts);
+            $page->add($setting);
+        }
+    }
 
     $displaymarketingbox = get_config('theme_president', 'displaymarketingbox');
 
