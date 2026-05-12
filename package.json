@@ -19,7 +19,7 @@
     "grunt-terser": "^2.0.0",
     "stylelint": "^15.11.0",
     "stylelint-checkstyle-formatter": "^0.1.2",
-    "stylelint-csstree-validator": "^3.0.0"
+    "stylelint-csstree-validator": "^4.0.0"
   },
   "license": "GPL-3.0+"
 }
