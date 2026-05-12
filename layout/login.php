@@ -18,7 +18,7 @@
  * A login page layout for the president theme.
  *
  * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

@@ -18,7 +18,7 @@
  * Overriden theme boost core renderer.
  *
   * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -34,7 +34,7 @@ use theme_president\output\core_course\activity_navigation;
  * Standard HTML output renderer for core_admin subsystem.
  *
  * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class admin_renderer extends \core_admin_renderer {

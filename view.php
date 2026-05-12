@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once(__DIR__ . '/../../config.php');
 
@@ -23,4 +25,5 @@ $PAGE->set_title(get_string($view, 'theme_president'));
 $PAGE->set_heading(get_string($view, 'theme_president'));
 
 echo $OUTPUT->header();
+// Content is handled by the layout and template via page_content.
 echo $OUTPUT->footer();

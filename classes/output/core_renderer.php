@@ -18,7 +18,7 @@
  * Overriden theme boost core renderer.
  *
   * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -34,7 +34,7 @@ use theme_president\output\core_course\activity_navigation;
  * Renderers to align Moodle's HTML with that expected by Bootstrap
  *
  * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class core_renderer extends \theme_boost\output\core_renderer {
@@ -172,7 +172,12 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function get_theme_logo_url() {
         $theme = theme_config::load('president');
 
-        return $theme->setting_file_url('logo', 'logo');
+        $logo = $theme->setting_file_url('logo', 'logo');
+        if (!$logo) {
+            return (new moodle_url('/theme/president/pix/logo.png'))->out();
+        }
+
+        return $logo;
     }
 
     /**
@@ -190,7 +195,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $context->logourl = $this->get_logo();
         
         $theme = theme_config::load('president');
-        $context->logodark_url = $theme->setting_file_url('logodark', 'logodark');
+        $logodark = $theme->setting_file_url('logodark', 'logodark');
+        $context->logodark_url = $logodark ?: (new moodle_url('/theme/president/pix/logo-dark.png'))->out();
 
         $context->sitename = format_string($SITE->fullname, true,
             ['context' => context_course::instance(SITEID), "escape" => false]);
@@ -282,7 +288,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             return new moodle_url($favicon);
         }
 
-        return parent::favicon();
+        return new moodle_url('/theme/president/pix/favicon.ico');
     }
 
     /**
@@ -592,6 +598,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function get_footer_logo_url() {
         $theme = theme_config::load('president');
 
-        return $theme->setting_file_url('footerlogo', 'footerlogo');
+        $footerlogo = $theme->setting_file_url('footerlogo', 'footerlogo');
+        if (!$footerlogo) {
+            return (new moodle_url('/theme/president/pix/footer-logo.png'))->out();
+        }
+
+        return $footerlogo;
     }
 }

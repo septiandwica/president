@@ -18,7 +18,7 @@
  * Theme president block settings file
  *
  * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -225,26 +225,111 @@ if ($ADMIN->fulltree) {
     */
     $page = new admin_settingpage('theme_president_guestpages', get_string('guestpages', 'theme_president'));
 
-    // Programs Content.
-    $name = 'theme_president/programs_content';
-    $title = get_string('programs_content', 'theme_president');
-    $description = get_string('programs_content_desc', 'theme_president');
-    $setting = new admin_setting_confightmleditor($name, $title, $description, '');
+    // Number of custom pages.
+    $name = 'theme_president/custompage_count';
+    $title = get_string('custompage_count', 'theme_president');
+    $description = get_string('custompage_count_desc', 'theme_president');
+    $default = 3;
+    $choices = array_combine(range(1, 10), range(1, 10));
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
-    // FAQ Content.
-    $name = 'theme_president/faq_content';
-    $title = get_string('faq_content', 'theme_president');
-    $description = get_string('faq_content_desc', 'theme_president');
-    $setting = new admin_setting_confightmleditor($name, $title, $description, '');
-    $page->add($setting);
+    $count = get_config('theme_president', 'custompage_count');
+    if (!$count) $count = 3;
 
-    // About Us Content.
-    $name = 'theme_president/about_content';
-    $title = get_string('about_content', 'theme_president');
-    $description = get_string('about_content_desc', 'theme_president');
-    $setting = new admin_setting_confightmleditor($name, $title, $description, '');
-    $page->add($setting);
+    $defaults = [
+        1 => ['slug' => 'programs', 'title' => 'Programs', 'content' => '
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="custom-card">
+            <div class="card-icon"><i class="fas fa-briefcase"></i></div>
+            <h4 class="card-title">Business & Management</h4>
+            <p class="card-text">Equipping future leaders with global business insights and entrepreneurial spirit.</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="custom-card">
+            <div class="card-icon icon-red"><i class="fas fa-code"></i></div>
+            <h4 class="card-title">Computing</h4>
+            <p class="card-text">Driving innovation through advanced technology and digital transformation studies.</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="custom-card">
+            <div class="card-icon icon-orange"><i class="fas fa-cog"></i></div>
+            <h4 class="card-title">Engineering</h4>
+            <p class="card-text">Building a sustainable future through creative problem-solving and technical excellence.</p>
+        </div>
+    </div>
+</div>'],
+        2 => ['slug' => 'faq', 'title' => 'FAQ', 'content' => '
+<div class="accordion" id="defaultFaq">
+    <div class="card border-0 mb-3 shadow-sm rounded">
+        <div class="card-header bg-white border-0 py-3" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link text-dark font-weight-bold text-decoration-none w-100 text-left d-flex justify-content-between align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                    How do I apply for admission?
+                    <i class="fa fa-chevron-down small"></i>
+                </button>
+            </h5>
+        </div>
+        <div id="collapseOne" class="collapse show" data-bs-parent="#defaultFaq">
+            <div class="card-body pt-0 text-muted">
+                You can apply through our online admission portal at admission.president.ac.id.
+            </div>
+        </div>
+    </div>
+    <div class="card border-0 mb-3 shadow-sm rounded">
+        <div class="card-header bg-white border-0 py-3" id="headingTwo">
+            <h5 class="mb-0">
+                <button class="btn btn-link text-dark font-weight-bold text-decoration-none w-100 text-left d-flex justify-content-between align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                    What are the scholarship opportunities?
+                    <i class="fa fa-chevron-down small"></i>
+                </button>
+            </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" data-bs-parent="#defaultFaq">
+            <div class="card-body pt-0 text-muted">
+                We offer various academic and non-academic scholarships based on merit and potential.
+            </div>
+        </div>
+    </div>
+</div>'],
+        3 => ['slug' => 'about', 'title' => 'About Us', 'content' => '
+<div class="text-center mb-5">
+    <p class="lead text-muted">President University is a leading international university in Indonesia, located in the heart of Jababeka Industrial Estate.</p>
+</div>
+<div class="row align-items-center mb-5">
+    <div class="col-md-6">
+        <h3 class="font-weight-bold mb-3">Our Vision</h3>
+        <p>To be a world-class university that produces leaders in their respective fields and communities.</p>
+    </div>
+    <div class="col-md-6">
+        <h3 class="font-weight-bold mb-3">Our Mission</h3>
+        <p>To provide high-quality education and research that contributes to the advancement of society and industry.</p>
+    </div>
+</div>']
+    ];
+
+    for ($i = 1; $i <= $count; $i++) {
+        $page->add(new admin_setting_heading("theme_president/custompage_h$i", "Custom Page #$i", ""));
+
+        // Title.
+        $name = "theme_president/custompage_title_$i";
+        $title = "Page Title";
+        $description = "Contoh: Our Programs (URL otomatis menjadi /our-programs)";
+        $default = isset($defaults[$i]) ? $defaults[$i]['title'] : "Custom Page $i";
+        $setting = new admin_setting_configtext($name, $title, $description, $default);
+        $page->add($setting);
+
+        // Content.
+        $name = "theme_president/custompage_content_$i";
+        $title = "Page Content";
+        $description = "";
+        $default = isset($defaults[$i]) ? $defaults[$i]['content'] : "No content yet.";
+        $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+        $page->add($setting);
+    }
 
     $settings->add($page);
 
@@ -268,7 +353,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_president/slidercount';
     $title = get_string('slidercount', 'theme_president');
     $description = get_string('slidercountdesc', 'theme_president');
-    $default = 0;
+    $default = 3;
     $options = [];
     for ($i = 0; $i < 13; $i++) {
         $options[$i] = $i;
@@ -357,7 +442,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_president/recognitioncount';
     $title = get_string('recognitioncount', 'theme_president');
     $description = get_string('recognitioncountdesc', 'theme_president');
-    $default = 0;
+    $default = 6;
     $options = [];
     for ($i = 0; $i <= 10; $i++) {
         $options[$i] = $i;

@@ -18,7 +18,7 @@
  * Module renderer
  *
  * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace theme_president\output;
@@ -29,7 +29,7 @@ use plugin_renderer_base;
  * Theme renderer
  *
  * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class renderer extends plugin_renderer_base {

@@ -18,7 +18,7 @@
  * Theme helper to load a theme configuration.
  *
  * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -30,7 +30,7 @@ use theme_config;
  * Helper to load a theme configuration.
  *
  * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class settings {
@@ -42,7 +42,7 @@ class settings {
      * @var array $files Theme file settings.
      */
     protected $files = [
-        'loginbgimg', 'logodark', 'footerlogo',
+        'logo', 'favicon', 'loginbgimg', 'logodark', 'footerlogo',
         'sliderimage1', 'sliderimage2', 'sliderimage3', 'sliderimage4', 'sliderimage5', 'sliderimage6',
         'sliderimage7', 'sliderimage8', 'sliderimage9', 'sliderimage10', 'sliderimage11', 'sliderimage12',
         'marketing1icon', 'marketing2icon', 'marketing3icon', 'marketing4icon','marketing5icon', 'marketing6icon', 'marketing7icon',
@@ -66,7 +66,22 @@ class settings {
      */
     public function __get(string $name) {
         if (in_array($name, $this->files)) {
-            return $this->theme->setting_file_url($name, $name);
+            $url = $this->theme->setting_file_url($name, $name);
+            if (!$url) {
+                switch($name) {
+                    case 'logo':
+                        return (new \moodle_url('/theme/president/pix/logo.png'))->out();
+                    case 'favicon':
+                        return (new \moodle_url('/theme/president/pix/favicon.ico'))->out();
+                    case 'logodark':
+                        return (new \moodle_url('/theme/president/pix/logo-dark.png'))->out();
+                    case 'footerlogo':
+                        return (new \moodle_url('/theme/president/pix/footer-logo.png'))->out();
+                    case 'loginbgimg':
+                        return (new \moodle_url('/theme/president/pix/loginbg.png'))->out();
+                }
+            }
+            return $url;
         }
 
         if (empty($this->theme->settings->$name)) {
@@ -74,6 +89,108 @@ class settings {
         }
 
         return $this->theme->settings->$name;
+    }
+
+    /**
+     * Get content for guest pages with fallbacks
+     *
+     * @param string $view
+     * @return string
+     */
+    public function guest_page_content($view) {
+        // First try to find in dynamic custom pages.
+        $count = get_config('theme_president', 'custompage_count') ?: 3;
+        for ($i = 1; $i <= $count; $i++) {
+            $title = get_config('theme_president', "custompage_title_$i");
+            $slug = $this->slugify($title);
+            if ($slug === $view) {
+                $content = get_config('theme_president', "custompage_content_$i");
+                if (!empty($content)) {
+                    return format_text($content, FORMAT_HTML);
+                }
+                break;
+            }
+        }
+
+        // Fallback for hardcoded content if settings are empty (for fresh install).
+        switch ($view) {
+            case 'programs':
+                return '
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="custom-card">
+            <div class="card-icon"><i class="fas fa-briefcase"></i></div>
+            <h4 class="card-title">Business & Management</h4>
+            <p class="card-text">Equipping future leaders with global business insights and entrepreneurial spirit.</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="custom-card">
+            <div class="card-icon icon-red"><i class="fas fa-code"></i></div>
+            <h4 class="card-title">Computing</h4>
+            <p class="card-text">Driving innovation through advanced technology and digital transformation studies.</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="custom-card">
+            <div class="card-icon icon-orange"><i class="fas fa-cog"></i></div>
+            <h4 class="card-title">Engineering</h4>
+            <p class="card-text">Building a sustainable future through creative problem-solving and technical excellence.</p>
+        </div>
+    </div>
+</div>';
+            case 'faq':
+                return '
+<div class="accordion" id="defaultFaq">
+    <div class="card border-0 mb-3 shadow-sm rounded">
+        <div class="card-header bg-white border-0 py-3" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link text-dark font-weight-bold text-decoration-none w-100 text-left d-flex justify-content-between align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                    How do I apply for admission?
+                    <i class="fa fa-chevron-down small"></i>
+                </button>
+            </h5>
+        </div>
+        <div id="collapseOne" class="collapse show" data-bs-parent="#defaultFaq">
+            <div class="card-body pt-0 text-muted">
+                You can apply through our online admission portal at admission.president.ac.id.
+            </div>
+        </div>
+    </div>
+    <div class="card border-0 mb-3 shadow-sm rounded">
+        <div class="card-header bg-white border-0 py-3" id="headingTwo">
+            <h5 class="mb-0">
+                <button class="btn btn-link text-dark font-weight-bold text-decoration-none w-100 text-left d-flex justify-content-between align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                    What are the scholarship opportunities?
+                    <i class="fa fa-chevron-down small"></i>
+                </button>
+            </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" data-bs-parent="#defaultFaq">
+            <div class="card-body pt-0 text-muted">
+                We offer various academic and non-academic scholarships based on merit and potential.
+            </div>
+        </div>
+    </div>
+</div>';
+            case 'about':
+                return '
+<div class="text-center mb-5">
+    <p class="lead text-muted">President University is a leading international university in Indonesia, located in the heart of Jababeka Industrial Estate.</p>
+</div>
+<div class="row align-items-center mb-5">
+    <div class="col-md-6">
+        <h3 class="font-weight-bold mb-3">Our Vision</h3>
+        <p>To be a world-class university that produces leaders in their respective fields and communities.</p>
+    </div>
+    <div class="col-md-6">
+        <h3 class="font-weight-bold mb-3">Our Mission</h3>
+        <p>To provide high-quality education and research that contributes to the advancement of society and industry.</p>
+    </div>
+</div>';
+        }
+
+        return "";
     }
 
     /**
@@ -234,6 +351,12 @@ class settings {
             for ($i = 1; $i <= $this->recognitioncount; $i++) {
                 $imagefield = 'recognitionimage' . $i;
                 $url = $this->$imagefield;
+                
+                // Fallback to default images in pix/recognition/X.png if not uploaded.
+                if (!$url && $i <= 6) {
+                    $url = (new \moodle_url('/theme/president/pix/recognition/' . $i . '.png'))->out();
+                }
+
                 if ($url) {
                     $templatecontext['recognitionlogos'][] = ['image' => $url];
                 }
@@ -304,6 +427,9 @@ class settings {
             'management_menu' => \theme_president_get_management_menu(),
         ];
 
+        // Ensure all custom page folders exist for pretty URLs.
+        $this->ensure_guest_folders();
+
         // Add guest page links.
         $is_guest = !isloggedin() || isguestuser();
         $templatecontext['is_guest'] = $is_guest;
@@ -315,10 +441,27 @@ class settings {
             
             $links = [
                 ['title' => get_string('home'), 'url' => new \moodle_url('/'), 'active' => $is_home],
-                ['title' => get_string('programs', 'theme_president'), 'url' => new \moodle_url('/programs'), 'active' => ($currentview === 'programs')],
-                ['title' => get_string('faq', 'theme_president'), 'url' => new \moodle_url('/faq'), 'active' => ($currentview === 'faq')],
-                ['title' => get_string('about', 'theme_president'), 'url' => new \moodle_url('/about'), 'active' => ($currentview === 'about')],
             ];
+
+            // Dynamic Custom Pages.
+            $count = get_config('theme_president', 'custompage_count') ?: 3;
+            for ($i = 1; $i <= $count; $i++) {
+                $title = get_config('theme_president', "custompage_title_$i");
+                
+                // Fallback for default titles if not saved in DB yet.
+                if (!$title && $i <= 3) {
+                    $title = ($i == 1) ? 'Programs' : (($i == 2) ? 'FAQ' : 'About Us');
+                }
+
+                if ($title) {
+                    $slug = $this->slugify($title);
+                    $links[] = [
+                        'title' => $title,
+                        'url' => new \moodle_url('/' . $slug . '/'),
+                        'active' => ($currentview === $slug)
+                    ];
+                }
+            }
 
             $templatecontext['guest_links'] = [];
             foreach ($links as $link) {
@@ -331,5 +474,63 @@ class settings {
         }
 
         return $templatecontext;
+    }
+
+    /**
+     * Convert a string to a URL-friendly slug.
+     *
+     * @param string $text
+     * @return string
+     */
+    protected function slugify($text) {
+        if (empty($text)) {
+            return '';
+        }
+        
+        // Remove special characters and convert spaces to hyphens.
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+        if (function_exists('iconv')) {
+            $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+        }
+        $text = preg_replace('~[^-\w]+~', '', $text);
+        $text = trim($text, '-');
+        $text = preg_replace('~-+~', '-', $text);
+        $text = strtolower($text);
+
+        return $text ?: 'n-a';
+    }
+
+    /**
+     * Ensure that physical folders exist for each custom guest page to enable pretty URLs.
+     */
+    protected function ensure_guest_folders() {
+        global $CFG;
+        
+        $count = get_config('theme_president', 'custompage_count') ?: 3;
+        for ($i = 1; $i <= $count; $i++) {
+            $title = get_config('theme_president', "custompage_title_$i");
+            
+            // Fallback for defaults.
+            if (!$title && $i <= 3) {
+                $title = ($i == 1) ? 'Programs' : (($i == 2) ? 'FAQ' : 'About Us');
+            }
+
+            if ($title) {
+                $slug = $this->slugify($title);
+                $dir = $CFG->dirroot . '/' . $slug;
+                
+                // If directory doesn't exist, create it and its index.php.
+                if (!empty($slug) && !is_dir($dir)) {
+                    if (@mkdir($dir, 0755, true)) {
+                        $indexfile = $dir . '/index.php';
+                        $phpcontent = "<?php\n";
+                        $phpcontent .= "require_once(__DIR__ . '/../config.php');\n";
+                        $phpcontent .= "\$_GET['view'] = '$slug';\n";
+                        $phpcontent .= "require_once(__DIR__ . '/../theme/president/view.php');\n";
+                        @file_put_contents($indexfile, $phpcontent);
+                    }
+                }
+            }
+        }
     }
 }

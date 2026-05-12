@@ -166,12 +166,48 @@
         }
 
         .impact-card,
-        .faculty-card {
-            background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+        .faculty-card,
+        .custom-card {
+            background-color: #323846 !important; /* stylelint-disable-line */
             border: 1px solid $border-color !important; /* stylelint-disable-line */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important; /* stylelint-disable-line */
             
-            h4, h5 {
+            h4, h5, .card-title {
                 color: #ffffff !important; /* stylelint-disable-line */
+            }
+
+            .card-text, p {
+                color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            }
+
+            .faculty-icon, .card-icon {
+                background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+                color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+                display: flex !important; /* stylelint-disable-line */
+                align-items: center !important; /* stylelint-disable-line */
+                justify-content: center !important; /* stylelint-disable-line */
+
+                &.icon-red {
+                    background: rgba(239, 68, 68, 0.15) !important; /* stylelint-disable-line */
+                    color: #f87171 !important; /* stylelint-disable-line */
+                }
+
+                &.icon-orange {
+                    background: rgba(245, 158, 11, 0.15) !important; /* stylelint-disable-line */
+                    color: #fbbf24 !important; /* stylelint-disable-line */
+                }
+            }
+
+            .view-program {
+                color: var(--presuniv-accent) !important; /* stylelint-disable-line */
+            }
+
+            &:hover {
+                border-color: transparent !important; /* stylelint-disable-line */
+                
+                h4, h5, .card-title, .card-text, p {
+                    color: #ffffff !important; /* stylelint-disable-line */
+                }
             }
         }
         

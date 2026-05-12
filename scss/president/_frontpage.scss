@@ -6,29 +6,31 @@
     display: inline-block;
     background: linear-gradient(135deg, var(--presuniv-primary), var(--presuniv-primary-light));
     color: #fff;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    padding: 6px 18px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    padding: 8px 24px;
     border-radius: 50px;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(15, 71, 173, 0.2);
 }
 
 .section-title {
-    font-size: 2.25rem;
-    font-weight: 800;
+    font-size: 2.75rem;
+    font-weight: 900;
     color: var(--presuniv-dark);
-    margin-bottom: 0.75rem;
-    line-height: 1.2;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
 }
 
 .section-subtitle {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     color: var(--presuniv-text-light);
-    max-width: 640px;
+    max-width: 600px;
     margin: 0 auto;
-    line-height: 1.7;
+    line-height: 1.8;
 }
 
 .text-gradient {
@@ -46,6 +48,7 @@
         background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
         background-size: 200% 100%;
         -webkit-background-clip: text;
+        background-clip: text;
         -webkit-text-fill-color: transparent;
         animation: shimmer 3s infinite linear;
     }
@@ -280,12 +283,82 @@
 
     .impact-card {
         background: #fff;
-        border: 1px solid rgba(15, 71, 173, 0.1);
-        border-radius: var(--presuniv-radius);
-        padding: 2rem 1.5rem;
+        border: 1px solid rgba(15, 71, 173, 0.08);
+        border-radius: 24px;
+        padding: 3rem 2rem;
         text-align: center;
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         height: 100%;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(15, 71, 173, 0.04);
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--presuniv-red);
+            transform: scaleX(0);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-origin: right;
+        }
+
+        &:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 60px rgba(15, 71, 173, 0.1);
+            border-color: rgba(15, 71, 173, 0.15);
+
+            &::before {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+
+            .impact-letter {
+                transform: scale(1.15) translateY(-5px);
+                filter: drop-shadow(0 10px 15px rgba(227, 30, 36, 0.2));
+            }
+            
+            h4 {
+                color: var(--presuniv-primary);
+            }
+        }
+
+        .impact-letter {
+            font-size: 4rem;
+            font-weight: 950;
+            color: var(--presuniv-red);
+            margin-bottom: 1.5rem;
+            line-height: 1;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-block;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--presuniv-dark);
+            margin-bottom: 1rem;
+            transition: color 0.3s ease;
+            line-height: 1.3;
+        }
+
+        p {
+            font-size: 0.95rem;
+            color: var(--presuniv-text-light);
+            line-height: 1.7;
+            margin: 0;
+        }
+    }
+
+    /* ============================================
+       FEATURE / FACULTIES SECTION
+       ============================================ */
+    .feature-section {
+        padding: 8rem 0;
+        background: var(--presuniv-gray-bg);
         position: relative;
         overflow: hidden;
 
@@ -294,105 +367,110 @@
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--presuniv-red);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-            transform-origin: left;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230f47ad' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+            pointer-events: none;
         }
-
-        &:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--presuniv-shadow-hover);
-            border-color: transparent;
-            background: #fff;
-
-            &::before {
-                transform: scaleX(1);
-            }
-
-            .impact-letter {
-                color: var(--presuniv-red);
-                transform: scale(1.1);
-            }
-        }
-
-        .impact-letter {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: var(--presuniv-red); /* Official Red */
-            margin-bottom: 0.75rem;
-            line-height: 1;
-            transition: all 0.4s ease;
-        }
-
-        h4 {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--presuniv-dark);
-            margin-bottom: 0.75rem;
-        }
-
-        p {
-            font-size: 0.9rem;
-            color: var(--presuniv-text-light);
-            line-height: 1.6;
-            margin-bottom: 0;
-        }
-    }
-
-    /* ============================================
-       FEATURE / FACULTIES SECTION
-       ============================================ */
-    .feature-section {
-        padding: 6rem 0;
-        background: var(--presuniv-gray-bg);
 
         .marketing-content {
             color: var(--presuniv-text-light);
-            max-width: 640px;
-            margin: 0 auto 2rem;
-            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            line-height: 1.8;
+            font-size: 1.15rem;
+            font-weight: 500;
         }
     }
 
     .faculty-card {
+        position: relative;
         background: #fff;
-        border-radius: var(--presuniv-radius);
-        padding: 2rem 1.5rem;
-        text-align: center;
-        box-shadow: var(--presuniv-shadow);
-        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        border-radius: 20px;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         height: 100%;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgba(15, 71, 173, 0.08);
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(15, 71, 173, 0.04);
 
         &:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--presuniv-shadow-hover);
-        }
+            transform: translateY(-12px);
+            box-shadow: 0 20px 50px rgba(15, 71, 173, 0.12);
+            border-color: rgba(15, 71, 173, 0.2);
 
-        .faculty-icon {
-            width: 100%;
-            margin-bottom: 1.25rem;
-            border-radius: 12px;
-            overflow: hidden;
+            .faculty-image img {
+                transform: scale(1.1);
+            }
 
-            img {
-                width: 100%;
-                height: auto;
-                transition: transform 0.4s ease;
+            .faculty-body h5 {
+                color: var(--presuniv-primary);
+            }
+
+            .view-program {
+                color: var(--presuniv-primary);
+                
+                i {
+                    transform: translateX(5px);
+                }
             }
         }
 
-        &:hover .faculty-icon img {
-            transform: scale(1.05);
+        .faculty-image {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            background: var(--presuniv-gray-bg);
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+        }
+
+        .faculty-body {
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            text-align: left;
         }
 
         h5 {
-            font-weight: 700;
-            font-size: 1rem;
+            font-weight: 800;
+            font-size: 1.15rem;
             color: var(--presuniv-dark);
-            margin-bottom: 0;
+            margin-bottom: 1.5rem;
+            transition: all 0.4s ease;
+            line-height: 1.4;
+            min-height: 3rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .view-program {
+            margin-top: auto;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--presuniv-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+
+            i {
+                font-size: 0.75rem;
+                transition: transform 0.3s ease;
+            }
         }
     }
 
@@ -417,43 +495,89 @@
     }
 
     .stat-card {
-        border-radius: 20px;
-        padding: 2.5rem 2rem;
+        border-radius: 30px;
+        padding: 3.5rem 2.5rem;
         text-align: center;
         position: relative;
         overflow: hidden;
         height: 100%;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 1;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: -1;
+            transition: all 0.5s ease;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            z-index: -1;
+            transition: all 0.5s ease;
+        }
+
+        &:hover {
+            transform: translateY(-10px);
+            
+            &::before {
+                transform: scale(1.5);
+                background: rgba(255, 255, 255, 0.15);
+            }
+            
+            &::after {
+                transform: scale(1.3);
+                background: rgba(255, 255, 255, 0.08);
+            }
+        }
 
         .stat-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            opacity: 0.8;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));
         }
 
         h3 {
-            font-size: 3rem;
-            font-weight: 800;
+            font-size: 3.5rem;
+            font-weight: 950;
             margin-bottom: 0.5rem;
-            letter-spacing: -1px;
+            letter-spacing: -0.04em;
+            line-height: 1;
         }
 
         p {
-            font-size: 1rem;
-            font-weight: 500;
+            font-size: 1.1rem;
+            font-weight: 600;
             margin-bottom: 0;
-            opacity: 0.9;
+            opacity: 0.85;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         &.stat-primary {
             background: linear-gradient(135deg, var(--presuniv-primary), var(--presuniv-primary-light));
             color: #fff;
-            box-shadow: var(--presuniv-shadow);
+            box-shadow: 0 15px 35px rgba(15, 71, 173, 0.2);
         }
 
         &.stat-dark {
             background: linear-gradient(135deg, var(--presuniv-dark), var(--presuniv-primary-dark));
             color: #fff;
-            box-shadow: var(--presuniv-shadow);
+            box-shadow: 0 15px 35px rgba(13, 27, 42, 0.2);
         }
     }
 
@@ -899,6 +1023,92 @@ p#typed-text {
             p, li {
                 font-size: 1.05rem;
                 margin-bottom: 1rem;
+            }
+
+            /* Premium Custom Cards */
+            .custom-card {
+                background: #ffffff;
+                border-radius: 20px;
+                padding: 2.5rem 2rem;
+                height: 100%;
+                transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+                border: 1px solid rgba(0,0,0,0.03);
+                position: relative;
+                overflow: hidden;
+                z-index: 1;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(135deg, var(--presuniv-primary) 0%, #2a5298 100%);
+                    opacity: 0;
+                    transition: opacity 0.4s ease;
+                    z-index: -1;
+                }
+
+                &:hover {
+                    transform: translateY(-10px);
+                    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                    border-color: transparent;
+
+                    &::before {
+                        opacity: 1;
+                    }
+
+                    .card-icon {
+                        background: rgba(255,255,255,0.2);
+                        color: #fff;
+                        transform: scale(1.1) rotate(5deg);
+                    }
+
+                    .card-title, .card-text {
+                        color: #fff;
+                    }
+                }
+
+                .card-icon {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 15px;
+                    background: rgba(15, 71, 173, 0.1);
+                    color: var(--presuniv-primary);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.5rem;
+                    margin-bottom: 1.5rem;
+                    transition: all 0.4s ease;
+
+                    &.icon-red {
+                        background: rgba(220, 53, 69, 0.1);
+                        color: #dc3545;
+                    }
+
+                    &.icon-orange {
+                        background: rgba(253, 126, 20, 0.1);
+                        color: #fd7e14;
+                    }
+                }
+
+                .card-title {
+                    font-weight: 800;
+                    font-size: 1.25rem;
+                    margin-bottom: 1rem;
+                    transition: color 0.3s ease;
+                    color: #212529;
+                }
+
+                .card-text {
+                    color: #6c757d;
+                    font-size: 0.95rem;
+                    line-height: 1.6;
+                    transition: color 0.3s ease;
+                }
             }
         }
     }

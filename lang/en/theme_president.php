@@ -18,7 +18,7 @@
  * Language file.
  *
  * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -133,6 +133,9 @@ $string['faq_content_desc'] = 'HTML content for the FAQ page. This page is only 
 $string['about'] = 'About Us';
 $string['about_content'] = 'About Us Content';
 $string['about_content_desc'] = 'HTML content for the About Us page.';
+$string['custompage_count'] = 'Number of Custom Pages';
+$string['custompage_count_desc'] = 'Select how many custom guest pages you want to create (max 10). After changing this, click Save to update the fields below.';
+
 
 $string['numbersfrontpage'] = 'Show site numberss';
 $string['numbersfrontpagedesc'] = 'If enabled, display the number of active users and courses in the frontpage.';

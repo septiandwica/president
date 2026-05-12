@@ -67,7 +67,7 @@ $templatecontext = array_merge($templatecontext, $themesettings->navbar());
 // Get the custom page content.
 $page_type = optional_param('view', '', PARAM_ALPHANUM);
 $templatecontext['page_title'] = get_string($page_type, 'theme_president');
-$templatecontext['page_content'] = get_config('theme_president', $page_type . '_content');
+$templatecontext['page_content'] = $themesettings->guest_page_content($page_type);
 $templatecontext['main_content'] = $OUTPUT->main_content();
 
 echo $OUTPUT->render_from_template('theme_president/custom_page_layout', $templatecontext);
