@@ -7,7 +7,6 @@
     "name": "Septian Dwi Cahyo",
     "url": "https://samastanuswantara.com"
   },
-  "type": "module",
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "eslint": "^9.20.1",
