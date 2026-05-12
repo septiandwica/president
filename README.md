@@ -29,10 +29,33 @@ The **President** theme for Moodle is a premium, modern, and highly customizable
 - **Breadcrumb Navigation**: Choice between modern or classic breadcrumb styles.
 
 ### 🛠️ Advanced Integrations
+- **Dynamic Guest Pages Manager**: Create up to 10 customizable pages (About, Programs, FAQ, etc.) with a dedicated settings manager.
+- **Automatic Folder Routing**: No `.htaccess` needed! The theme automatically creates physical directories for your custom pages to ensure 100% stable **Pretty URLs** (e.g., `/programs/`, `/faq/`).
+- **Automatic Slugification**: Page titles are automatically converted into URL-friendly slugs.
+- **Premium UI Components**: Pre-styled "Custom Cards" ready to use in Moodle's RichText editor (TinyMCE/Atto).
+- **Performance Optimized**: Removed heavy preloaders to ensure lightning-fast page transitions.
 - **Analytics Ready**: Native support for **Google Analytics V4**.
-- **Developer Friendly**: Inject custom SCSS (initial and post-load) directly from the admin settings.
-- **H5P Optimization**: Custom CSS injection support for `mod_hvp` (H5P) activities.
-- **Guest-Specific Content**: Dedicated, editable pages for "About Us", "Programs", and "FAQ" designed for guest users.
+- **Developer Friendly**: Inject custom SCSS directly from the admin settings.
+
+---
+
+## 🎨 Using Premium Components in Editor
+
+To maintain a high-end look on your custom pages, you can use the **Premium Custom Cards** directly in TinyMCE. Switch to **HTML mode (`<>`)** and paste the following snippet:
+
+```html
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="custom-card">
+            <div class="card-icon"><i class="fas fa-briefcase"></i></div>
+            <h4 class="card-title">Card Title</h4>
+            <p class="card-text">Your professional description here.</p>
+        </div>
+    </div>
+</div>
+```
+
+*The theme automatically handles Light and Dark mode styling for these components!*
 
 ---
 
