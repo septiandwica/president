@@ -20,41 +20,47 @@
  * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-import Ajax from 'core/ajax';
-import Modal from 'core/modal';
-import * as CustomEvents from 'core/custom_interaction_events';
-import Notification from 'core/notification';
+define(['core/ajax', 'core/modal', 'core/custom_interaction_events', 'core/notification'],
+function(Ajax, Modal, CustomEvents, Notification) {
 
-export default class AccessibilityModal extends Modal {
-    static TYPE = "theme_president/themesettings_modal";
-    static TEMPLATE = "theme_president/accessibilitysettings_modal";
+    var AccessibilityModal = function(root) {
+        Modal.call(this, root);
 
-    constructor(root) {
-        super(root);
-
-        let request = Ajax.call([{
+        var request = Ajax.call([{
             methodname: 'theme_president_getthemesettings',
             args: {}
         }]);
 
         request[0].done(function(result) {
-            document.getElementById('fonttype').value = result.fonttype;
+            var fontTypeElement = document.getElementById('fonttype');
+            if (fontTypeElement) {
+                fontTypeElement.value = result.fonttype;
+            }
 
             if (result.enableaccessibilitytoolbar) {
-                document.getElementById('enableaccessibilitytoolbar').checked = true;
+                var toolbarElement = document.getElementById('enableaccessibilitytoolbar');
+                if (toolbarElement) {
+                    toolbarElement.checked = true;
+                }
             }
         });
-    }
+    };
+
+    AccessibilityModal.TYPE = "theme_president/themesettings_modal";
+    AccessibilityModal.TEMPLATE = "theme_president/accessibilitysettings_modal";
+
+    AccessibilityModal.prototype = Object.create(Modal.prototype);
+    AccessibilityModal.prototype.constructor = AccessibilityModal;
 
     /**
      * Set up all of the event handling for the modal.
      */
-    registerEventListeners() {
+    AccessibilityModal.prototype.registerEventListeners = function() {
         // Apply parent event listeners.
-        super.registerEventListeners(this);
+        Modal.prototype.registerEventListeners.call(this);
 
         this.getModal().on(CustomEvents.events.activate, '[data-action="save"]', function() {
-            let request = Ajax.call([{
+            var request = Ajax.call([{
                 methodname: 'theme_president_savethemesettings',
                 args: {
                     formdata: this.getBody().find('form').serialize()
@@ -64,7 +70,7 @@ export default class AccessibilityModal extends Modal {
             request[0].done(function() {
                 document.location.reload(true);
             }).fail(function(error) {
-                let message = error.message;
+                var message = error.message;
 
                 if (!message) {
                     message = error.error;
@@ -85,5 +91,7 @@ export default class AccessibilityModal extends Modal {
             this.hide();
             this.destroy();
         }.bind(this));
-    }
-}
+    };
+
+    return AccessibilityModal;
+});
