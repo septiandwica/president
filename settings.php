@@ -177,7 +177,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_president/enabledarkmode';
     $title = get_string('enabledarkmode', 'theme_president');
     $description = get_string('enabledarkmode_desc', 'theme_president');
-    $default = 1;
+    $default = 0;
     $choices = [0 => get_string('no'), 1 => get_string('yes')];
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
