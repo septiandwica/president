@@ -295,7 +295,7 @@ class settings {
             'frontpage_courses_title' => $title,
             'frontpage_courses' => $formattedcourses,
             'show_view_all' => $show_view_all,
-            'view_all_url' => (new \moodle_url('/theme/president/courses.php'))->out(false),
+            'view_all_url' => (new \moodle_url('/' . $this->slugify($title)))->out(false),
             'total_courses' => $total,
         ];
     }
