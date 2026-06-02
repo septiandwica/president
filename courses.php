@@ -58,7 +58,6 @@ $total_pages = ceil($total / $per_page);
 
 // Format courses for template
 $formattedcourses = [];
-$chelper = new coursecat_helper();
 $renderer = $PAGE->get_renderer('core');
 
 foreach ($courses as $c) {
@@ -83,12 +82,18 @@ foreach ($courses as $c) {
         $courseurl = new moodle_url('/course/view.php', ['id' => $c->id]);
     }
 
+    // Get course summary
+    $summary = '';
+    if ($courseobj->has_summary()) {
+        $summary = format_text($courseobj->summary, $courseobj->summaryformat, ['noclean' => false]);
+    }
+
     $formattedcourses[] = [
         'id' => $c->id,
-        'fullname' => $chelper->get_course_formatted_name($courseobj),
+        'fullname' => format_string($courseobj->fullname),
         'visible' => $c->visible,
         'image' => $courseutilobj->get_summary_image(),
-        'summary' => $courseutilobj->get_summary($chelper),
+        'summary' => $summary,
         'category' => $courseutilobj->get_category(),
         'customfields' => $courseutilobj->get_custom_fields(),
         'hasprogress' => $hasprogress,
