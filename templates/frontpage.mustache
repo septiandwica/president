@@ -277,8 +277,8 @@
                         {{/frontpage_courses}}
                     </div>
 
-                    {{! View All Button - Always show if courses exist and total > preview }}
-                    {{#frontpage_courses}}
+                    {{! View All Button - Show once if view_all_url exists }}
+                    {{#view_all_url}}
                     <div class="row mt-5 mb-3">
                         <div class="col-12 text-center">
                             <a href="{{view_all_url}}" class="btn btn-lg btn-primary" style="display: inline-block !important; visibility: visible !important;">
@@ -287,7 +287,7 @@
                             </a>
                         </div>
                     </div>
-                    {{/frontpage_courses}}
+                    {{/view_all_url}}
                 </div>
             </section>
         {{/frontpage_courses_enable}}
