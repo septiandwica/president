@@ -585,6 +585,9 @@ class settings {
                     }
                 }
             }
+        }
+    }
+
     /**
      * Ensure that physical folder exists for courses listing to enable pretty URL.
      */
