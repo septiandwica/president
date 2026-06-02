@@ -548,12 +548,8 @@
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
             color: #fff;
-            opacity: 1;
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
-
-            i {
-                color: #fff;
-            }
+            opacity: 0.95;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.25));
         }
 
         h3 {
