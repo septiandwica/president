@@ -250,7 +250,6 @@ class settings {
         $show_view_all = ($total > $preview_limit);
 
         $formattedcourses = [];
-        $chelper = new \coursecat_helper();
         $renderer = $PAGE->get_renderer('core');
 
         foreach ($courses as $c) {
@@ -277,10 +276,10 @@ class settings {
 
             $formattedcourses[] = [
                 'id' => $c->id,
-                'fullname' => $chelper->get_course_formatted_name($courseobj),
+                'fullname' => format_string($courseobj->get_formatted_name()),
                 'visible' => $c->visible,
                 'image' => $courseutil->get_summary_image(),
-                'summary' => $courseutil->get_summary($chelper),
+                'summary' => $courseutil->get_summary(),
                 'category' => $courseutil->get_category(),
                 'customfields' => $courseutil->get_custom_fields(),
                 'hasprogress' => $hasprogress,
