@@ -20,84 +20,93 @@
     Full courses listing page with pagination
 }}
 
-<div class="courses-page-container">
-    <div class="courses-page-header">
-        <h1>{{page_title}}</h1>
+<section class="custom-courses-section py-5 bg-light">
+    <div class="president-container-fluid">
+        <div class="section-header text-center mb-5">
+            <h2 class="section-title">{{page_title}}</h2>
+        </div>
+
         {{#has_courses}}
-        <p class="courses-count">
-            Showing {{showing_start}} - {{showing_end}} of {{total_courses}} courses
-        </p>
+        <div class="row">
+            <div class="d-flex flex-wrap justify-content-start w-100">
+                {{#courses}}
+                    {{> theme_president/president_coursecard }}
+                {{/courses}}
+            </div>
+        </div>
+
+        <div class="row mt-3 mb-2">
+            <div class="col-12">
+                <p class="courses-count text-muted text-center">
+                    Showing {{showing_start}} - {{showing_end}} of {{total_courses}} courses
+                </p>
+            </div>
+        </div>
+
+        {{#has_pagination}}
+        <div class="row mt-5 mb-3">
+            <div class="col-12">
+                <nav aria-label="Course pagination">
+                    <ul class="pagination justify-content-center">
+                        {{#pagination.has_prev}}
+                        <li class="page-item">
+                            <a class="page-link" href="{{pagination.prev_url}}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {{/pagination.has_prev}}
+
+                        {{^pagination.has_prev}}
+                        <li class="page-item disabled">
+                            <span class="page-link">&laquo;</span>
+                        </li>
+                        {{/pagination.has_prev}}
+
+                        {{#pagination.pages}}
+                            {{#ellipsis}}
+                            <li class="page-item disabled">
+                                <span class="page-link">...</span>
+                            </li>
+                            {{/ellipsis}}
+
+                            {{^ellipsis}}
+                            <li class="page-item {{#active}}active{{/active}}">
+                                <a class="page-link" href="{{url}}">{{number}}</a>
+                            </li>
+                            {{/ellipsis}}
+                        {{/pagination.pages}}
+
+                        {{#pagination.has_next}}
+                        <li class="page-item">
+                            <a class="page-link" href="{{pagination.next_url}}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        {{/pagination.has_next}}
+
+                        {{^pagination.has_next}}
+                        <li class="page-item disabled">
+                            <span class="page-link">&raquo;</span>
+                        </li>
+                        {{/pagination.has_next}}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        {{/has_pagination}}
+        {{/has_courses}}
+
+        {{^has_courses}}
+        <div class="courses-empty-state">
+            <div class="empty-icon">
+                <i class="fa fa-graduation-cap"></i>
+            </div>
+            <h3>{{#str}}nocoursesfound, theme_president{{/str}}</h3>
+            <p>Check back later for available courses.</p>
+            <a href="{{config.wwwroot}}" class="btn btn-primary">
+                <i class="fa fa-home me-2"></i>Back to Home
+            </a>
+        </div>
         {{/has_courses}}
     </div>
-
-    {{#has_courses}}
-    <div class="courses-grid">
-        {{#courses}}
-            {{> theme_president/president_coursecard }}
-        {{/courses}}
-    </div>
-
-    {{#has_pagination}}
-    <div class="courses-pagination">
-        <nav aria-label="Course pagination">
-            <ul class="pagination">
-                {{#pagination.has_prev}}
-                <li class="page-item">
-                    <a class="page-link" href="{{pagination.prev_url}}" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                {{/pagination.has_prev}}
-
-                {{^pagination.has_prev}}
-                <li class="page-item disabled">
-                    <span class="page-link">&laquo;</span>
-                </li>
-                {{/pagination.has_prev}}
-
-                {{#pagination.pages}}
-                    {{#ellipsis}}
-                    <li class="page-item disabled">
-                        <span class="page-link">...</span>
-                    </li>
-                    {{/ellipsis}}
-
-                    {{^ellipsis}}
-                    <li class="page-item {{#active}}active{{/active}}">
-                        <a class="page-link" href="{{url}}">{{number}}</a>
-                    </li>
-                    {{/ellipsis}}
-                {{/pagination.pages}}
-
-                {{#pagination.has_next}}
-                <li class="page-item">
-                    <a class="page-link" href="{{pagination.next_url}}" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-                {{/pagination.has_next}}
-
-                {{^pagination.has_next}}
-                <li class="page-item disabled">
-                    <span class="page-link">&raquo;</span>
-                </li>
-                {{/pagination.has_next}}
-            </ul>
-        </nav>
-    </div>
-    {{/has_pagination}}
-    {{/has_courses}}
-
-    {{^has_courses}}
-    <div class="courses-empty-state">
-        <div class="empty-icon">
-            <i class="fa fa-graduation-cap"></i>
-        </div>
-        <h3>{{#str}}nocoursesfound, theme_president{{/str}}</h3>
-        <p>Check back later for available courses.</p>
-        <a href="{{config.wwwroot}}" class="btn btn-primary">
-            <i class="fa fa-home me-2"></i>Back to Home
-        </a>
-    </div>
-    {{/has_courses}}
-</div>
+</section>

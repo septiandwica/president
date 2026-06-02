@@ -26,8 +26,22 @@ require_once(__DIR__ . '/../../config.php');
 
 $page = optional_param('page', 0, PARAM_INT);
 
+// Get dynamic URL from courses title setting
+$themesettings = new \theme_president\util\settings();
+$courses_title = get_config('theme_president', 'frontpage_courses_title');
+if (empty($courses_title)) {
+    $courses_title = get_string('frontpage_courses_title_default', 'theme_president');
+}
+
+// Use reflection to slugify
+$reflection = new ReflectionClass($themesettings);
+$method = $reflection->getMethod('slugify');
+$method->setAccessible(true);
+$slug = $method->invoke($themesettings, $courses_title);
+$base_url = '/' . $slug;
+
 $PAGE->set_context(context_system::instance());
-$PAGE->set_url('/theme/president/courses.php', ['page' => $page]);
+$PAGE->set_url($base_url, ['page' => $page]);
 $PAGE->set_pagelayout('standard');
 $PAGE->set_title(get_string('courses'));
 $PAGE->set_heading(get_string('courses'));
@@ -112,7 +126,7 @@ if ($total_pages > 1) {
     // Previous button
     if ($page > 0) {
         $pagination['has_prev'] = true;
-        $pagination['prev_url'] = new moodle_url('/theme/president/courses.php', ['page' => $page - 1]);
+        $pagination['prev_url'] = new moodle_url($base_url, ['page' => $page - 1]);
     }
 
     // Page numbers
@@ -123,7 +137,7 @@ if ($total_pages > 1) {
     if ($start > 0) {
         $pages[] = [
             'number' => 1,
-            'url' => new moodle_url('/theme/president/courses.php', ['page' => 0]),
+            'url' => new moodle_url($base_url, ['page' => 0]),
             'active' => false,
         ];
         if ($start > 1) {
@@ -134,7 +148,7 @@ if ($total_pages > 1) {
     for ($i = $start; $i <= $end; $i++) {
         $pages[] = [
             'number' => $i + 1,
-            'url' => new moodle_url('/theme/president/courses.php', ['page' => $i]),
+            'url' => new moodle_url($base_url, ['page' => $i]),
             'active' => ($i == $page),
         ];
     }
@@ -145,7 +159,7 @@ if ($total_pages > 1) {
         }
         $pages[] = [
             'number' => $total_pages,
-            'url' => new moodle_url('/theme/president/courses.php', ['page' => $total_pages - 1]),
+            'url' => new moodle_url($base_url, ['page' => $total_pages - 1]),
             'active' => false,
         ];
     }
@@ -155,7 +169,7 @@ if ($total_pages > 1) {
     // Next button
     if ($page < $total_pages - 1) {
         $pagination['has_next'] = true;
-        $pagination['next_url'] = new moodle_url('/theme/president/courses.php', ['page' => $page + 1]);
+        $pagination['next_url'] = new moodle_url($base_url, ['page' => $page + 1]);
     }
 }
 
