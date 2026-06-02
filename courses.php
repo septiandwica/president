@@ -23,7 +23,6 @@
  */
 
 require_once(__DIR__ . '/../../config.php');
-require_once($CFG->libdir . '/coursecatlib.php');
 
 $page = optional_param('page', 0, PARAM_INT);
 
