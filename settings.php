@@ -494,6 +494,21 @@ if ($ADMIN->fulltree) {
         // Fallback or empty if DB is not ready.
     }
 
+    $name = 'theme_president/frontpage_courses_enable';
+    $title = get_string('frontpage_courses_enable', 'theme_president');
+    $description = get_string('frontpage_courses_enable_desc', 'theme_president');
+    $default = 1;
+    $choices = [0 => get_string('no'), 1 => get_string('yes')];
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $page->add($setting);
+
+    $name = 'theme_president/frontpage_courses_title';
+    $title = get_string('frontpage_courses_title_setting', 'theme_president');
+    $description = get_string('frontpage_courses_title_setting_desc', 'theme_president');
+    $default = get_string('frontpage_courses_title_default', 'theme_president');
+    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_TEXT);
+    $page->add($setting);
+
     $name = 'theme_president/frontpage_courses_select_mode';
     $title = get_string('frontpage_courses_select_mode', 'theme_president');
     $description = get_string('frontpage_courses_select_mode_desc', 'theme_president');

@@ -254,59 +254,6 @@ class course_renderer extends \core_course_renderer {
      * @return string HTML code for frontpage courses list
      */
     public function frontpage_available_courses() {
-        global $CFG, $DB;
-
-        $selectmode = get_config('theme_president', 'frontpage_courses_select_mode') ?: 0;
-        $selectedcourses = get_config('theme_president', 'frontpage_courses_selected') ?: '';
-        $selectedcategories = get_config('theme_president', 'frontpage_courses_categories') ?: '';
-        $limit = get_config('theme_president', 'frontpage_courses_limit') ?: 12;
-
-        $chelper = new \coursecat_helper();
-        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED)
-                ->set_courses_display_option('numsections', 1)
-                ->set_courses_display_option('desc', true);
-
-        $courses = [];
-
-        if ($selectmode == 1) { // Newest courses first
-            $courses = $DB->get_records_select('course', "id <> :siteid AND visible = 1", ['siteid' => SITEID], 'id DESC', '*', 0, $limit);
-        } else if ($selectmode == 2 && !empty($selectedcourses)) { // Specific Course IDs
-            $courseids = array_map('intval', explode(',', $selectedcourses));
-            if (!empty($courseids)) {
-                list($insql, $inparams) = $DB->get_in_or_equal($courseids);
-                $records = $DB->get_records_select('course', "id $insql AND visible = 1", $inparams);
-                if (!empty($records)) {
-                    foreach ($courseids as $id) {
-                        if (isset($records[$id])) {
-                            $courses[$id] = $records[$id];
-                        }
-                    }
-                }
-                if ($limit > 0) {
-                    $courses = array_slice($courses, 0, $limit, true);
-                }
-            }
-        } else if ($selectmode == 3 && !empty($selectedcategories)) { // Specific Category IDs
-            $categoryids = array_map('intval', explode(',', $selectedcategories));
-            if (!empty($categoryids)) {
-                list($insql, $inparams) = $DB->get_in_or_equal($categoryids);
-                $courses = $DB->get_records_select('course', "category $insql AND id <> :siteid AND visible = 1", array_merge($inparams, ['siteid' => SITEID]), 'sortorder ASC', '*', 0, $limit);
-            }
-        } else { // Default: All available courses
-            $courses = get_courses('all', 'c.sortorder ASC', 'c.id,c.fullname,c.shortname,c.summary,c.summaryformat,c.idnumber,c.startdate,c.enddate,c.visible,c.category,c.sortorder');
-            if (isset($courses[SITEID])) {
-                unset($courses[SITEID]);
-            }
-            if ($limit > 0) {
-                $courses = array_slice($courses, 0, $limit, true);
-            }
-        }
-
-        $content = '';
-        if (count($courses) > 0) {
-            $content .= $this->heading(get_string('availablecourses'));
-            $content .= $this->coursecat_courses($chelper, $courses);
-        }
-        return $content;
+        return '';
     }
 }

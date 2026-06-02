@@ -231,6 +231,11 @@ $string['redirectbtntext'] = 'If nothing is happening please click here to conti
 $string['aboutus'] = 'About Us';
 
 // Frontpage Course Filtering
+$string['frontpage_courses_enable'] = 'Show Front Page Courses Section';
+$string['frontpage_courses_enable_desc'] = 'If enabled, a custom courses section will be displayed on the front page.';
+$string['frontpage_courses_title_setting'] = 'Courses Section Title';
+$string['frontpage_courses_title_setting_desc'] = 'Enter a custom title for the courses section on the front page (e.g. Open Course).';
+$string['frontpage_courses_title_default'] = 'Available Courses';
 $string['frontpage_courses_select_mode'] = 'Filter Front Page Courses';
 $string['frontpage_courses_select_mode_desc'] = 'Select how to display available courses on the front page.';
 $string['frontpage_courses_select_mode_all'] = 'Show all available courses';

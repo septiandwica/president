@@ -255,6 +255,27 @@
         {{/numbersfrontpage}}
 
         {{! ============================== }}
+        {{! CUSTOM FRONT PAGE COURSES SECTION }}
+        {{! ============================== }}
+        {{#frontpage_courses_enable}}
+            <section id="frontpage-courses" class="courses-section py-5 bg-light border-bottom">
+                <div class="president-container-fluid">
+                    <div class="section-header text-center mb-5">
+                        <span class="section-badge">FEATURED PROGRAMS</span>
+                        <h2 class="section-title"><span class="text-gradient" data-text="{{frontpage_courses_title}}">{{frontpage_courses_title}}</span></h2>
+                    </div>
+                    <div class="row justify-content-center">
+                        {{#frontpage_courses}}
+                            <div class="col-12 col-sm-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                                {{> theme_president/president_coursecard }}
+                            </div>
+                        {{/frontpage_courses}}
+                    </div>
+                </div>
+            </section>
+        {{/frontpage_courses_enable}}
+
+        {{! ============================== }}
         {{! MAIN CONTENT (COURSES) }}
         {{! ============================== }}
         <div id="topofscroll">
