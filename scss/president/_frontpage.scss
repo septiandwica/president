@@ -547,8 +547,13 @@
         .stat-icon {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
-            opacity: 0.9;
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));
+            color: #fff;
+            opacity: 1;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+
+            i {
+                color: #fff;
+            }
         }
 
         h3 {
@@ -609,7 +614,7 @@
     /* ============================================
        CUSTOM COURSES VIEW ALL BUTTON
        ============================================ */
-    #frontpage-custom-courses {
+    .custom-courses-section {
         .btn-primary {
             display: inline-block !important; /* stylelint-disable-line declaration-no-important */
             visibility: visible !important; /* stylelint-disable-line declaration-no-important */
