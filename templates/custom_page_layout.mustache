@@ -1,0 +1,36 @@
+{{!
+    @template theme_president/custom_page_layout
+}}
+{{> theme_president/head }}
+
+<body {{{ bodyattributes }}}>
+{{> core/local/toast/wrapper}}
+<div id="page-wrapper" class="d-print-block">
+
+    {{{ output.standard_top_of_body_html }}}
+
+    {{> theme_president/navbar }}
+
+    <div id="page" data-region="mainpage" data-usertour="scroller" class="drawers drag-container">
+        
+        {{! Spacer for floating navbar if needed }}
+
+        <div class="custom-page-main-wrapper py-5">
+            {{> theme_president/custom_page }}
+        </div>
+
+        {{> theme_president/footer }}
+    </div>
+    
+    {{{ output.standard_after_main_region_html }}}
+</div>
+</body>
+</html>
+
+{{#js}}
+    M.util.js_pending('theme_boost/loader');
+    require(['theme_boost/loader', 'theme_boost/drawer'], function(Loader, Drawer) {
+        Drawer.init();
+        M.util.js_complete('theme_boost/loader');
+    });
+{{/js}}

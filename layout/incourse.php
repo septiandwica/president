@@ -18,7 +18,7 @@
  * Language file.
  *
  * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -95,6 +95,23 @@ if ($PAGE->has_secondary_navigation()) {
     }
 }
 
+// Add Quick Management to primary navigation if authorized.
+$managementitems = \theme_president_get_management_menu();
+if ($managementitems && !empty($managementitems['items'])) {
+    $primarynav = $PAGE->primarynav;
+    $managenode = $primarynav->add('Quick Management', null, \navigation_node::TYPE_CONTAINER, null, 'quick_management');
+    $managenode->showinflatnavigation = true;
+    
+    $currenturl = $PAGE->url->out_as_local_url(false);
+    foreach ($managementitems['items'] as $item) {
+        $node = $managenode->add($item['text'], $item['url'], \navigation_node::TYPE_SETTING);
+        // Check if this item is the current page.
+        if (strpos($currenturl, $item['url']->out_as_local_url(false)) !== false) {
+            $extraclasses[] = 'is-quick-management';
+        }
+    }
+}
+
 $primary = new core\navigation\output\primary($PAGE);
 $renderer = $PAGE->get_renderer('core');
 $primarymenu = $primary->export_for_template($renderer);
@@ -126,8 +143,14 @@ $templatecontext = [
     'overflow' => $overflow,
     'headercontent' => $headercontent,
     'addblockbutton' => $addblockbutton,
+    'themepreference' => theme_president_get_theme_preference(),
 ];
 
 $templatecontext = array_merge($templatecontext, $themesettings->footer());
+$templatecontext = array_merge($templatecontext, $themesettings->navbar());
+// Force normal navbar for internal pages.
+$templatecontext['navbartype'] = 'normal';
+$templatecontext['is_floating'] = false;
+$templatecontext['is_normal'] = true;
 
 echo $OUTPUT->render_from_template('theme_president/incourse', $templatecontext);

@@ -1,0 +1,74 @@
+/* Premium Custom Cards for Editor */
+.custom-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.03);
+    
+    .card-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 15px;
+        background: rgba(15, 71, 173, 0.1);
+        color: #0f47ad;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        
+        &.icon-red {
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+
+        &.icon-orange {
+            background: rgba(253, 126, 20, 0.1);
+            color: #fd7e14;
+        }
+    }
+
+    .card-title {
+        font-weight: 800;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        color: #212529;
+    }
+
+    .card-text {
+        color: #6c757d;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+}
+
+/* Dark Mode support for Editor */
+[data-theme="dark"] .custom-card {
+    background: #323846;
+    border-color: rgba(255, 255, 255, 0.1);
+    
+    .card-title {
+        color: #f1f5f9;
+    }
+    
+    .card-text {
+        color: #cbd5e1;
+    }
+    
+    .card-icon {
+        background: rgba(255, 255, 255, 0.05);
+        color: #3b82f6;
+        
+        &.icon-red {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+        }
+        
+        &.icon-orange {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+        }
+    }
+}

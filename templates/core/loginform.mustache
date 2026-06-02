@@ -95,8 +95,11 @@
 <div class="loginform row {{#hastwocolumns}}hastwocolumns{{/hastwocolumns}}">
     <div class="{{#hastwocolumns}}col-lg-6 col-md-12 left-column{{/hastwocolumns}}{{^hastwocolumns}}col{{/hastwocolumns}}">
         {{#logourl}}
-            <div id="loginlogo" class="login-logo">
-                <img id="logoimage" src="{{logourl}}" class="img-fluid" alt="{{sitename}}"/>
+            <div id="loginlogo" class="login-logo mb-4">
+                <img id="logoimage" src="{{logourl}}" class="img-fluid logo logo-light" alt="{{sitename}}"/>
+                {{#logodark_url}}
+                    <img src="{{logodark_url}}" class="img-fluid logo logo-dark" alt="{{sitename}}" style="display: none;"/>
+                {{/logodark_url}}
                 <h1 class="login-heading sr-only">{{#str}} loginto, core, {{sitename}} {{/str}}</h1>
             </div>
         {{/logourl}}

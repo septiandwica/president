@@ -3,6 +3,7 @@
 }
 
 .navbar.fixed-top {
+    background-color: #ffffff !important; /* stylelint-disable-line */
     border: none;
     height: 70px;
 
@@ -19,6 +20,12 @@
                     font-weight: 700;
                     border-bottom: 2px solid #fff;
                 }
+                
+                /* Disable active indicator for Quick Management */
+                &[data-key="quick_management"].active {
+                    font-weight: 500 !important; /* stylelint-disable-line */
+                    border-bottom: none !important; /* stylelint-disable-line */
+                }
             }
         }
     }
@@ -26,6 +33,22 @@
     .navbarcallbacks {
         display: flex;
         flex-direction: row-reverse;
+    }
+
+    .theme-switcher-container {
+        position: relative !important; /* stylelint-disable-line */
+        .dropdown-menu {
+            position: absolute !important; /* stylelint-disable-line */
+            top: 100% !important; /* stylelint-disable-line */
+            margin-top: 0 !important; /* stylelint-disable-line */
+            right: 0 !important; /* stylelint-disable-line */
+            left: auto !important; /* stylelint-disable-line */
+
+            @include media-breakpoint-down(md) {
+                top: 100% !important; /* stylelint-disable-line - Stay below navbar */
+                right: 0 !important; /* stylelint-disable-line */
+            }
+        }
     }
 }
 
@@ -183,3 +206,377 @@
         color: #1d2125;
     }
 }
+/* ============================================
+   NEW NAVBAR STYLES
+   ============================================ */
+
+/* 1. FLOATING */
+.navbar-floating {
+    margin: 1rem auto 0;
+    width: 95%;
+    max-width: 1400px;
+    padding: 10px 1.5rem; /* Increased vertical padding */
+    border-radius: var(--presuniv-radius); /* Use token */
+    left: 0;
+    right: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--presuniv-shadow); /* Use token */
+    background-color: rgba(255, 255, 255, 0.9) !important; /* stylelint-disable-line */
+    backdrop-filter: blur(10px);
+    height: auto !important; /* stylelint-disable-line - Override fixed 70px */
+    min-height: 70px;
+
+    &.has-secondary {
+        border-radius: var(--presuniv-radius) var(--presuniv-radius) 0 0;
+    }
+
+    &.shadow {
+        margin-top: 0;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        background-color: rgba(255, 255, 255, 0.95) !important; /* stylelint-disable-line */
+        box-shadow: var(--presuniv-shadow-hover);
+    }
+}
+
+/* Adjust secondary nav when floating is active */
+.navbar-floating ~ .secondary-navigation {
+    top: 86px; /* 70px height + 1rem margin-top */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 0 auto;
+    width: 95%;
+    max-width: 1400px;
+    border-radius: 0 0 var(--presuniv-radius) var(--presuniv-radius) !important; /* stylelint-disable-line */
+    overflow: hidden;
+    left: 0;
+    right: 0;
+    background-color: rgba(15, 71, 173, 0.9) !important; /* stylelint-disable-line */
+    backdrop-filter: blur(10px);
+    border: none;
+    box-shadow: var(--presuniv-shadow);
+}
+
+.navbar-floating.shadow ~ .secondary-navigation {
+    top: 70px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+    background-color: #002147 !important; /* stylelint-disable-line */
+}
+
+/* Fix frontpage gap when floating navbar is active */
+#page-site-index.notloggedin {
+    .navbar-floating:not(.shadow) {
+        position: absolute; /* Float over hero */
+        background-color: rgba(255, 255, 255, 0.8) !important; /* stylelint-disable-line */
+    }
+
+    #page {
+        margin-top: 0 !important; /* stylelint-disable-line */
+        padding-top: 0 !important; /* stylelint-disable-line */
+    }
+}
+
+/* 3. STICKY */
+.navbar-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    transition: box-shadow 0.3s ease;
+}
+
+/* Common Adjustments */
+.navbar {
+    .navbar-brand img.logo {
+        max-height: 45px;
+        transition: transform 0.3s ease;
+    }
+
+    &:hover .navbar-brand img.logo {
+        transform: scale(1.05);
+    }
+
+    .btn-presuniv-login {
+        background: linear-gradient(135deg, var(--presuniv-primary), var(--presuniv-primary-light));
+        color: #fff !important; /* stylelint-disable-line */
+        font-weight: 700;
+        border-radius: 50px;
+        padding: 8px 24px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: var(--presuniv-shadow);
+
+        &:hover {
+            background: linear-gradient(135deg, var(--presuniv-primary-dark), var(--presuniv-primary));
+            color: #fff !important; /* stylelint-disable-line */
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: var(--presuniv-shadow-hover);
+        }
+    }
+
+    .guest-nav-link {
+        color: #0f47ad;
+        transition: all 0.3s ease;
+        position: relative;
+        padding-bottom: 5px;
+
+        &:hover, &.active {
+            color: var(--presuniv-primary);
+            text-decoration: none;
+            
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 1rem;
+                right: 1rem;
+                height: 2px;
+                background-color: var(--presuniv-primary);
+                border-radius: 2px;
+            }
+        }
+    }
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@include media-breakpoint-down(md) {
+    .navbar.fixed-top > .container-fluid {
+        flex-wrap: nowrap !important; /* stylelint-disable-line */
+        padding-left: 10px !important; /* stylelint-disable-line */
+        padding-right: 10px !important; /* stylelint-disable-line */
+    }
+
+    #usernavigation {
+        flex-direction: row !important; /* stylelint-disable-line - Force horizontal row */
+        display: flex !important; /* stylelint-disable-line */
+        align-items: center;
+        margin-left: auto;
+
+        .nav-link {
+            padding: 0.4rem !important; /* stylelint-disable-line */
+            display: flex;
+            align-items: center;
+        }
+        
+        .popover-region {
+            margin: 0 2px !important; /* stylelint-disable-line - Tighter spacing */
+        }
+
+        .editmode-switch-form {
+            margin-left: 8px !important; /* stylelint-disable-line */
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+
+            .input-group {
+                margin-bottom: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            label {
+                display: none !important; /* stylelint-disable-line - Ensure hidden on mobile */
+            }
+
+            .form-check {
+                padding: 0;
+                margin: 0;
+                min-height: auto;
+                display: flex;
+                align-items: center;
+                
+                .form-check-input {
+                    margin: 0 !important; /* stylelint-disable-line */
+                    float: none;
+                }
+            }
+        }
+
+        .usermenu {
+            margin: 0 4px;
+            .dropdown-toggle {
+                padding: 0.2rem !important; /* stylelint-disable-line */
+                margin: 0;
+                display: flex;
+                align-items: center;
+                
+                &::after {
+                    display: none; /* Hide arrow to save space on mobile */
+                }
+            }
+
+            .dropdown-menu {
+                position: absolute !important; /* stylelint-disable-line */
+                top: 55px !important; /* stylelint-disable-line - BELOW navbar */
+                right: 10px !important; /* stylelint-disable-line - Moved more to the left */
+                left: auto !important; /* stylelint-disable-line */
+                margin: 0 !important; /* stylelint-disable-line */
+                border-radius: var(--presuniv-radius);
+                box-shadow: var(--presuniv-shadow-hover);
+                border: 1px solid rgba(15, 71, 173, 0.1);
+            }
+        }
+
+        /* Fix popover positioning for notifications/messages */
+        .popover-region-container {
+            top: 55px !important; /* stylelint-disable-line - BELOW navbar */
+            right: 0 !important; /* stylelint-disable-line - Adjusted from -50px */
+            left: auto !important; /* stylelint-disable-line */
+            border-radius: var(--presuniv-radius);
+            box-shadow: var(--presuniv-shadow-hover);
+        }
+
+        /* Specific override for theme switcher on mobile to ensure it doesn't overlap */
+        .theme-switcher-container .dropdown-menu {
+            top: 100% !important; /* stylelint-disable-line */
+            right: 0 !important; /* stylelint-disable-line */
+        }
+
+        /* Fix Search button overlap */
+        .simplesearchform {
+            margin-right: 5px;
+            .btn {
+                padding: 6px 10px;
+            }
+        }
+    }
+
+    .navbar-floating {
+        margin: 0.5rem 0.5rem 0 !important; /* stylelint-disable-line */
+        width: calc(100% - 1rem) !important; /* stylelint-disable-line */
+        border-radius: 12px 12px 0 0 !important; /* stylelint-disable-line */
+
+        &:not(.has-secondary) {
+            border-radius: 12px !important; /* stylelint-disable-line */
+        }
+
+        padding: 8px 0.5rem !important; /* stylelint-disable-line - Even more compact */
+
+        .navbar-brand img.logo {
+            max-height: 28px !important; /* stylelint-disable-line - Smaller for mobile */
+        }
+
+        .btn-presuniv-login {
+            padding: 5px 14px !important; /* stylelint-disable-line */
+            font-size: 0.75rem !important; /* stylelint-disable-line */
+        }
+    }
+
+    /* Hide logo on very small screens (around 350px and below) */
+    @media (max-width: 350px) {
+        .navbar-brand {
+            display: none !important; /* stylelint-disable-line */
+        }
+    }
+
+    .navbar-floating ~ .secondary-navigation {
+        top: calc(70px + 0.5rem) !important; /* stylelint-disable-line */
+        width: calc(100% - 1rem) !important; /* stylelint-disable-line */
+        margin: 0 0.5rem !important; /* stylelint-disable-line */
+        border-radius: 0 0 12px 12px !important; /* stylelint-disable-line */
+    }
+
+    /* Adjust padding for mobile when floating */
+    .navbar-floating {
+        @media (max-width: 767.98px) {
+            position: fixed !important; /* stylelint-disable-line */
+            backdrop-filter: none !important; /* stylelint-disable-line */
+            flex-wrap: nowrap !important; /* stylelint-disable-line - Don't wrap! */
+            height: 60px !important; /* stylelint-disable-line */
+            align-items: center;
+
+            .navbar-toggler {
+                background-color: rgba(255, 255, 255, 0.8);
+                backdrop-filter: blur(10px);
+                color: var(--presuniv-dark);
+                padding: 8px;
+                border-radius: 8px;
+                border: 1px solid rgba(0, 0, 0, 0.05);
+                order: 1;
+
+                .navbar-toggler-icon {
+                    filter: none; /* Keep hamburger dark */
+                }
+            }
+
+            .navbar-brand {
+                order: 2;
+                margin: 0 auto !important; /* stylelint-disable-line - Center logo */
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            #usernavigation {
+                order: 3;
+                margin-left: auto;
+            }
+            /* The actual dropdown menu */
+            #floatingMobileMenu {
+                position: absolute !important; /* stylelint-disable-line */
+                top: 70px !important; /* stylelint-disable-line */
+                left: 10px !important; /* stylelint-disable-line */
+                width: 200px !important; /* stylelint-disable-line */
+                background-color: rgba(255, 255, 255, 0.95) !important; /* stylelint-disable-line - Match navbar */
+                backdrop-filter: blur(15px);
+                border-radius: 12px;
+                padding: 10px 0;
+                box-shadow: var(--presuniv-shadow-hover);
+                z-index: 1050;
+                border: 1px solid rgba(0, 0, 0, 0.05);
+
+                /* Triangle pointer */
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: -8px;
+                    left: 20px;
+                    border-left: 8px solid transparent;
+                    border-right: 8px solid transparent;
+                    border-bottom: 8px solid rgba(255, 255, 255, 0.95);
+                }
+
+                .list-group {
+                    background-color: transparent;
+                }
+
+                .list-group-item {
+                    background-color: transparent !important; /* stylelint-disable-line */
+                    color: var(--presuniv-dark) !important; /* stylelint-disable-line */
+                    font-weight: 600;
+                    border: none;
+                    padding: 10px 20px;
+                    font-size: 0.95rem;
+
+                    &:hover {
+                        color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+                        background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+                    }
+
+                    &.active {
+                        color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+                        background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Fix duplicate active highlight when in Quick Management */
+body.is-quick-management {
+    .navbar .primary-navigation .nav-link[data-key="siteadministration"] {
+        font-weight: 500 !important; /* stylelint-disable-line */
+        border-bottom: none !important; /* stylelint-disable-line */
+        box-shadow: none !important; /* stylelint-disable-line */
+    }
+}
+

@@ -17,23 +17,20 @@
  * Theme settings js logic
  *
  * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-import AccessibilitySettingsModal from 'theme_president/accessibilitysettings_modal';
-import $ from 'jquery';
+define(['theme_president/accessibilitysettings_modal', 'jquery'], function(AccessibilitySettingsModal, $) {
+    return {
+        init: function() {
+            $('#accessibilitysettings-control').click(function(e) {
+                e.preventDefault();
 
-export const init = async() => {
-    $('#accessibilitysettings-control').click(function(e) {
-        e.preventDefault();
-
-        openModal();
-    });
-};
-
-const openModal = async() => {
-    const modal = await AccessibilitySettingsModal.create({});
-
-    modal.show();
-};
+                AccessibilitySettingsModal.create({}).then(function(modal) {
+                    modal.show();
+                });
+            });
+        }
+    };
+});

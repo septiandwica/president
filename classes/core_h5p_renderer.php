@@ -18,7 +18,7 @@
  * Class theme_president_core_h5p_renderer.
  * 
  * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class theme_president_core_h5p_renderer extends \core_h5p\output\renderer {

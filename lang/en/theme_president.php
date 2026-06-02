@@ -18,7 +18,7 @@
  * Language file.
  *
  * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -44,8 +44,10 @@ $string['signinwith'] = 'Sign in with';
 
 // General settings tab.
 $string['generalsettings'] = 'General';
-$string['logo'] = 'Logo';
-$string['logodesc'] = 'The logo is displayed in the header.';
+$string['logo'] = 'Navbar Light Logo';
+$string['logodesc'] = 'The logo is displayed in the header when using the light theme.';
+$string['logodark'] = 'Navbar Dark Logo';
+$string['logodarkdesc'] = 'The alternative logo displayed in the header when Dark Mode is active (usually a white/light version of your logo).';
 $string['favicon'] = 'Custom favicon';
 $string['favicondesc'] = 'Upload your own favicon.  It should be an .ico file.';
 $string['preset'] = 'Theme preset';
@@ -69,12 +71,20 @@ $string['enablecourseindex_desc'] = 'You can show/hide course index navigation';
 $string['enableclassicbreadcrumb'] = 'Enable classic breadcrumb';
 $string['enableclassicbreadcrumb_desc'] = 'This setting enables the classic breadcrumb, showing it on pages like course and categories.';
 
+$string['navbartype'] = 'Navbar style';
+$string['navbartype_desc'] = 'Choose the visual style for the top navigation bar.';
+$string['navbartype_normal'] = 'Normal (Default)';
+$string['navbartype_floating'] = 'Floating (Modern)';
+$string['navbartype_sticky'] = 'Sticky (Fixed on Top)';
+
 // Advanced settings tab.
 $string['advancedsettings'] = 'Advanced';
 $string['rawscsspre'] = 'Raw initial SCSS';
 $string['rawscsspre_desc'] = 'In this field you can provide initialising SCSS code, it will be injected before everything else. Most of the time you will use this setting to define variables.';
 $string['rawscss'] = 'Raw SCSS';
 $string['rawscss_desc'] = 'Use this field to provide SCSS or CSS code which will be injected at the end of the style sheet.';
+$string['enabledarkmode'] = 'Enable Dark Mode switcher';
+$string['enabledarkmode_desc'] = 'If enabled, users will be able to switch between Light, Dark, and System theme modes.';
 $string['googleanalytics'] = 'Google Analytics V4 Code';
 $string['googleanalyticsdesc'] = 'Please enter your Google Analytics V4 code to enable analytics on your website. The code format shold be like [G-XXXXXXXXXX]';
 $string['hvpcss'] = 'Raw H5P CSS';
@@ -103,6 +113,29 @@ $string['slidertitle'] = 'Slide title';
 $string['slidertitledesc'] = 'Add the slide\'s title.';
 $string['slidercaption'] = 'Slider caption';
 $string['slidercaptiondesc'] = 'Add a caption for your slide';
+$string['slidercta1text'] = 'Slider CTA 1 Button Text';
+$string['slidercta1textdesc'] = 'The text for the first call-to-action button on the slider.';
+$string['slidercta1url'] = 'Slider CTA 1 Button URL';
+$string['slidercta1urldesc'] = 'The URL for the first call-to-action button on the slider.';
+$string['slidercta2text'] = 'Slider CTA 2 Button Text';
+$string['slidercta2textdesc'] = 'The text for the second call-to-action button on the slider.';
+$string['slidercta2url'] = 'Slider CTA 2 URL';
+$string['slidercta2urldesc'] = 'Destination URL for the second CTA button.';
+
+// Guest Pages.
+$string['guestpages'] = 'Guest Pages';
+$string['programs'] = 'Programs';
+$string['programs_content'] = 'Programs Page Content';
+$string['programs_content_desc'] = 'HTML content for the Programs page. This page is only linked in the navbar for guests.';
+$string['faq'] = 'FAQ';
+$string['faq_content'] = 'FAQ Page Content';
+$string['faq_content_desc'] = 'HTML content for the FAQ page. This page is only linked in the navbar for guests.';
+$string['about'] = 'About Us';
+$string['about_content'] = 'About Us Content';
+$string['about_content_desc'] = 'HTML content for the About Us page.';
+$string['custompage_count'] = 'Number of Custom Pages';
+$string['custompage_count_desc'] = 'Select how many custom guest pages you want to create (max 10). After changing this, click Save to update the fields below.';
+
 
 $string['numbersfrontpage'] = 'Show site numberss';
 $string['numbersfrontpagedesc'] = 'If enabled, display the number of active users and courses in the frontpage.';
@@ -112,6 +145,11 @@ $string['numbersfrontpagecontentdefault'] = '<h2> Learning Made Simple with Pres
                     <p>Discover a seamless learning experience at President University eCampus. Stay connected, access available courses, and engage with fellow learners—all in one convenient platform.</p>';
 $string['numbersusers'] = 'active users on President University eCampus';
 $string['numberscourses'] = 'courses available on President University eCampus';
+$string['recognitioncount'] = 'Global Recognition Logo Count';
+$string['recognitioncountdesc'] = 'Select how many recognition logos you want to display in the carousel.';
+$string['recognitionimage'] = 'Recognition Logo';
+$string['recognitionimagedesc'] = 'Upload a logo (recommended size 200x100px, transparent PNG/SVG).';
+$string['globalrecognition'] = 'Our Global Recognition';
 
 $string['faq'] = 'FAQ';
 $string['faqcount'] = 'FAQ questions';

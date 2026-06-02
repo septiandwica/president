@@ -1,0 +1,1933 @@
+/* ============================================
+   DARK MODE STYLES
+   ============================================ */
+
+[data-theme="dark"] {
+    /* Smooth Transitions */
+    &, body, #page, #page-content, .card, .main-inner, .navbar, .drawer {
+        transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                    color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                    border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    /* 1. Override Core Tokens - EVEN SOFTER PREMIUM DARK */
+    /* Primary colors restored to vibrant blue to fix button gradients */
+    --presuniv-primary: #2563eb; 
+    --presuniv-primary-dark: #1d4ed8;
+    --presuniv-primary-light: #3b82f6;
+    --presuniv-accent: #fcd34d;
+    --presuniv-red: #ef4444;
+    --presuniv-dark: #f8fafc; 
+    --presuniv-gray-bg: #262b36; /* Much softer dark slate */
+    --presuniv-text: #f1f5f9; /* Near white text */
+    --presuniv-text-light: #cbd5e1; /* Light gray text */
+    --presuniv-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    --presuniv-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.4);
+
+    /* 1.5. Override Moodle & Bootstrap Native Variables */
+    --white: #323846;
+    --light: #262b36;
+    --gray-100: #262b36;
+    --gray-200: #323846;
+    --gray-300: rgba(255, 255, 255, 0.1);
+    --gray-400: rgba(255, 255, 255, 0.2);
+    --gray-600: #cbd5e1;
+    --gray-800: #f1f5f9;
+    --gray-900: #f8fafc;
+    --dark: #f8fafc;
+    --body-bg: #262b36;
+    --surface: #323846;
+    --drawer-bg: #262b36;
+    --drop-bg: #323846;
+    --border-color: rgba(255, 255, 255, 0.12);
+
+    /* Bootstrap 5 specific variables for comprehensive coverage */
+    --bs-body-bg: #262b36;
+    --bs-body-color: #f1f5f9;
+    --bs-modal-bg: #323846;
+    --bs-modal-color: #f1f5f9;
+    --bs-modal-border-color: rgba(255, 255, 255, 0.12);
+    --bs-modal-header-border-color: rgba(255, 255, 255, 0.12);
+    --bs-modal-footer-border-color: rgba(255, 255, 255, 0.12);
+    --bs-tertiary-bg: #262b36;
+    --bs-secondary-bg: #323846;
+    --bs-border-color: rgba(255, 255, 255, 0.12);
+    --bs-dropdown-bg: #323846;
+    --bs-dropdown-link-color: #f1f5f9;
+    --bs-dropdown-link-hover-bg: rgba(255, 255, 255, 0.05);
+    --bs-dropdown-link-hover-color: #3b82f6;
+    --bs-dropdown-border-color: rgba(255, 255, 255, 0.12);
+    --bs-dropdown-color: #f1f5f9;
+
+    $card-bg: #323846; /* Noticeably lighter card background */
+    $border-color: rgba(255, 255, 255, 0.12);
+
+    /* 2. Global Backgrounds & Text */
+    background-color: var(--presuniv-gray-bg);
+    color: var(--presuniv-text);
+
+    body:not(.pagelayout-login), #page:not(.path-login #page), #page-content:not(.path-login #page-content) {
+        background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+        color: var(--presuniv-text);
+    }
+
+    /* For login page, use semi-transparent overlay instead of solid background */
+    body.pagelayout-login #page, body.pagelayout-login #page-content {
+        background-color: rgba(38, 43, 54, 0.6) !important; /* stylelint-disable-line */
+    }
+
+    /* Preserve the 'card' look for the main content area */
+    /* We target the outermost wrapper (.main-inner / #topofscroll) to enclose everything (blocks, buttons, and content) */
+    .main-inner,
+    #topofscroll {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        color: var(--presuniv-text);
+        border: none !important; /* stylelint-disable-line */
+        border-radius: 12px;
+        box-shadow: none !important; /* stylelint-disable-line */
+        padding: 1.5rem;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Aggressive Chooser Nav Overrides */
+    .modchoosernav .nav-link,
+    .modchoosercontainer .modchoosernav .nav-link {
+        --bs-nav-link-color: #ffffff !important; /* stylelint-disable-line */
+        --bs-nav-link-hover-color: #ffffff !important; /* stylelint-disable-line */
+        color: #ffffff !important; /* stylelint-disable-line */
+        background-color: transparent;
+        
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+            color: #ffffff !important; /* stylelint-disable-line */
+        }
+        
+        &.active {
+            background-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+            color: #ffffff !important; /* stylelint-disable-line */
+        }
+    }
+
+    /* As requested: Apply background-color to #region-main but remove its borders/shadows to avoid layering */
+    #region-main {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        border: none !important; /* stylelint-disable-line */
+        box-shadow: none !important; /* stylelint-disable-line */
+        padding: 0 !important; /* stylelint-disable-line */
+        margin: 0 !important; /* stylelint-disable-line */
+    }
+
+    /* 3. Common Elements */
+    .card, 
+    .dashboard-card,
+    .stat-card,
+    .block {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        color: var(--presuniv-text);
+        border-color: $border-color !important; /* stylelint-disable-line */
+    }
+
+    /* Frontpage Stat Cards Palette Sync */
+    .stat-card {
+        border: 1px solid rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+        
+        &.stat-primary {
+            background: linear-gradient(135deg, var(--presuniv-primary), var(--presuniv-primary-dark)) !important; /* stylelint-disable-line */
+            color: #ffffff !important; /* stylelint-disable-line */
+            border: none !important; /* stylelint-disable-line */
+            
+            h3, p, .stat-icon i {
+                color: #ffffff !important; /* stylelint-disable-line */
+            }
+        }
+        
+        &.stat-dark {
+            background: linear-gradient(135deg, #1e293b, #0f172a) !important; /* stylelint-disable-line */
+            color: #ffffff !important; /* stylelint-disable-line */
+            border: none !important; /* stylelint-disable-line */
+            
+            h3, p, .stat-icon i {
+                color: #ffffff !important; /* stylelint-disable-line */
+            }
+        }
+    }
+
+    /* Frontpage Section Overrides */
+    #page-site-index.notloggedin {
+        .impact-section {
+            background-color: #323846 !important; /* stylelint-disable-line */
+        }
+        
+        .feature-section,
+        .stats-section {
+            background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+        }
+
+        .impact-card,
+        .faculty-card,
+        .custom-card {
+            background-color: #323846 !important; /* stylelint-disable-line */
+            border: 1px solid $border-color !important; /* stylelint-disable-line */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important; /* stylelint-disable-line */
+            
+            h4, h5, .card-title {
+                color: #ffffff !important; /* stylelint-disable-line */
+            }
+
+            .card-text, p {
+                color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            }
+
+            .faculty-icon, .card-icon {
+                background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+                color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+                display: flex !important; /* stylelint-disable-line */
+                align-items: center !important; /* stylelint-disable-line */
+                justify-content: center !important; /* stylelint-disable-line */
+
+                &.icon-red {
+                    background: rgba(239, 68, 68, 0.15) !important; /* stylelint-disable-line */
+                    color: #f87171 !important; /* stylelint-disable-line */
+                }
+
+                &.icon-orange {
+                    background: rgba(245, 158, 11, 0.15) !important; /* stylelint-disable-line */
+                    color: #fbbf24 !important; /* stylelint-disable-line */
+                }
+            }
+
+            .view-program {
+                color: var(--presuniv-accent) !important; /* stylelint-disable-line */
+            }
+
+            &:hover {
+                border-color: transparent !important; /* stylelint-disable-line */
+                
+                h4, h5, .card-title, .card-text, p {
+                    color: #ffffff !important; /* stylelint-disable-line */
+                }
+            }
+        }
+        
+        .faq-item {
+            background-color: $card-bg !important; /* stylelint-disable-line */
+            border-color: $border-color !important; /* stylelint-disable-line */
+        }
+
+        .accordion-item {
+            background-color: transparent;
+            border-color: $border-color;
+        }
+
+        .accordion-button {
+            background-color: $card-bg;
+            color: var(--presuniv-text);
+
+            &:not(.collapsed) {
+                background-color: #3b4252;
+                color: var(--presuniv-primary-light);
+            }
+        }
+
+        .accordion-body {
+            background-color: var(--presuniv-gray-bg);
+            color: var(--presuniv-text-light);
+        }
+
+        .stats-content h2, 
+        .stats-content h3,
+        .faq-section h2,
+        #frontpage-available-course-list h2 {
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        }
+    }
+
+    /* 10. Site Administration & Admin Pages Fixes */
+    #page-admin-index,
+    .path-admin {
+        .main-inner, #topofscroll {
+            background-color: $card-bg !important; /* stylelint-disable-line */
+        }
+        
+        hr {
+            border-color: $border-color !important; /* stylelint-disable-line */
+            opacity: 0.15;
+        }
+
+        .list-unstyled a {
+            color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+            &:hover {
+                text-decoration: underline;
+                color: #93c5fd !important; /* stylelint-disable-line */
+            }
+        }
+        
+        h4 a, h4 {
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        }
+
+        .tab-pane {
+            background-color: transparent !important; /* stylelint-disable-line */
+        }
+    }
+
+    /* Global Page Header Fix */
+    #page-header {
+        background-color: transparent !important; /* stylelint-disable-line */
+        border-bottom: 1px solid $border-color;
+        margin-bottom: 1.5rem;
+        
+        .page-header-headings h1,
+        .page-header-headings h2 {
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        }
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    .h1, .h2, .h3, .h4, .h5, .h6 {
+        color: var(--presuniv-text);
+    }
+
+    .text-muted {
+        color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+    }
+
+    ::placeholder {
+        color: rgba(255, 255, 255, 0.5) !important; /* stylelint-disable-line */
+    }
+    
+    input::placeholder,
+    textarea::placeholder {
+        color: rgba(255, 255, 255, 0.5) !important; /* stylelint-disable-line */
+    }
+
+    /* FIX: Make all Moodle icons visible in dark mode */
+    .icon, .icon-no-margin, .navbar-nav .nav-link, .guest-nav-link, i.fa, i.fas, i.far {
+        color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+    }
+
+    /* 4. Navbar, Logos & Drawers */
+    .logo-light {
+        display: none !important; /* stylelint-disable-line */
+    }
+    .logo-dark {
+        display: block !important; /* stylelint-disable-line */
+    }
+
+    .navbar.fixed-top {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        border-bottom: 1px solid $border-color;
+        
+        .theme-switcher-container {
+            .dropdown-menu {
+                background-color: #1e293b !important; /* stylelint-disable-line */
+                border: 1px solid rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+                
+                .dropdown-item {
+                    color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+                        color: #ffffff !important; /* stylelint-disable-line */
+                    }
+                    &.active {
+                        background-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+                        color: #ffffff !important; /* stylelint-disable-line */
+                    }
+                }
+            }
+        }
+
+        #management-menu-btn {
+            background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+            border-color: rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+            color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+            
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+            }
+        }
+        
+        /* Drawer Mobile Dark Mode Fix */
+        .drawer-primary {
+            background-color: #1e293b !important; /* stylelint-disable-line */
+            
+            .list-group-item {
+                background-color: transparent !important; /* stylelint-disable-line */
+                color: #f1f5f9 !important; /* stylelint-disable-line */
+                border-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+                
+                &:hover, &:focus {
+                    background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+                    color: #ffffff !important; /* stylelint-disable-line */
+                }
+            }
+            
+            .collapse.list-group-item {
+                background-color: rgba(0, 0, 0, 0.2) !important; /* stylelint-disable-line */
+            }
+        }
+        
+        .dropdown-menu[aria-labelledby="management-menu-btn"] {
+            background-color: #1e293b !important; /* stylelint-disable-line */
+            border: 1px solid rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+
+            .dropdown-header {
+                color: #94a3b8 !important; /* stylelint-disable-line */
+            }
+
+            .dropdown-item {
+                color: var(--presuniv-text) !important; /* stylelint-disable-line */
+                
+                .bg-primary-light {
+                    background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+                    color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+                }
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+                    color: #ffffff !important; /* stylelint-disable-line */
+                }
+            }
+        }
+        
+        /* Disable active indicators specifically for Quick Management dropdown */
+        .nav-link[data-key="quick_management"] {
+            &:hover, &:focus, &.active, &[aria-expanded="true"] {
+                box-shadow: none !important; /* stylelint-disable-line */
+                border-bottom: none !important; /* stylelint-disable-line */
+                font-weight: 500 !important; /* stylelint-disable-line */
+            }
+        }
+        
+        /* Only target the main primary navigation links for the underline effect */
+        .primary-navigation .nav-link {
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            position: relative;
+            
+            &:hover, &:focus, &.active, &[aria-expanded="true"] {
+                color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+                box-shadow: inset 0 -3px 0 var(--presuniv-primary-light);
+            }
+        }
+        
+        .user-menu .nav-link, 
+        .secondary-navigation .nav-link,
+        .moremenu .nav-link,
+        .nav-link {
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            background-color: transparent !important; /* stylelint-disable-line */
+            
+            &:hover, &:focus, &.active {
+                color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+                background-color: transparent !important; /* stylelint-disable-line */
+            }
+        }
+    }
+
+    /* Target the More Menu explicitly to prevent white hover bleed */
+    .moremenu.navigation {
+        background-color: transparent !important; /* stylelint-disable-line */
+        
+        .nav-link {
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            border: none !important; /* stylelint-disable-line */
+            
+            &:hover, &:focus, &.active {
+                background-color: transparent !important; /* stylelint-disable-line */
+                color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+            }
+            
+            &.active {
+                border-bottom: 2px solid var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+            }
+        }
+    }
+
+    .navbar-toggler {
+        border-color: rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+        .navbar-toggler-icon {
+            filter: invert(1) brightness(10) !important; /* stylelint-disable-line */
+        }
+    }
+
+    /* FIX: High specificity for floating navbar to beat _navbar.scss */
+    #page-site-index.notloggedin .navbar-floating {
+        background-color: rgba(50, 56, 70, 0.95) !important; /* stylelint-disable-line */
+        border-bottom: 1px solid $border-color;
+
+        .navbar-toggler {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--presuniv-text);
+            border: 1px solid $border-color;
+
+            .navbar-toggler-icon {
+                filter: invert(1);
+            }
+        }
+    }
+
+    /* FIX: Mobile Dropdown in floating navbar */
+    #page-site-index.notloggedin .navbar-floating #floatingMobileMenu,
+    #floatingMobileMenu {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        border: 1px solid $border-color !important; /* stylelint-disable-line */
+        
+        &::before {
+            border-bottom-color: $card-bg !important; /* stylelint-disable-line */
+        }
+
+        .list-group-item {
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            background-color: transparent !important; /* stylelint-disable-line */
+            
+            &:hover, &.active {
+                background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+                color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+            }
+        }
+    }
+
+    .drawer {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        color: var(--presuniv-text);
+        border-right: 1px solid $border-color;
+
+        .drawerheader {
+            background-color: var(--presuniv-gray-bg);
+            border-bottom: 1px solid $border-color;
+        }
+
+        .list-group-item {
+            background-color: transparent;
+            color: var(--presuniv-text);
+            border-color: $border-color;
+            
+            &:hover, &.active {
+                background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+                color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+                border-left-color: var(--presuniv-primary-light);
+            }
+        }
+    }
+
+    /* 5. Inputs & Forms */
+    .form-control,
+    .custom-select,
+    input[type="text"], 
+    input[type="password"],
+    input[type="email"],
+    input[type="search"],
+    input[type="url"],
+    input[type="tel"],
+    input[type="number"] {
+        background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+        border-color: $border-color !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+
+        &:focus {
+            background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+            border-color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+        }
+    }
+
+    .form-check-input {
+        background-color: rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+        border-color: rgba(255, 255, 255, 0.2) !important; /* stylelint-disable-line */
+        
+        &:checked {
+            background-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+            border-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+        }
+    }
+
+    .form-switch .form-check-input {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255, 255, 255, 0.6)'/%3e%3c/svg%3e") !important; /* stylelint-disable-line */
+        
+        &:checked {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important; /* stylelint-disable-line */
+        }
+    }
+
+    .form-check-label,
+    .text-primary,
+    label.text-primary {
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+    }
+
+    .text-primary,
+    label.text-primary,
+    .form-check-label.text-primary {
+        color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+    }
+
+    /* 6. Modals, Popovers & Login */
+    .modal-content,
+    .popover-region-container,
+    .dropdown-menu {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        background: $card-bg !important; /* stylelint-disable-line */
+        border: 1px solid $border-color !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important; /* stylelint-disable-line */
+    }
+
+    .dropdown-item {
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        background-color: transparent !important; /* stylelint-disable-line */
+        transition: all 0.2s ease;
+
+        &:hover, &:focus, &:active {
+            background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+            color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+        }
+    }
+
+    .popover-region-header-container,
+    .popover-region-footer-container {
+        border-color: $border-color;
+        background-color: var(--presuniv-gray-bg);
+    }
+
+    .popover-region-notifications .popover-region-container .popover-region-content-container .content-item-container.unread {
+        background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+        
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.08) !important; /* stylelint-disable-line */
+        }
+    }
+
+    /* FIX: Login Page overrides */
+    #page-login-index {
+        .login-panel {
+            background: rgba(50, 56, 70, 0.85) !important; /* stylelint-disable-line */
+            border: 1px solid $border-color;
+            box-shadow: var(--presuniv-shadow-hover);
+        }
+
+        .login-head h3 {
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        }
+
+        .login-head p {
+            color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+        }
+    }
+
+    /* 7. Moodle Utility Overrides (CRITICAL) */
+    .bg-white,
+    .bg-light {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+    }
+
+    .text-dark {
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+    }
+
+    /* 8. Placeholders & Skeleton Loaders */
+    .placeholder,
+    .bg-pulse-grey,
+    .loading-placeholder {
+        background-color: rgba(255, 255, 255, 0.08) !important; /* stylelint-disable-line */
+        border-color: transparent !important; /* stylelint-disable-line */
+        animation: placeholder-glow 2s infinite ease-in-out;
+    }
+
+    [data-region="loading-placeholder-content"] {
+        .card {
+            background-color: $card-bg !important; /* stylelint-disable-line */
+            border: 1px solid $border-color !important; /* stylelint-disable-line */
+        }
+    }
+
+    @keyframes placeholder-glow {
+        0% { opacity: 0.4; }
+        50% { opacity: 0.8; }
+        100% { opacity: 0.4; }
+    }
+
+    /* 9. Tables & Data Layouts */
+    .table, .generaltable {
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        border-color: $border-color !important; /* stylelint-disable-line */
+        
+        thead th {
+            background-color: rgba(255, 255, 255, 0.03) !important; /* stylelint-disable-line */
+            border-bottom: 2px solid $border-color !important; /* stylelint-disable-line */
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        }
+        
+        td, th {
+            border-top: 1px solid $border-color !important; /* stylelint-disable-line */
+        }
+        
+        &.table-hover tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.02) !important; /* stylelint-disable-line */
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        }
+    }
+
+    /* 10. Forms, Alerts & Notifications */
+    .alert {
+        background-color: rgba(0, 0, 0, 0.2) !important; /* stylelint-disable-line */
+        border: 1px solid rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        
+        &.alert-danger {
+            background-color: rgba(220, 38, 38, 0.15) !important; /* stylelint-disable-line */
+            border-color: rgba(220, 38, 38, 0.3) !important; /* stylelint-disable-line */
+            color: #fecaca !important; /* stylelint-disable-line */
+        }
+        
+        &.alert-success {
+            background-color: rgba(22, 163, 74, 0.15) !important; /* stylelint-disable-line */
+            border-color: rgba(22, 163, 74, 0.3) !important; /* stylelint-disable-line */
+            color: #bbf7d0 !important; /* stylelint-disable-line */
+        }
+    }
+
+    a {
+        color: var(--presuniv-primary-light);
+        &:hover {
+            color: #93c5fd;
+        }
+    }
+
+    /* 11. Course Content & Activity Names */
+    .course-content .section .sectionname a,
+    .course-content .section-title a,
+    .course-section .sectionname > a,
+    .sectionname > a,
+    .sectionname {
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        
+        &:hover {
+            color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+        }
+    }
+
+    .activity-item .activityname a {
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+    }
+
+    .activity-item .activity-dates {
+        color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+        
+        .date-item-label {
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            font-weight: 500;
+        }
+    }
+
+    /* 12. Activity & Resource Pages */
+    .path-mod .activity-details:not(:empty),
+    .activity-description,
+    #intro.box,
+    .generalbox {
+        background-color: rgba(255, 255, 255, 0.04) !important; /* stylelint-disable-line */
+        border: 1px solid $border-color !important; /* stylelint-disable-line */
+        border-radius: 12px !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        padding: 1.25rem !important; /* stylelint-disable-line */
+        margin-bottom: 1.5rem !important; /* stylelint-disable-line */
+
+        /* Fix: Prevent overlapping boxes when nested */
+        .activity-description,
+        .generalbox,
+        .box,
+        .no-overflow {
+            background-color: transparent !important; /* stylelint-disable-line */
+            border: none !important; /* stylelint-disable-line */
+            box-shadow: none !important; /* stylelint-disable-line */
+            padding: 0 !important; /* stylelint-disable-line */
+            margin: 0 !important; /* stylelint-disable-line */
+        }
+    }
+
+    /* 13. AI Features & Drawer */
+    .ai-drawer {
+        background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+        border-left: 1px solid $border-color !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        box-shadow: -4px 0 15px rgba(0, 0, 0, 0.3) !important; /* stylelint-disable-line */
+
+        .ai-drawer-header {
+            border-bottom: 1px solid $border-color !important; /* stylelint-disable-line */
+            background-color: rgba(255, 255, 255, 0.02) !important; /* stylelint-disable-line */
+        }
+
+        .ai-drawer-body {
+            background-color: transparent !important; /* stylelint-disable-line */
+        }
+
+        .course-assist-response.card {
+            background-color: $card-bg !important; /* stylelint-disable-line */
+            border: 1px solid $border-color !important; /* stylelint-disable-line */
+            
+            .card-title {
+                color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+            }
+            
+            .text-muted {
+                color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+                opacity: 0.6;
+            }
+        }
+
+        .btn-outline-secondary {
+            border-color: rgba(255, 255, 255, 0.2) !important; /* stylelint-disable-line */
+            color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            
+            &:hover {
+                background-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+                border-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+                color: #ffffff !important; /* stylelint-disable-line */
+            }
+        }
+    }
+
+    /* Fix Moodle's hardcoded white blocks/sections */
+    .block-region .block,
+    .course-content ul.topics li.section,
+    .path-course-view .course-content li.section,
+    .activity-item,
+    .activity-header,
+    .activity-information,
+    .description-inner,
+    .course-section-header,
+    .activity-instance,
+    .coursebox {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        border-color: $border-color !important; /* stylelint-disable-line */
+    }
+
+    .activity-item:not(.activityinline) {
+        border-color: $border-color !important; /* stylelint-disable-line */
+    }
+
+    /* Moodle Specific Menus (Action menu, dropdowns) */
+    .moodle-actionmenu[data-enhance="moodle-core-actionmenu"] .toggle-display.textmenu,
+    .action-menu .dropdown-menu,
+    .action-menu .dropdown-toggle,
+    .menu-action {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+    }
+
+    .menu-action:hover, .dropdown-item:hover {
+        background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+        color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+    }
+
+    /* 4.5. Navigation Elements (Pills, Tabs, etc.) */
+    .nav-pills, .nav-tabs:not(.more-nav), .fp-repo-area {
+        background-color: transparent !important; /* stylelint-disable-line */
+        
+        .nav-link {
+            color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            border-radius: 8px;
+            margin-bottom: 2px;
+            border: none !important; /* stylelint-disable-line */
+            
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+                color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+            }
+            
+            &.active, &.show > .nav-link {
+                background-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+                color: #ffffff !important; /* stylelint-disable-line */
+            }
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .nav-tabs:not(.more-nav), .nav-pills {
+            background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+            border: 1px solid $border-color !important; /* stylelint-disable-line */
+        }
+    }
+
+    .breadcrumb {
+        background-color: transparent !important; /* stylelint-disable-line */
+    }
+
+    /* 8. Structural & Base Bootstrap Overrides */
+    
+    /* Drawers (Course Index, Block Drawer) */
+    .drawer, .drawerheader, .drawercontent {
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        
+        a, span, div, p, .btn-close, .close {
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        }
+        
+        a:hover {
+            color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+        }
+    }
+
+    .courseindex,
+    #course-index,
+    #courseindex-content,
+    .courseindex-item,
+    .courseindex-section,
+    .courseindex-item-content,
+    .courseindex-sectioncontent,
+    .delegated-section {
+        background-color: transparent !important; /* stylelint-disable-line */
+        background: transparent !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        border: none !important; /* stylelint-disable-line */
+    }
+
+    #course-index.editing .courseindex-section,
+    #course-index.editing .courseindex-item {
+        background-color: transparent !important; /* stylelint-disable-line */
+        border: none !important; /* stylelint-disable-line */
+    }
+
+    .courseindex-item:hover,
+    .courseindex-item:focus,
+    .courseindex-item.active,
+    .courseindex-item.page-item-active {
+        background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+        color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+    }
+
+    .courseindex-item .courseindex-link {
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        
+        &:hover, &:focus {
+            color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+            text-decoration: none;
+            background-color: transparent !important; /* stylelint-disable-line */
+        }
+    }
+
+    .courseindex-chevron {
+        color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+    }
+
+    [data-region="blocks-column"],
+    [data-region="blocks-drawer"] {
+        background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+    }
+
+    /* Buttons that default to white/light */
+    .btn-light, .btn-outline-secondary {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        border-color: $border-color !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+
+        &:hover, &:focus {
+            background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+            color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+        }
+    }
+
+    /* Core containers that are often hardcoded white */
+    .card, .card-body, .well, .modal-body, .modal-header, .modal-footer {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        border-color: $border-color !important; /* stylelint-disable-line */
+        color: var(--presuniv-text);
+    }
+
+    /* Lists (e.g. Add a block modal) */
+    .list-group-item {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        border-color: $border-color !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        
+        &:hover, &:focus {
+            background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+        }
+    }
+
+    /* Form Controls & Selects */
+    .form-control, .custom-select {
+        background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+        border-color: $border-color !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        
+        &:focus {
+            background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+            border-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25) !important; /* stylelint-disable-line */
+        }
+    }
+
+    /* Sticky Headers & Tertiary Nav (e.g. Grader Report) */
+    .sticky-header, .sticky-column, .tertiary-navigation, .stickyfooter {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        border-color: $border-color !important; /* stylelint-disable-line */
+    }
+    th.sticky-column, td.sticky-column {
+        background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+    }
+
+    /* 9. Comprehensive Moodle Core Overrides */
+    
+    /* 9. Comprehensive Moodle Core Overrides */
+    
+    /* Modals & Choosers (Activity & Block) */
+    .choosercontainer,
+    .chooser-container,
+    .choosercomponent,
+    .chooseroption,
+    .modchooser .optionsummary,
+    .modchoosercontainer .optionsummary,
+    .moodle-dialogue-base .moodle-dialogue-wrap,
+    .modal-content,
+    .modal-body,
+    .modchooser.modal-dialog .modal-body .carousel-item,
+    .modal-footer {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        filter: invert(1) grayscale(100%);
+    }
+
+    .carousel-indicators [data-bs-target] {
+        background-color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+    }
+
+    .modal-header {
+        background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+        border-bottom: 1px solid $border-color !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        
+        .close, .btn-close {
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+    }
+
+    /* Activity Chooser Specifics */
+    .modchoosercontainer {
+        background-color: transparent !important; /* stylelint-disable-line */
+        
+        .modchooserfilters .searchcontainer .searchbar input {
+            background-color: rgba(0, 0, 0, 0.2) !important; /* stylelint-disable-line */
+            border: 1px solid $border-color !important; /* stylelint-disable-line */
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            
+            &::placeholder {
+                color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+                opacity: 0.5;
+            }
+        }
+
+        .modchoosernav {
+            hr {
+                border-color: $border-color !important; /* stylelint-disable-line */
+                opacity: 0.2;
+            }
+        }
+
+        .tab-pane {
+            .categorycontent {
+                h6 {
+                    color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+                    letter-spacing: 0.5px;
+                    margin-top: 1rem;
+                }
+
+                .activitychooser_help {
+                    color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+                    font-size: 0.85rem;
+                    opacity: 0.7;
+                    margin-bottom: 1.5rem;
+                }
+            }
+
+            .optionscontainer {
+                display: flex !important; /* stylelint-disable-line */
+                flex-wrap: wrap !important; /* stylelint-disable-line */
+                gap: 12px !important; /* stylelint-disable-line */
+                padding: 10px 0;
+            }
+
+            .option {
+                background-color: rgba(255, 255, 255, 0.04) !important; /* stylelint-disable-line */
+                border: 1px solid rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.07) !important; /* stylelint-disable-line */
+                    border-color: rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+                    transform: translateY(-2px);
+                    box-shadow: var(--presuniv-shadow);
+
+                    .optionname {
+                        color: #ffffff !important; /* stylelint-disable-line */
+                    }
+                }
+
+                &.selected {
+                    background-color: rgba(59, 130, 246, 0.15) !important; /* stylelint-disable-line */
+                    border: 2px solid var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+                    
+                    .optionname {
+                        color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+                        font-weight: 700;
+                    }
+                }
+            }
+            .optioninfo .optionname {
+                color: var(--presuniv-text) !important; /* stylelint-disable-line */
+                font-weight: 500;
+                transition: color 0.2s ease;
+            }
+
+            .activityiconcontainer {
+                background-color: rgba(0, 0, 0, 0.2) !important; /* stylelint-disable-line */
+                border-radius: 8px;
+                padding: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .optionactions {
+                .btn-icon {
+                    color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+                    opacity: 0.6;
+                    transition: all 0.2s ease;
+                    padding: 4px;
+
+                    &:hover {
+                        color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+                        opacity: 1;
+                        background-color: rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+                    }
+
+                    i.fa-star, .fa-star {
+                        color: var(--presuniv-accent) !important; /* stylelint-disable-line */
+                    }
+                }
+            }
+        }
+
+        .optionsummary {
+            background-color: $card-bg !important; /* stylelint-disable-line */
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+
+            .activitychooser-option-details {
+                .modchooser-detail {
+                    .modchooser-detail-name {
+                        color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+                        opacity: 0.8;
+                    }
+                    .modchooser-detail-value {
+                        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+                    }
+                    
+                    .nav-pills .nav-link {
+                        background-color: rgba(255, 255, 255, 0.08) !important; /* stylelint-disable-line */
+                        border: 1px solid rgba(255, 255, 255, 0.2) !important; /* stylelint-disable-line */
+                        color: #ffffff !important; /* stylelint-disable-line */
+                        font-size: 0.8rem;
+                        padding: 6px 16px;
+                        margin: 2px 0;
+                        transition: all 0.2s ease;
+                        
+                        &.border {
+                            border-color: rgba(255, 255, 255, 0.2) !important; /* stylelint-disable-line */
+                        }
+                        
+                        &:hover {
+                            background-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+                            color: #ffffff !important; /* stylelint-disable-line */
+                            border-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+                        }
+                    }
+                }
+            }
+
+            .optionsummary-summary,
+            .optionsummary-help {
+                color: var(--presuniv-text) !important; /* stylelint-disable-line */
+                
+                h6 {
+                    color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+                    font-weight: 600;
+                    margin-top: 1.5rem;
+                }
+
+                ul li {
+                    color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+                    margin-bottom: 0.5rem;
+                }
+            }
+
+            .modchooser-detail-name.text-muted {
+                color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+                opacity: 0.7;
+            }
+
+            .helpdoclink a {
+                color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+                &:hover {
+                    text-decoration: underline;
+                    color: var(--presuniv-text) !important; /* stylelint-disable-line */
+                }
+            }
+
+            .modal-footer {
+                background-color: transparent !important; /* stylelint-disable-line */
+                border-top: 1px solid $border-color;
+            }
+        }
+    }
+
+    /* Custom Choice Dialogs (e.g., Course Format) */
+    .dropdown-menu.dialog-small,
+    .dropdown-menu[data-for="dropdowndialog_dialog"] {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        border: 1px solid $border-color !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        box-shadow: var(--presuniv-shadow-hover);
+        
+        .choicelist {
+            .dropdown-item-outline {
+                border-color: rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+                transition: all 0.2s ease;
+                
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+                }
+                
+                &.selected,
+                &.bg-primary-light {
+                    background-color: rgba(37, 99, 235, 0.2) !important; /* stylelint-disable-line */
+                    border: 1px solid var(--presuniv-primary) !important; /* stylelint-disable-line */
+                    
+                    .option-select-indicator i {
+                        color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+                    }
+                    
+                    .option-name a.text-dark {
+                        color: #ffffff !important; /* stylelint-disable-line */
+                        font-weight: 700;
+                    }
+                }
+                
+                .option-name {
+                    a.text-dark {
+                        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+                    }
+                    .text-muted {
+                        color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+                        opacity: 0.7;
+                    }
+                }
+                
+                .option-select-indicator {
+                    color: var(--presuniv-text-light);
+                }
+            }
+        }
+    }
+
+    /* Secondary Buttons & File Manager Controls */
+    .btn-secondary,
+    .fp-viewbar .btn-secondary {
+        background-color: rgba(255, 255, 255, 0.07) !important; /* stylelint-disable-line */
+        border: 1px solid rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+        color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+        
+        &:hover, &:focus, &.active, &.checked {
+            background-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+            color: #ffffff !important; /* stylelint-disable-line */
+            border-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+        }
+        
+        i {
+            color: inherit !important; /* stylelint-disable-line */
+        }
+    }
+
+    /* TinyMCE Editor Dark Mode */
+    .tox-tinymce {
+        border-color: $border-color !important; /* stylelint-disable-line */
+        border-radius: 12px !important; /* stylelint-disable-line */
+        background-color: $card-bg !important; /* stylelint-disable-line */
+
+        .tox-editor-header {
+            background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+            border-bottom: 1px solid $border-color !important; /* stylelint-disable-line */
+            padding: 4px !important; /* stylelint-disable-line */
+        }
+
+        .tox-menubar,
+        .tox-toolbar,
+        .tox-toolbar__primary,
+        .tox-toolbar__group {
+            background-color: transparent !important; /* stylelint-disable-line */
+            background: transparent !important; /* stylelint-disable-line */
+        }
+
+        .tox-mbtn,
+        .tox-tbtn {
+            background-color: transparent !important; /* stylelint-disable-line */
+            color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+                color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            }
+
+            &--enabled,
+            &--active {
+                background-color: rgba(255, 255, 255, 0.15) !important; /* stylelint-disable-line */
+                color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+            }
+        }
+
+        .tox-mbtn__select-label {
+            color: inherit !important; /* stylelint-disable-line */
+        }
+
+        .tox-tbtn svg,
+        .tox-mbtn__select-chevron svg {
+            fill: currentColor !important; /* stylelint-disable-line */
+        }
+
+        .tox-statusbar {
+            background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+            border-top: 1px solid $border-color !important; /* stylelint-disable-line */
+            color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            
+            a, button {
+                color: inherit !important; /* stylelint-disable-line */
+            }
+        }
+
+        .tox-edit-area {
+            background-color: #ffffff !important; /* stylelint-disable-line */
+            
+            &__iframe {
+                background-color: #ffffff !important; /* stylelint-disable-line */
+                filter: invert(1) hue-rotate(180deg); /* Flip colors for dark mode */
+            }
+        }
+    }
+
+    /* TinyMCE Content is automatically inverted in Dark Mode via iframe filter */
+
+    /* Dashboard & Course Overview Fixes */
+    /* File Picker & Repository Manager */
+    .file-picker,
+    .filemanager,
+    .fp-content,
+    .fp-upload-form {
+        background-color: transparent !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+
+        label {
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            font-weight: 500;
+        }
+
+        .fp-formset {
+            background-color: transparent !important; /* stylelint-disable-line */
+        }
+        
+        .fp-path-folder {
+            color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+        }
+
+        .fp-filename {
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            transition: color 0.2s ease;
+        }
+
+        .fp-icon img {
+            filter: brightness(1.1); /* Slight boost for dark backgrounds */
+        }
+
+        a:hover .fp-filename {
+            color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+        }
+    }
+
+    .filemanager-container,
+    .file-picker .fp-content {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        border: 1px solid $border-color !important; /* stylelint-disable-line */
+        border-radius: 12px;
+        min-height: 320px !important; /* stylelint-disable-line */
+        height: auto !important; /* stylelint-disable-line */
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .fp-content-error {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem;
+        
+        .fp-error {
+            color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            opacity: 0.6;
+            font-style: italic;
+        }
+    }
+
+    .fp-toolbar, .filemanager .fp-toolbar {
+        background-color: rgba(255, 255, 255, 0.03) !important; /* stylelint-disable-line */
+        border-bottom: 1px solid $border-color !important; /* stylelint-disable-line */
+        padding: 8px !important; /* stylelint-disable-line */
+        border-radius: 12px 12px 0 0;
+        
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+            border-color: rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+            color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            
+            &:hover {
+                background-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+                color: #ffffff !important; /* stylelint-disable-line */
+            }
+        }
+    }
+
+    .fp-viewbar {
+        border: 1px solid $border-color !important; /* stylelint-disable-line */
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0.2) !important; /* stylelint-disable-line */
+    }
+
+    .fp-content-center {
+        padding: 1.5rem !important; /* stylelint-disable-line */
+    }
+
+    /* Course Section Toggler (Expand/Collapse) */
+    .icons-collapse-expand:not(.list-group-item),
+    .btn.btn-icon.icons-collapse-expand {
+        background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+        border: 1px solid rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+        border-radius: 8px;
+        color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 !important; /* stylelint-disable-line */
+        transition: all 0.2s ease;
+        
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+            color: #ffffff !important; /* stylelint-disable-line */
+            border-color: rgba(255, 255, 255, 0.2) !important; /* stylelint-disable-line */
+            transform: scale(1.05);
+        }
+
+        i {
+            color: inherit !important; /* stylelint-disable-line */
+            margin: 0 !important; /* stylelint-disable-line */
+            font-size: 0.9rem;
+        }
+
+        span {
+            padding: 0 !important; /* stylelint-disable-line */
+        }
+    }
+    
+    .btn-add-content,
+    .add-content {
+        background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+        border: 1px solid rgba(255, 255, 255, 0.15) !important; /* stylelint-disable-line */
+        color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+            border-color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+            text-decoration: none;
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            
+            .activity-add-text {
+                color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            }
+        }
+
+        i, .activity-add-text {
+            color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+        }
+    }
+
+    .divider {
+        background: none !important; /* stylelint-disable-line */
+        hr {
+            border-color: $border-color !important; /* stylelint-disable-line */
+            opacity: 0.3;
+        }
+        .divider-content {
+            background-color: $card-bg !important; /* stylelint-disable-line */
+            background: $card-bg !important; /* stylelint-disable-line */
+            
+            .btn.add-content,
+            .add-content {
+                background-color: rgba(255, 255, 255, 0.03) !important; /* stylelint-disable-line */
+                border: 1px solid rgba(255, 255, 255, 0.15) !important; /* stylelint-disable-line */
+                border-radius: 12px;
+                padding: 12px !important; /* stylelint-disable-line */
+            }
+        }
+    }
+
+    /* Activity Chooser Search */
+    .choosercontainer .search-container,
+    .choosercontainer .searchbar {
+        background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        border-bottom: 1px solid $border-color;
+    }
+
+    .moodle-dialogue-base .moodle-dialogue-hd {
+        background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+        border-bottom: 1px solid $border-color;
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+    }
+
+    /* Tables (Participants, Grades) */
+    .table, .generaltable {
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        background-color: transparent !important; /* stylelint-disable-line */
+        
+        th, td {
+            border-color: $border-color !important; /* stylelint-disable-line */
+            background-color: transparent !important; /* stylelint-disable-line */
+        }
+    }
+
+    .table-striped tbody tr:nth-of-type(odd),
+    .generaltable tbody tr:nth-of-type(odd) {
+        background-color: rgba(255, 255, 255, 0.02) !important; /* stylelint-disable-line */
+    }
+
+    .table-hover tbody tr:hover,
+    .generaltable tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+    }
+
+    /* Forms & Autocomplete */
+    .form-autocomplete-selection,
+    .form-autocomplete-suggestions {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        border-color: $border-color !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+    }
+
+    .form-autocomplete-suggestions li:hover,
+    .form-autocomplete-suggestions li[aria-selected="true"] {
+        background-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+        color: #fff !important; /* stylelint-disable-line */
+    }
+
+    /* Course Index Drawer */
+    #courseindex {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        border-right: 1px solid $border-color;
+
+        .courseindex-item, .courseindex-link, a {
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            &:hover, &.active, &:focus {
+                background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+                color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+            }
+        }
+
+        .courseindex-section-title, .courseindex-section-title a {
+            color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+        }
+    }
+
+    /* Pagination */
+    .page-link {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        border-color: $border-color !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+        }
+    }
+
+    .page-item.active .page-link {
+        background-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+        border-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+        color: #fff !important; /* stylelint-disable-line */
+    }
+
+    /* Tabs */
+    .nav-tabs {
+        border-bottom-color: $border-color;
+
+        .nav-link {
+            color: var(--presuniv-text-light);
+            
+            &:hover {
+                border-color: transparent transparent $border-color transparent;
+                color: var(--presuniv-text);
+            }
+
+            &.active {
+                background-color: transparent !important; /* stylelint-disable-line */
+                border-color: $border-color $border-color var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+                color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+            }
+        }
+    }
+
+    /* Filter Bar */
+    .filter-group, .initialbar {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        border-color: $border-color !important; /* stylelint-disable-line */
+    }
+
+    /* Alerts & Notifications */
+    .alert {
+        border-color: transparent;
+        &.alert-info { background-color: rgba(96, 165, 250, 0.1) !important; color: #93c5fd !important; }
+        &.alert-warning { background-color: rgba(252, 211, 77, 0.1) !important; color: #fde68a !important; }
+        &.alert-success { background-color: rgba(52, 211, 153, 0.1) !important; color: #6ee7b7 !important; }
+        &.alert-danger { background-color: rgba(248, 113, 113, 0.1) !important; color: #fca5a5 !important; }
+    }
+
+    /* Message App (Drawer right) */
+    .message-app {
+        background-color: $card-bg !important; /* stylelint-disable-line */
+        .header-container, .footer-container {
+            background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+            border-color: $border-color !important; /* stylelint-disable-line */
+        }
+        .message.send {
+            background-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+            color: #fff !important; /* stylelint-disable-line */
+        }
+        .message.received {
+            background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        }
+    }
+
+    /* 14. Quiz Editor (mod_quiz) */
+    .path-mod-quiz-edit, #page-mod-quiz-edit {
+        .slots, .section, .main, .content,
+        ul.slots li.section .content {
+            background-color: transparent !important; /* stylelint-disable-line */
+            border-color: $border-color !important; /* stylelint-disable-line */
+        }
+
+        .section-heading {
+            background-color: rgba(255, 255, 255, 0.03) !important; /* stylelint-disable-line */
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid $border-color !important; /* stylelint-disable-line */
+            
+            h3 {
+                color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            }
+        }
+
+        .instanceshufflequestions {
+            color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            label {
+                color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            }
+        }
+
+        .last-add-menu {
+            .add-menu-outer {
+                background-color: transparent !important; /* stylelint-disable-line */
+            }
+            
+            .add-menu {
+                color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+            }
+            
+            .dropdown-toggle {
+                background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+                border: 1px solid rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+                padding: 6px 12px !important; /* stylelint-disable-line */
+                border-radius: 6px;
+                
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+                }
+            }
+        }
+        
+        .slot {
+            background-color: rgba(255, 255, 255, 0.02) !important; /* stylelint-disable-line */
+            border: 1px solid $border-color !important; /* stylelint-disable-line */
+            margin-bottom: 8px;
+            
+            .slot-header {
+                background-color: rgba(255, 255, 255, 0.03) !important; /* stylelint-disable-line */
+            }
+        }
+
+        .inplaceeditable {
+            background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+            border-radius: 4px;
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            
+            .inplaceeditable-text {
+                color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            }
+            
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1) !important; /* stylelint-disable-line */
+            }
+
+            input {
+                background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+                color: var(--presuniv-text) !important; /* stylelint-disable-line */
+                border: 1px solid var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+            }
+        }
+
+        .section .activity .actions,
+        ul.slots li.section li.activity .instancemaxmarkcontainer {
+            background-color: rgba(255, 255, 255, 0.03) !important; /* stylelint-disable-line */
+            border: 1px solid $border-color !important; /* stylelint-disable-line */
+            border-radius: 6px;
+            padding: 4px 8px !important; /* stylelint-disable-line */
+            
+            .icon {
+                color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            }
+        }
+    }
+
+    /* 15. Chooser Dialogs (Activity / Question Chooser) */
+    .jschooser .choosercontainer #chooseform {
+        background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+        color: var(--presuniv-text) !important; /* stylelint-disable-line */
+
+        .instruction, .typesummary {
+            background-color: #1e293b !important; /* stylelint-disable-line - Slightly lighter */
+            color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            border-left: 1px solid $border-color;
+        }
+
+        .option {
+            background-color: transparent !important; /* stylelint-disable-line */
+            border-bottom: 1px solid $border-color;
+            
+            &.selected {
+                background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+                color: var(--presuniv-primary-light) !important; /* stylelint-disable-line */
+            }
+            
+            label {
+                color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            }
+            
+            .typename {
+                color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            }
+        }
+    }
+
+    /* 16. TinyMCE Editor (tox-*) */
+    .tox-tinymce {
+        border-color: $border-color !important; /* stylelint-disable-line */
+        border-radius: 10px !important; /* stylelint-disable-line */
+        background-color: $card-bg !important; /* stylelint-disable-line */
+
+        .tox-editor-header {
+            background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+            border-bottom: 1px solid $border-color !important; /* stylelint-disable-line */
+            padding: 4px !important; /* stylelint-disable-line */
+        }
+
+        .tox-menubar, .tox-toolbar, .tox-toolbar__primary, .tox-toolbar__group {
+            background-color: transparent !important; /* stylelint-disable-line */
+            background: transparent !important; /* stylelint-disable-line */
+            border: none !important; /* stylelint-disable-line */
+        }
+
+        .tox-mbtn, .tox-tbtn, .tox-split-button {
+            color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            background-color: transparent !important; /* stylelint-disable-line */
+            
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.05) !important; /* stylelint-disable-line */
+                color: #ffffff !important; /* stylelint-disable-line */
+            }
+            
+            svg {
+                fill: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            }
+
+            .tox-mbtn__select-label {
+                color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            }
+        }
+
+        .tox-tbtn--disabled, .tox-tbtn--disabled:hover {
+            opacity: 0.3 !important; /* stylelint-disable-line */
+        }
+
+        .tox-statusbar {
+            background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+            border-top: 1px solid $border-color !important; /* stylelint-disable-line */
+            color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            
+            a, button, .tox-statusbar__path-item, .tox-statusbar__wordcount {
+                color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            }
+        }
+
+        .tox-edit-area {
+            background-color: #ffffff !important; /* stylelint-disable-line - Keep editing area white for content visibility unless skin is dark */
+            
+            &__iframe {
+                background-color: #ffffff !important; /* stylelint-disable-line */
+            }
+        }
+    }
+
+    /* 17. Question Types Fixes (Multi-choice, etc.) */
+    body#page-question-type-multichoice, 
+    .path-question-type {
+        .fitem {
+            border-color: $border-color !important; /* stylelint-disable-line */
+        }
+
+        /* Stacked question fields (Answer, Fraction, Feedback) */
+        div[id^="fitem_id_"][id*="answer_"],
+        div[id^="fitem_id_"][id*="fraction_"],
+        div[id^="fitem_id_"][id*="feedback_"] {
+            background-color: rgba(255, 255, 255, 0.02) !important; /* stylelint-disable-line */
+            border: 1px solid $border-color !important; /* stylelint-disable-line */
+            margin-top: 0 !important; /* stylelint-disable-line */
+            margin-bottom: 0 !important; /* stylelint-disable-line */
+            padding: 12px 15px !important; /* stylelint-disable-line */
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+        }
+
+        div[id^="fitem_id_"][id*="answer_"] {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom: none !important; /* stylelint-disable-line */
+        }
+
+        div[id^="fitem_id_"][id*="fraction_"] {
+            border-top: none !important; /* stylelint-disable-line */
+            border-bottom: none !important; /* stylelint-disable-line */
+        }
+
+        div[id^="fitem_id_"][id*="feedback_"] {
+            border-top: none !important; /* stylelint-disable-line */
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            margin-bottom: 2rem !important; /* stylelint-disable-line - Gap between choices */
+        }
+    }
+
+    /* 18. Question Attempts (Attempt/Preview) */
+    .que {
+        .formulation {
+            background-color: rgba(255, 255, 255, 0.03) !important; /* stylelint-disable-line */
+            border: 1px solid $border-color !important; /* stylelint-disable-line */
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            border-radius: 12px;
+        }
+
+        .info {
+            background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+            border: 1px solid $border-color !important; /* stylelint-disable-line */
+            color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            border-radius: 12px !important; /* stylelint-disable-line */
+            padding: 1rem !important; /* stylelint-disable-line */
+            
+            h3.no, .no {
+                color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            }
+            
+            .state, .grade {
+                color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            }
+        }
+
+        .outcome, .comment {
+            background-color: rgba(59, 130, 246, 0.05) !important; /* stylelint-disable-line - Slight blue tint for feedback */
+            border: 1px solid rgba(59, 130, 246, 0.2) !important; /* stylelint-disable-line */
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            border-radius: 12px;
+        }
+
+        /* Question navigation in quiz */
+        .qnbutton {
+            background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+            border-color: $border-color !important; /* stylelint-disable-line */
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            
+            &.active {
+                background-color: var(--presuniv-primary) !important; /* stylelint-disable-line */
+                color: #ffffff !important; /* stylelint-disable-line */
+            }
+        }
+
+        /* Essay question response area */
+        .qtype_essay_response, .qtype_essay_editor {
+            background-color: var(--presuniv-gray-bg) !important; /* stylelint-disable-line */
+            border: 1px solid $border-color !important; /* stylelint-disable-line */
+            color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            border-radius: 8px;
+            padding: 10px;
+            min-height: 150px;
+            
+            &.readonly {
+                background-color: rgba(255, 255, 255, 0.02) !important; /* stylelint-disable-line */
+                color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+            }
+        }
+    }
+
+    /* 19. Custom Guest Pages (Programs, FAQ, etc.) */
+    .custom-page-container {
+        .custom-page-content {
+            background-color: transparent !important; /* stylelint-disable-line */
+            border: none !important; /* stylelint-disable-line */
+            box-shadow: none !important; /* stylelint-disable-line */
+            
+            h1, h2, h3, h4, h5, h6 {
+                color: var(--presuniv-text) !important; /* stylelint-disable-line */
+            }
+            
+            .content-wrapper {
+                color: var(--presuniv-text-light) !important; /* stylelint-disable-line */
+                line-height: 1.8;
+                
+                p, li {
+                    font-size: 1.1rem;
+                }
+            }
+        }
+    }
+}

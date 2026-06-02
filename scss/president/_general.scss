@@ -315,3 +315,44 @@ a {
         max-width: 95%;
     }
 }
+
+/* Activity Chooser Layout (Uniform Sizes for Light & Dark Mode) */
+.modchoosercontainer {
+    .optionscontainer {
+        display: flex !important; /* stylelint-disable-line */
+        flex-wrap: wrap !important; /* stylelint-disable-line */
+        gap: 12px !important; /* stylelint-disable-line */
+        padding: 10px 0;
+    }
+
+    .option {
+        margin: 0 !important; /* stylelint-disable-line */
+        padding: 12px !important; /* stylelint-disable-line */
+        text-align: left;
+        border-radius: 12px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        
+        /* Strict Uniform Sizing */
+        width: calc(33.333% - 12px) !important; /* stylelint-disable-line */
+        max-width: calc(33.333% - 12px) !important; /* stylelint-disable-line */
+        flex: 0 0 calc(33.333% - 12px) !important; /* stylelint-disable-line */
+        height: 100px !important; /* stylelint-disable-line */
+        display: flex !important; /* stylelint-disable-line */
+        align-items: center;
+        overflow: hidden;
+        
+        @media (max-width: 992px) {
+            width: calc(50% - 12px) !important; /* stylelint-disable-line */
+            max-width: calc(50% - 12px) !important; /* stylelint-disable-line */
+            flex: 0 0 calc(50% - 12px) !important; /* stylelint-disable-line */
+        }
+
+        @media (max-width: 576px) {
+            width: 100% !important; /* stylelint-disable-line */
+            max-width: 100% !important; /* stylelint-disable-line */
+            flex: 0 0 100% !important; /* stylelint-disable-line */
+        }
+    }
+}
+
+

@@ -9,7 +9,7 @@ module.exports = function(grunt) {
     var path = require('path'),
         PWD = process.env.PWD || process.cwd();
 
-    var decachephp = "../../admin/cli/purge_caches.php";
+    var decachephp = "/var/www/html/moodle/admin/cli/purge_caches.php";
 
     var inAMD = path.basename(PWD) == 'amd';
 
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
      * @param {String} srcPath the  matched src path
      * @return {String} The rewritten destination path.
      */
-    var uglifyRename = function(destPath, srcPath) {
+    var jsRename = function(destPath, srcPath) {
         destPath = srcPath.replace("src", "build");
         destPath = destPath.replace(".js", ".min.js");
         destPath = path.resolve(PWD, destPath);
@@ -39,15 +39,14 @@ module.exports = function(grunt) {
             amd: {src: amdSrc},
             yui: {src: ["**/yui/src/**/*.js", "!*/**/yui/src/*/meta/*.js"]}
         },
-        uglify: {
+        terser: {
             amd: {
                 files: [{
                     expand: true,
                     src: amdSrc,
-                    rename: uglifyRename
+                    rename: jsRename
                 }],
                 options: {
-                    report: "min",
                     sourceMap: true
                 }
             }
@@ -63,7 +62,7 @@ module.exports = function(grunt) {
             },
             css: {
                 files: ["scss/**/*.scss"],
-                tasks: ["decache"]
+                tasks: ["css", "decache"]
             }
         },
         stylelint: {
@@ -99,7 +98,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-exec");
 
     // Load core tasks.
-    grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("grunt-terser");
     grunt.loadNpmTasks("grunt-eslint");
     grunt.loadNpmTasks("grunt-stylelint");
 
@@ -107,9 +106,9 @@ module.exports = function(grunt) {
     grunt.registerTask("css", ["stylelint:scss", "stylelint:css"]);
 
     // Register tasks.
-    grunt.registerTask("amd", ["uglify"]);
+    grunt.registerTask("amd", ["eslint:amd", "terser"]);
     grunt.registerTask("default", ["watch"]);
     grunt.registerTask("decache", ["exec:decache"]);
 
-    grunt.registerTask("compile", ["uglify", "decache"]);
+    grunt.registerTask("compile", ["terser", "decache"]);
 };

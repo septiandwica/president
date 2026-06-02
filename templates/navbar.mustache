@@ -55,28 +55,42 @@
         ]
     }
 }}
-<nav id="navbar" class="navbar fixed-top navbar-light bg-white navbar-expand" aria-label="{{#str}}sitemenubar, admin{{/str}}">
+<nav id="navbar" class="navbar fixed-top navbar-light navbar-expand-md navbar-{{{navbartype}}} {{#secondarymoremenu}}has-secondary{{/secondarymoremenu}}" aria-label="{{#str}}sitemenubar, admin{{/str}}">
     <div class="container-fluid">
-        <button class="navbar-toggler aabtn d-block d-md-none px-1 my-1 border-0" data-toggler="drawers" data-action="toggle" data-target="theme_president-drawers-primary">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler aabtn d-block d-md-none px-2 py-1 border-0" 
+            {{#is_floating}}data-bs-toggle="collapse" data-bs-target="#floatingMobileMenu" aria-expanded="false" aria-controls="floatingMobileMenu"{{/is_floating}}
+            {{^is_floating}}data-toggler="drawers" data-action="toggle" data-target="theme_president-drawers-primary"{{/is_floating}}>
+            <span class="navbar-toggler-icon" style="width: 1.2rem; height: 1.2rem;"></span>
             <span class="sr-only">{{#str}}sidepanel, core{{/str}}</span>
         </button>
 
-        <a href="{{{ config.homeurl }}}" class="navbar-brand d-none  d-md-flex align-items-center m-0 mr-4 p-0 aabtn">
+        <a href="{{{ config.homeurl }}}" class="navbar-brand d-none d-md-flex align-items-center m-0 mr-4 p-0 aabtn">
             {{# output.should_display_logo }}
-                <img src="{{output.get_logo}}" class="logo" alt="{{sitename}}">
+                <img src="{{output.get_logo}}" class="logo logo-light" alt="{{sitename}}">
+                {{# logodark_url }}
+                    <img src="{{logodark_url}}" class="logo logo-dark" alt="{{sitename}}" style="display: none;">
+                {{/ logodark_url }}
             {{/ output.should_display_logo }}
             {{^ output.should_display_logo }}
                 {{{ sitename }}}
             {{/ output.should_display_logo }}
         </a>
+
+        <a href="{{{ config.homeurl }}}" class="navbar-brand d-flex d-md-none align-items-center m-0 p-0 aabtn">
+             {{# output.should_display_logo }}
+                <img src="{{output.get_logo}}" class="logo logo-light" style="max-height: 35px;" alt="{{sitename}}">
+                {{# logodark_url }}
+                    <img src="{{logodark_url}}" class="logo logo-dark" style="max-height: 35px; display: none;" alt="{{sitename}}">
+                {{/ logodark_url }}
+            {{/ output.should_display_logo }}
+        </a>
+
+        {{^is_guest}}
         {{#primarymoremenu}}
-        <div class="primary-navigation">
+        <div class="primary-navigation d-none d-md-block">
             {{> core/moremenu}}
         </div>
         {{/primarymoremenu}}
-
-        <a href="{{{ config.wwwroot }}}/theme/president/about.php" class="navbar-nav">About Us</a>
 
         <ul class="navbar-nav d-none d-md-flex my-1 px-1">
             <!-- page_heading_menu -->
@@ -95,6 +109,30 @@
                 {{> theme_president/language_menu }}
                 <div class="divider border-left h-75 align-self-center mx-1"></div>
             {{/langmenu}}
+
+            
+            {{#enabledarkmode}}
+            <!-- Theme Switcher (Light/Dark/System) -->
+            <div class="dropdown mr-2 h-100 {{^usermenu}}d-none d-md-flex{{/usermenu}} {{#usermenu}}d-flex{{/usermenu}} align-items-center theme-switcher-container">
+                <button class="btn btn-icon d-flex align-items-center justify-content-center rounded-circle border-0 p-0" 
+                        id="theme-switcher-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+                        title="Appearance" style="background: transparent; width: 38px; height: 38px;">
+                    <i class="icon fa-solid fa-circle-half-stroke m-0" id="current-theme-icon" style="font-size: 1.1rem;"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right shadow-lg border-0" aria-labelledby="theme-switcher-btn" style="border-radius: 12px; padding: 0.5rem; min-width: 140px;">
+                    <a class="dropdown-item d-flex align-items-center rounded mb-1 py-2" href="#" data-theme-value="light">
+                        <i class="fa-regular fa-sun mr-3" style="width: 18px;"></i> Light
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center rounded mb-1 py-2" href="#" data-theme-value="dark">
+                        <i class="fa-regular fa-moon mr-3" style="width: 18px;"></i> Dark
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center rounded py-2" href="#" data-theme-value="auto">
+                        <i class="fa-solid fa-circle-half-stroke mr-3" style="width: 18px;"></i> System
+                    </a>
+                </div>
+            </div>
+            {{/enabledarkmode}}
+
             {{{ output.navbar_plugin_output }}}
             <div class="d-flex align-items-stretch usermenu-container" data-region="usermenu">
                 {{#usermenu}}
@@ -103,11 +141,152 @@
             </div>
             {{{ output.edit_switch }}}
         </div>
+
+        {{#is_floating}}
+        <div class="collapse w-100 d-md-none" id="floatingMobileMenu">
+            <div class="list-group list-group-flush py-2 mt-2 border-top">
+                {{^is_guest}}
+                {{#mobileprimarynav}}
+                    {{#haschildren}}
+                        <div class="list-group-item border-0 px-1 py-2">
+                            <div class="font-weight-bold small text-muted text-uppercase mb-2 px-2">{{{text}}}</div>
+                            <div class="list-group list-group-flush ml-3">
+                                {{#children}}
+                                    <a href="{{{url}}}" class="list-group-item list-group-item-action border-0 py-2 rounded">{{{text}}}</a>
+                                {{/children}}
+                            </div>
+                        </div>
+                    {{/haschildren}}
+                    {{^haschildren}}
+                        <a href="{{{url}}}" class="list-group-item list-group-item-action border-0 px-1 py-3 {{#isactive}}active{{/isactive}}">{{{text}}}</a>
+                    {{/haschildren}}
+                {{/mobileprimarynav}}
+                {{^mobileprimarynav}}
+                    {{#primarymoremenu}}
+                        {{#moremenu}}
+                            {{#nodecollection}}
+                                {{#children}}
+                                    <a href="{{{action}}}" class="list-group-item list-group-item-action border-0 px-1 py-3">{{{text}}}</a>
+                                {{/children}}
+                            {{/nodecollection}}
+                        {{/moremenu}}
+                    {{/primarymoremenu}}
+                {{/mobileprimarynav}}
+                {{/is_guest}}
+
+                {{#is_guest}}
+                <div class="list-group-item border-0 px-1 py-2">
+                    <div class="list-group list-group-flush ml-3">
+                        {{#guest_links}}
+                        <a href="{{{url}}}" class="list-group-item list-group-item-action border-0 py-2 rounded">{{title}}</a>
+                        {{/guest_links}}
+                        <a href="{{{ config.wwwroot }}}/theme/president/about.php" class="list-group-item list-group-item-action border-0 py-2 rounded">About Us</a>
+                    </div>
+                </div>
+                {{/is_guest}}
+
+                {{^usermenu}}
+                {{#enabledarkmode}}
+                <div class="list-group-item border-0 px-1 py-2">
+                    <div class="font-weight-bold small text-muted text-uppercase mb-2 px-2">Appearance</div>
+                    <div class="list-group list-group-flush ml-3">
+                        <a href="#" class="list-group-item list-group-item-action border-0 py-2 rounded d-flex align-items-center" data-theme-value="light">
+                            <i class="fa-regular fa-sun mr-3" style="width: 20px;"></i> Light
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action border-0 py-2 rounded d-flex align-items-center" data-theme-value="dark">
+                            <i class="fa-regular fa-moon mr-3" style="width: 20px;"></i> Dark
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action border-0 py-2 rounded d-flex align-items-center" data-theme-value="auto">
+                            <i class="fa-solid fa-circle-half-stroke mr-3" style="width: 20px;"></i> System
+                        </a>
+                    </div>
+                </div>
+                {{/enabledarkmode}}
+                {{/usermenu}}
+            </div>
+        </div>
+        {{/is_floating}}
     </div>
 </nav>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeItems = document.querySelectorAll('[data-theme-value]');
+        const currentThemeIcon = document.getElementById('current-theme-icon');
+        
+        const updateTheme = (value) => {
+            const darkModeEnabled = {{#enabledarkmode}}true{{/enabledarkmode}}{{^enabledarkmode}}false{{/enabledarkmode}};
+            const isDark = darkModeEnabled && (value === 'dark' || (value === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches));
+            if (isDark) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+            
+            // Update icon
+            if (currentThemeIcon) {
+                currentThemeIcon.classList.remove('fa-sun', 'fa-moon', 'fa-circle-half-stroke', 'fa-desktop');
+                if (value === 'auto') {
+                    currentThemeIcon.classList.add('fa-circle-half-stroke');
+                } else if (isDark) {
+                    currentThemeIcon.classList.add('fa-moon');
+                } else {
+                    currentThemeIcon.classList.add('fa-sun');
+                }
+            }
+            
+            localStorage.setItem('presuniv_theme_preference', value);
+            document.cookie = "presuniv_theme_preference=" + value + "; path=/; max-age=31536000; SameSite=Lax";
+            
+            // Mark active in dropdown
+            themeItems.forEach(item => {
+                if (item.getAttribute('data-theme-value') === value) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        };
 
+        // Initialize UI state
+        const getSavedTheme = () => {
+            let theme = localStorage.getItem('presuniv_theme_preference');
+            if (theme) return theme;
+            
+            // Try cookie as fallback
+            const name = "presuniv_theme_preference=";
+            const ca = document.cookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            
+            // Try server attribute
+            const serverAttr = document.documentElement.getAttribute('data-theme');
+            if (serverAttr) return serverAttr;
+
+            return 'auto';
+        };
+
+        const savedTheme = getSavedTheme();
+        updateTheme(savedTheme);
+
+        themeItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                updateTheme(item.getAttribute('data-theme-value'));
+            });
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (localStorage.getItem('presuniv_theme_preference') === 'auto') {
+                updateTheme('auto');
+            }
+        });
+    });
+</script>
 
 {{#secondarymoremenu}}
     <div class="secondary-navigation d-print-none president">
@@ -124,7 +303,7 @@
     let navbar = document.getElementById('navbar');
     if (navbar) { 
       window.addEventListener('scroll', function() {
-        if (window.scrollY > 0) {
+        if (window.scrollY > 10) {
           navbar.classList.add('shadow');
         } else {
           navbar.classList.remove('shadow');

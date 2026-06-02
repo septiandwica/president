@@ -156,7 +156,7 @@ function theme_president_pluginfile($course, $cm, $context, $filearea, $args, $f
     $theme = theme_config::load('president');
 
     if ($context->contextlevel == CONTEXT_SYSTEM &&
-        ($filearea === 'logo' || $filearea === 'loginbgimg' || $filearea == 'favicon')) {
+        ($filearea === 'logo' || $filearea === 'logodark' || $filearea === 'footerlogo' || $filearea === 'loginbgimg' || $filearea == 'favicon')) {
         $theme = theme_config::load('president');
         // By default, theme files must be cache-able by both browsers and proxies.
         if (!array_key_exists('cacheability', $options)) {
@@ -169,36 +169,16 @@ function theme_president_pluginfile($course, $cm, $context, $filearea, $args, $f
         return theme_president_serve_hvp_css($args[1], $theme);
     }
 
-    if ($context->contextlevel == CONTEXT_SYSTEM && preg_match("/^sliderimage[1-9][0-9]?$/", $filearea) !== false) {
+    if ($context->contextlevel == CONTEXT_SYSTEM && preg_match("/^sliderimage[1-9][0-9]?$/", $filearea)) {
         return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
     }
 
-    if ($context->contextlevel == CONTEXT_SYSTEM && $filearea === 'marketing1icon') {
-        return $theme->setting_file_serve('marketing1icon', $args, $forcedownload, $options);
+    if ($context->contextlevel == CONTEXT_SYSTEM && preg_match("/^marketing[1-9][0-9]?icon$/", $filearea)) {
+        return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
     }
 
-    if ($context->contextlevel == CONTEXT_SYSTEM && $filearea === 'marketing2icon') {
-        return $theme->setting_file_serve('marketing2icon', $args, $forcedownload, $options);
-    }
-
-    if ($context->contextlevel == CONTEXT_SYSTEM && $filearea === 'marketing3icon') {
-        return $theme->setting_file_serve('marketing3icon', $args, $forcedownload, $options);
-    }
-
-    if ($context->contextlevel == CONTEXT_SYSTEM && $filearea === 'marketing4icon') {
-        return $theme->setting_file_serve('marketing4icon', $args, $forcedownload, $options);
-    }
-
-    if ($context->contextlevel == CONTEXT_SYSTEM && $filearea === 'marketing5icon') {
-        return $theme->setting_file_serve('marketing5icon', $args, $forcedownload, $options);
-    }
-
-    if ($context->contextlevel == CONTEXT_SYSTEM && $filearea === 'marketing6icon') {
-        return $theme->setting_file_serve('marketing6icon', $args, $forcedownload, $options);
-    }
-
-    if ($context->contextlevel == CONTEXT_SYSTEM && $filearea === 'marketing6icon') {
-        return $theme->setting_file_serve('marketing6icon', $args, $forcedownload, $options);
+    if ($context->contextlevel == CONTEXT_SYSTEM && preg_match("/^recognitionimage[1-9][0-9]?$/", $filearea)) {
+        return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
     }
 
     send_file_not_found();
@@ -257,4 +237,125 @@ function theme_president_serve_hvp_css($filename, $theme) {
     echo $content;
 
     die;
+}
+
+/**
+ * Returns the management menu items if the user has permission.
+ *
+ * @return array|null
+ */
+function theme_president_get_management_menu() {
+    global $CFG;
+
+    // Check if user is logged in.
+    if (!isloggedin() || isguestuser()) {
+        return null;
+    }
+
+    $isadmin = is_siteadmin();
+    $systemcontext = \core\context\system::instance();
+    
+    // Check for general admin/manager capabilities.
+    $canmanageusers = $isadmin || has_capability('moodle/user:update', $systemcontext);
+    $canmanagecourses = $isadmin || has_capability('moodle/course:update', $systemcontext);
+
+    if (!$canmanageusers && !$canmanagecourses) {
+        return null;
+    }
+
+    $items = [];
+
+    if ($canmanageusers) {
+        $items[] = [
+            'text' => 'Browse list of users',
+            'url' => new \moodle_url('/admin/user.php'),
+            'icon' => 'fa-users'
+        ];
+        $items[] = [
+            'text' => 'Upload users',
+            'url' => new \moodle_url('/admin/tool/uploaduser/index.php'),
+            'icon' => 'fa-user-plus'
+        ];
+    }
+
+    if ($canmanagecourses) {
+        $items[] = [
+            'text' => 'Manage courses and categories',
+            'url' => new \moodle_url('/course/management.php'),
+            'icon' => 'fa-graduation-cap'
+        ];
+        $items[] = [
+            'text' => 'Upload courses',
+            'url' => new \moodle_url('/admin/tool/uploadcourse/index.php'),
+            'icon' => 'fa-upload'
+        ];
+    }
+
+    if ($isadmin) {
+        $items[] = [
+            'text' => 'Theme Selector',
+            'url' => new \moodle_url('/admin/themeselector.php'),
+            'icon' => 'fa-paint-brush'
+        ];
+    }
+
+    if (empty($items)) {
+        return null;
+    }
+
+    return [
+        'has_items' => true,
+        'items' => $items
+    ];
+}
+
+/**
+ * Extends the primary navigation with custom items.
+ *
+ * @param \core\navigation\views\primary $navigation The primary navigation object.
+ */
+function theme_president_extend_navigation_primary(\core\navigation\views\primary $navigation) {
+    // Check if user is logged in.
+    if (!isloggedin() || isguestuser()) {
+        return;
+    }
+
+    $isadmin = is_siteadmin();
+    $systemcontext = \core\context\system::instance();
+    
+    // Check for general admin/manager capabilities.
+    $canmanageusers = $isadmin || has_capability('moodle/user:update', $systemcontext);
+    $canmanagecourses = $isadmin || has_capability('moodle/course:update', $systemcontext);
+
+    if (!$canmanageusers && !$canmanagecourses) {
+        return;
+    }
+
+    // Add "Manage" as a top-level node.
+    $managenode = $navigation->add('Manage', null, \core\navigation\navigation_node::TYPE_CONTAINER, null, 'management_menu');
+    
+    if ($canmanageusers) {
+        $managenode->add('Browse list of users', new \moodle_url('/admin/user.php'), \core\navigation\navigation_node::TYPE_CUSTOM);
+        $managenode->add('Upload users', new \moodle_url('/admin/tool/uploaduser/index.php'), \core\navigation\navigation_node::TYPE_CUSTOM);
+    }
+
+    if ($canmanagecourses) {
+        $managenode->add('Manage courses and categories', new \moodle_url('/course/management.php'), \core\navigation\navigation_node::TYPE_CUSTOM);
+        $managenode->add('Upload courses', new \moodle_url('/admin/tool/uploadcourse/index.php'), \core\navigation\navigation_node::TYPE_CUSTOM);
+    }
+
+    if ($isadmin) {
+        $managenode->add('Theme Selector', new \moodle_url('/admin/themeselector.php'), \core\navigation\navigation_node::TYPE_CUSTOM);
+    }
+}
+/**
+ * Returns the user's theme preference from cookies.
+ *
+ * @return string
+ */
+function theme_president_get_theme_preference() {
+    if (isset($_COOKIE['presuniv_theme_preference'])) {
+        return $_COOKIE['presuniv_theme_preference'];
+    }
+    return 'auto';
 }

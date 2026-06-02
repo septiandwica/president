@@ -18,7 +18,7 @@
  * Theme president block settings file
  *
  * @package   theme_president
- * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://tiancode.my.id
+ * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -45,6 +45,14 @@ if ($ADMIN->fulltree) {
     $description = get_string('logodesc', 'theme_president');
     $opts = ['accepted_types' => ['.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'], 'maxfiles' => 1];
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'logo', 0, $opts);
+    $page->add($setting);
+
+    // Dark Logo file setting.
+    $name = 'theme_president/logodark';
+    $title = get_string('logodark', 'theme_president');
+    $description = get_string('logodarkdesc', 'theme_president');
+    $opts = ['accepted_types' => ['.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'], 'maxfiles' => 1];
+    $setting = new admin_setting_configstoredfile($name, $title, $description, 'logodark', 0, $opts);
     $page->add($setting);
 
     // Favicon setting.
@@ -154,6 +162,26 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
+    $name = 'theme_president/navbartype';
+    $title = get_string('navbartype', 'theme_president');
+    $description = get_string('navbartype_desc', 'theme_president');
+    $default = 'normal';
+    $choices = [
+        'normal' => get_string('navbartype_normal', 'theme_president'),
+        'floating' => get_string('navbartype_floating', 'theme_president'),
+        'sticky' => get_string('navbartype_sticky', 'theme_president'),
+    ];
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $page->add($setting);
+
+    $name = 'theme_president/enabledarkmode';
+    $title = get_string('enabledarkmode', 'theme_president');
+    $description = get_string('enabledarkmode_desc', 'theme_president');
+    $default = 0;
+    $choices = [0 => get_string('no'), 1 => get_string('yes')];
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $page->add($setting);
+
     // Must add the page after definiting all the settings!
     $settings->add($page);
 
@@ -191,6 +219,121 @@ if ($ADMIN->fulltree) {
     $settings->add($page);
 
     /*
+    * ----------------------
+    * Guest Pages tab
+    * ----------------------
+    */
+    $page = new admin_settingpage('theme_president_guestpages', get_string('guestpages', 'theme_president'));
+
+    // Number of custom pages.
+    $name = 'theme_president/custompage_count';
+    $title = get_string('custompage_count', 'theme_president');
+    $description = get_string('custompage_count_desc', 'theme_president');
+    $default = 3;
+    $choices = array_combine(range(1, 10), range(1, 10));
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $page->add($setting);
+
+    $count = get_config('theme_president', 'custompage_count');
+    if (!$count) $count = 3;
+
+    $defaults = [
+        1 => ['slug' => 'programs', 'title' => 'Programs', 'content' => '
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="custom-card">
+            <div class="card-icon"><i class="fas fa-briefcase"></i></div>
+            <h4 class="card-title">Business & Management</h4>
+            <p class="card-text">Equipping future leaders with global business insights and entrepreneurial spirit.</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="custom-card">
+            <div class="card-icon icon-red"><i class="fas fa-code"></i></div>
+            <h4 class="card-title">Computing</h4>
+            <p class="card-text">Driving innovation through advanced technology and digital transformation studies.</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="custom-card">
+            <div class="card-icon icon-orange"><i class="fas fa-cog"></i></div>
+            <h4 class="card-title">Engineering</h4>
+            <p class="card-text">Building a sustainable future through creative problem-solving and technical excellence.</p>
+        </div>
+    </div>
+</div>'],
+        2 => ['slug' => 'faq', 'title' => 'FAQ', 'content' => '
+<div class="accordion" id="defaultFaq">
+    <div class="card border-0 mb-3 shadow-sm rounded">
+        <div class="card-header bg-white border-0 py-3" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link text-dark font-weight-bold text-decoration-none w-100 text-left d-flex justify-content-between align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                    How do I apply for admission?
+                    <i class="fa fa-chevron-down small"></i>
+                </button>
+            </h5>
+        </div>
+        <div id="collapseOne" class="collapse show" data-bs-parent="#defaultFaq">
+            <div class="card-body pt-0 text-muted">
+                You can apply through our online admission portal at admission.president.ac.id.
+            </div>
+        </div>
+    </div>
+    <div class="card border-0 mb-3 shadow-sm rounded">
+        <div class="card-header bg-white border-0 py-3" id="headingTwo">
+            <h5 class="mb-0">
+                <button class="btn btn-link text-dark font-weight-bold text-decoration-none w-100 text-left d-flex justify-content-between align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                    What are the scholarship opportunities?
+                    <i class="fa fa-chevron-down small"></i>
+                </button>
+            </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" data-bs-parent="#defaultFaq">
+            <div class="card-body pt-0 text-muted">
+                We offer various academic and non-academic scholarships based on merit and potential.
+            </div>
+        </div>
+    </div>
+</div>'],
+        3 => ['slug' => 'about', 'title' => 'About Us', 'content' => '
+<div class="text-center mb-5">
+    <p class="lead text-muted">President University is a leading international university in Indonesia, located in the heart of Jababeka Industrial Estate.</p>
+</div>
+<div class="row align-items-center mb-5">
+    <div class="col-md-6">
+        <h3 class="font-weight-bold mb-3">Our Vision</h3>
+        <p>To be a world-class university that produces leaders in their respective fields and communities.</p>
+    </div>
+    <div class="col-md-6">
+        <h3 class="font-weight-bold mb-3">Our Mission</h3>
+        <p>To provide high-quality education and research that contributes to the advancement of society and industry.</p>
+    </div>
+</div>']
+    ];
+
+    for ($i = 1; $i <= $count; $i++) {
+        $page->add(new admin_setting_heading("theme_president/custompage_h$i", "Custom Page #$i", ""));
+
+        // Title.
+        $name = "theme_president/custompage_title_$i";
+        $title = "Page Title";
+        $description = "Contoh: Our Programs (URL otomatis menjadi /our-programs)";
+        $default = isset($defaults[$i]) ? $defaults[$i]['title'] : "Custom Page $i";
+        $setting = new admin_setting_configtext($name, $title, $description, $default);
+        $page->add($setting);
+
+        // Content.
+        $name = "theme_president/custompage_content_$i";
+        $title = "Page Content";
+        $description = "";
+        $default = isset($defaults[$i]) ? $defaults[$i]['content'] : "No content yet.";
+        $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+        $page->add($setting);
+    }
+
+    $settings->add($page);
+
+    /*
     * -----------------------
     * Frontpage settings tab
     * -----------------------
@@ -210,7 +353,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_president/slidercount';
     $title = get_string('slidercount', 'theme_president');
     $description = get_string('slidercountdesc', 'theme_president');
-    $default = 0;
+    $default = 3;
     $options = [];
     for ($i = 0; $i < 13; $i++) {
         $options[$i] = $i;
@@ -249,6 +392,36 @@ if ($ADMIN->fulltree) {
             $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
             $page->add($setting);
         }
+
+        // Slider CTA 1.
+        $name = 'theme_president/slidercta1text';
+        $title = get_string('slidercta1text', 'theme_president');
+        $description = get_string('slidercta1textdesc', 'theme_president');
+        $default = 'Apply Now';
+        $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_TEXT);
+        $page->add($setting);
+
+        $name = 'theme_president/slidercta1url';
+        $title = get_string('slidercta1url', 'theme_president');
+        $description = get_string('slidercta1urldesc', 'theme_president');
+        $default = 'https://admission.president.ac.id/join';
+        $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_URL);
+        $page->add($setting);
+
+        // Slider CTA 2.
+        $name = 'theme_president/slidercta2text';
+        $title = get_string('slidercta2text', 'theme_president');
+        $description = get_string('slidercta2textdesc', 'theme_president');
+        $default = 'Explore Programs';
+        $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_TEXT);
+        $page->add($setting);
+
+        $name = 'theme_president/slidercta2url';
+        $title = get_string('slidercta2url', 'theme_president');
+        $description = get_string('slidercta2urldesc', 'theme_president');
+        $default = 'https://president.ac.id';
+        $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_URL);
+        $page->add($setting);
     }
 
     $setting = new admin_setting_heading('slidercountseparator', '', '<hr>');
@@ -261,6 +434,35 @@ if ($ADMIN->fulltree) {
     $choices = [0 => get_string('no'), 1 => get_string('yes')];
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
+
+    // Recognition logos.
+    $setting = new admin_setting_heading('recognitionseparator', '', '<hr>');
+    $page->add($setting);
+
+    $name = 'theme_president/recognitioncount';
+    $title = get_string('recognitioncount', 'theme_president');
+    $description = get_string('recognitioncountdesc', 'theme_president');
+    $default = 6;
+    $options = [];
+    for ($i = 0; $i <= 10; $i++) {
+        $options[$i] = $i;
+    }
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $options);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $recognitioncount = get_config('theme_president', 'recognitioncount');
+    if ($recognitioncount) {
+        for ($i = 1; $i <= $recognitioncount; $i++) {
+            $fileid = 'recognitionimage' . $i;
+            $name = 'theme_president/recognitionimage' . $i;
+            $title = get_string('recognitionimage', 'theme_president') . ' ' . $i;
+            $description = get_string('recognitionimagedesc', 'theme_president');
+            $opts = ['accepted_types' => ['.png', '.jpg', '.gif', '.webp', '.svg'], 'maxfiles' => 1];
+            $setting = new admin_setting_configstoredfile($name, $title, $description, $fileid, 0, $opts);
+            $page->add($setting);
+        }
+    }
 
     $displaymarketingbox = get_config('theme_president', 'displaymarketingbox');
 
