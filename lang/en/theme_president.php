@@ -186,3 +186,6 @@ $string['privacy:themepresidentsettings_enableaccessibilitytoolbar'] = 'The curr
 
 $string['redirectmessage'] = 'This page should automatically redirect.';
 $string['redirectbtntext'] = 'If nothing is happening please click here to continue.';
+
+// Page
+$string['aboutus'] = 'About Us';
