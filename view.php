@@ -21,8 +21,10 @@ $view = optional_param('view', 'programs', PARAM_ALPHANUMEXT);
 $PAGE->set_url(new moodle_url('/theme/president/view.php', ['view' => $view]));
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('custom');
-$PAGE->set_title(get_string($view, 'theme_president'));
-$PAGE->set_heading(get_string($view, 'theme_president'));
+$themesettings = new \theme_president\util\settings();
+$pagetitle = $themesettings->guest_page_title($view);
+$PAGE->set_title($pagetitle);
+$PAGE->set_heading($pagetitle);
 
 echo $OUTPUT->header();
 // Content is handled by the layout and template via page_content.
