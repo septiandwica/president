@@ -279,7 +279,7 @@ class settings {
                 'fullname' => format_string($courseobj->get_formatted_name()),
                 'visible' => $c->visible,
                 'image' => $courseutil->get_summary_image(),
-                'summary' => $courseutil->get_summary(),
+                'summary' => format_text($courseobj->summary, FORMAT_HTML, ['noclean' => false]),
                 'category' => $courseutil->get_category(),
                 'customfields' => $courseutil->get_custom_fields(),
                 'hasprogress' => $hasprogress,
