@@ -139,7 +139,7 @@ $templatecontext = [
     'themepreference' => theme_president_get_theme_preference(),
 ];
 
-if (!empty($customcourses['frontpage_courses_enable'])) {
+if (!isloggedin() && !empty($customcourses['frontpage_courses_enable'])) {
     $templatecontext['frontpage_custom_courses_html'] = $OUTPUT->render_from_template('theme_president/custom_courses_block', $customcourses);
 } else {
     $templatecontext['frontpage_custom_courses_html'] = '';
