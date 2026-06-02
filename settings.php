@@ -238,77 +238,9 @@ if ($ADMIN->fulltree) {
     if (!$count) $count = 3;
 
     $defaults = [
-        1 => ['slug' => 'programs', 'title' => 'Programs', 'content' => '
-<div class="row">
-    <div class="col-md-4 mb-4">
-        <div class="custom-card">
-            <div class="card-icon"><i class="fas fa-briefcase"></i></div>
-            <h4 class="card-title">Business & Management</h4>
-            <p class="card-text">Equipping future leaders with global business insights and entrepreneurial spirit.</p>
-        </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="custom-card">
-            <div class="card-icon icon-red"><i class="fas fa-code"></i></div>
-            <h4 class="card-title">Computing</h4>
-            <p class="card-text">Driving innovation through advanced technology and digital transformation studies.</p>
-        </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="custom-card">
-            <div class="card-icon icon-orange"><i class="fas fa-cog"></i></div>
-            <h4 class="card-title">Engineering</h4>
-            <p class="card-text">Building a sustainable future through creative problem-solving and technical excellence.</p>
-        </div>
-    </div>
-</div>'],
-        2 => ['slug' => 'faq', 'title' => 'FAQ', 'content' => '
-<div class="accordion" id="defaultFaq">
-    <div class="card border-0 mb-3 shadow-sm rounded">
-        <div class="card-header bg-white border-0 py-3" id="headingOne">
-            <h5 class="mb-0">
-                <button class="btn btn-link text-dark font-weight-bold text-decoration-none w-100 text-left d-flex justify-content-between align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
-                    How do I apply for admission?
-                    <i class="fa fa-chevron-down small"></i>
-                </button>
-            </h5>
-        </div>
-        <div id="collapseOne" class="collapse show" data-bs-parent="#defaultFaq">
-            <div class="card-body pt-0 text-muted">
-                You can apply through our online admission portal at admission.president.ac.id.
-            </div>
-        </div>
-    </div>
-    <div class="card border-0 mb-3 shadow-sm rounded">
-        <div class="card-header bg-white border-0 py-3" id="headingTwo">
-            <h5 class="mb-0">
-                <button class="btn btn-link text-dark font-weight-bold text-decoration-none w-100 text-left d-flex justify-content-between align-items-center collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
-                    What are the scholarship opportunities?
-                    <i class="fa fa-chevron-down small"></i>
-                </button>
-            </h5>
-        </div>
-        <div id="collapseTwo" class="collapse" data-bs-parent="#defaultFaq">
-            <div class="card-body pt-0 text-muted">
-                We offer various academic and non-academic scholarships based on merit and potential.
-            </div>
-        </div>
-    </div>
-</div>'],
-        3 => ['slug' => 'about', 'title' => 'About Us', 'content' => '
-<div class="text-center mb-5">
-    <p class="lead text-muted">President University is a leading international university in Indonesia, located in the heart of Jababeka Industrial Estate.</p>
-</div>
-<div class="row align-items-center mb-5">
-    <div class="col-md-6">
-        <h3 class="font-weight-bold mb-3">Our Vision</h3>
-        <p>To be a world-class university that produces leaders in their respective fields and communities.</p>
-    </div>
-    <div class="col-md-6">
-        <h3 class="font-weight-bold mb-3">Our Mission</h3>
-        <p>To provide high-quality education and research that contributes to the advancement of society and industry.</p>
-    </div>
-</div>']
+        1 => ['slug' => 'programs', 'title' => 'Programs', 'content' => ''],
+        2 => ['slug' => 'faq', 'title' => 'FAQ', 'content' => ''],
+        3 => ['slug' => 'about', 'title' => 'About Us', 'content' => '']
     ];
 
     for ($i = 1; $i <= $count; $i++) {
