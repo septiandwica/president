@@ -66,9 +66,6 @@ if (!isloggedin() || isguestuser()) {
     }
     $metakeywords = implode(', ', array_slice($keywords, 0, 15));
 
-    // Inject meta tags to page head
-    $PAGE->requires->js_init_call('M.util.set_user_preference', ['theme_president_seo_injected', '1']);
-
     // Add meta tags via additional_html
     $seo_meta = '
     <!-- SEO Meta Tags -->
