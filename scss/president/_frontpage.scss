@@ -607,6 +607,19 @@
     }
 
     /* ============================================
+       CUSTOM COURSES VIEW ALL BUTTON
+       ============================================ */
+    #frontpage-custom-courses {
+        .btn-primary {
+            display: inline-block !important; /* stylelint-disable-line declaration-no-important */
+            visibility: visible !important; /* stylelint-disable-line declaration-no-important */
+            padding: 12px 32px;
+            font-weight: 600;
+            margin-top: 2rem;
+        }
+    }
+
+    /* ============================================
        CTA SECTION
        ============================================ */
     .cta-section {
