@@ -319,7 +319,7 @@ if ($ADMIN->fulltree) {
         $title = "Page Title";
         $titleval = get_config('theme_president', "custompage_title_$i") ?: (isset($defaults[$i]) ? $defaults[$i]['title'] : "Custom Page $i");
         $slug = preg_replace('/-+/', '-', trim(preg_replace('/[^a-zA-Z0-9]/', '-', strtolower($titleval)), '-'));
-        $description = "<strong>URL Reference:</strong> <code>/" . $slug . "/</code><br><small>Gunakan link referensi ini jika kamu ingin menaruh link-nya di tombol/button/footer secara manual.</small>";
+        $description = "<strong>URL Reference:</strong> <code>/" . $slug . "/</code><br><small>Use this reference link if you want to place it manually in a button, menu, or footer.</small>";
         $default = isset($defaults[$i]) ? $defaults[$i]['title'] : "Custom Page $i";
         $setting = new admin_setting_configtext($name, $title, $description, $default);
         $page->add($setting);

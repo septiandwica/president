@@ -16,7 +16,7 @@
 
 require_once(__DIR__ . '/../../config.php');
 
-$view = optional_param('view', 'programs', PARAM_ALPHANUM);
+$view = optional_param('view', 'programs', PARAM_ALPHANUMEXT);
 
 $PAGE->set_url(new moodle_url('/theme/president/view.php', ['view' => $view]));
 $PAGE->set_context(context_system::instance());
