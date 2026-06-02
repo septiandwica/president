@@ -38,29 +38,16 @@
             {{/frontpage_courses}}
         </div>
 
-        {{#show_view_all}}
-        <div class="row mt-4">
-            <div class="col-12 text-center">
-                <a href="{{view_all_url}}" class="btn btn-lg btn-primary view-all-btn">
-                    View All {{total_courses}} Courses
-                    <i class="fa fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-        </div>
-        {{/show_view_all}}
-
-        {{! Fallback if show_view_all doesn't work }}
-        {{^show_view_all}}
+        {{! View All Button - Always show if courses exist and total > preview }}
         {{#frontpage_courses}}
-        <div class="row mt-4">
+        <div class="row mt-5 mb-3">
             <div class="col-12 text-center">
-                <a href="/theme/president/courses.php" class="btn btn-lg btn-primary view-all-btn">
-                    View All Courses
-                    <i class="fa fa-arrow-right ml-2"></i>
+                <a href="{{view_all_url}}" class="btn btn-lg btn-primary" style="display: inline-block !important; visibility: visible !important;">
+                    View All {{total_courses}} Courses
+                    <i class="fa fa-arrow-right ms-2"></i>
                 </a>
             </div>
         </div>
         {{/frontpage_courses}}
-        {{/show_view_all}}
     </div>
 </section>
