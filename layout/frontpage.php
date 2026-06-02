@@ -100,13 +100,6 @@ if ($managementitems && !empty($managementitems['items'])) {
     }
 }
 
-// Add My Courses to primary navigation for logged-in users.
-if (isloggedin() && !isguestuser()) {
-    $primarynav = $PAGE->primarynav;
-    $mycoursesurl = new moodle_url('/my/courses.php');
-    $mycoursesnode = $primarynav->add(get_string('mycourses'), $mycoursesurl, \navigation_node::TYPE_CUSTOM, null, 'mycourses');
-    $mycoursesnode->showinflatnavigation = true;
-}
 
 $primary = new core\navigation\output\primary($PAGE);
 $renderer = $PAGE->get_renderer('core');

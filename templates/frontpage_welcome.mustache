@@ -63,7 +63,11 @@
             <div class="col-lg-6">
                 <div class="activity-chart-container">
                     <h5 class="chart-title">Your Activity (Last 7 Days)</h5>
-                    <div class="activity-chart" id="activityChart" data-activity="{{activity_data}}" data-labels="{{activity_labels}}" data-max="{{max_activity}}"></div>
+                    <div class="activity-chart">
+                        <div class="chart-bars" id="activityChartBars">
+                            {{! Chart will be rendered here by JavaScript }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,23 +76,29 @@
 
 {{#js}}
 require(['jquery'], function($) {
-    var chartEl = $('#activityChart');
-    var data = JSON.parse(chartEl.attr('data-activity'));
-    var labels = JSON.parse(chartEl.attr('data-labels'));
-    var max = parseInt(chartEl.attr('data-max'));
+    $(document).ready(function() {
+        try {
+            var activityData = {{{activity_data}}};
+            var activityLabels = {{{activity_labels}}};
+            var maxActivity = parseInt('{{{max_activity}}}');
 
-    var html = '<div class="chart-bars">';
-    for (var i = 0; i < data.length; i++) {
-        var height = max > 0 ? (data[i] / max) * 100 : 0;
-        html += '<div class="chart-bar-wrapper">';
-        html += '<div class="chart-bar" style="height: ' + height + '%">';
-        html += '<span class="bar-value">' + data[i] + '</span>';
-        html += '</div>';
-        html += '<div class="bar-label">' + labels[i] + '</div>';
-        html += '</div>';
-    }
-    html += '</div>';
+            var html = '';
+            for (var i = 0; i < activityData.length; i++) {
+                var height = maxActivity > 0 ? (activityData[i] / maxActivity) * 100 : 10;
+                if (height < 10 && activityData[i] > 0) height = 10;
 
-    chartEl.html(html);
+                html += '<div class="chart-bar-wrapper">';
+                html += '<div class="chart-bar" style="height: ' + height + '%">';
+                html += '<span class="bar-value">' + activityData[i] + '</span>';
+                html += '</div>';
+                html += '<div class="bar-label">' + activityLabels[i] + '</div>';
+                html += '</div>';
+            }
+
+            $('#activityChartBars').html(html);
+        } catch (e) {
+            console.error('Activity chart error:', e);
+        }
+    });
 });
 {{/js}}
