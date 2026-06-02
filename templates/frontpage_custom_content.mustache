@@ -1,61 +1,14 @@
 {{!
-    This file is part of Moodle - http://moodle.org/
-
-    Moodle is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    Moodle is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-}}
-{{!
     @template theme_president/frontpage_custom_content
-
-    Custom content section for frontpage (editable via admin settings).
+    Custom content section - Clean & Simple Design
 }}
 
 {{#frontpage_custom_content}}
-<section class="frontpage-custom-content-section py-5">
+<section class="frontpage-custom-content-section py-4 bg-light">
     <div class="president-container-fluid">
         <div class="custom-content-wrapper">
             {{{frontpage_custom_content}}}
         </div>
     </div>
 </section>
-
-<style>
-.frontpage-custom-content-section {
-    background: var(--presuniv-gray-bg);
-}
-
-.custom-content-wrapper {
-    background: #fff;
-    border-radius: 20px;
-    padding: 3rem;
-    box-shadow: 0 4px 20px rgba(15, 71, 173, 0.06);
-}
-
-.custom-content-wrapper h2 {
-    color: var(--presuniv-dark);
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-}
-
-.custom-content-wrapper p {
-    color: var(--presuniv-text-light);
-    line-height: 1.8;
-}
-
-@media (max-width: 768px) {
-    .custom-content-wrapper {
-        padding: 2rem 1.5rem;
-    }
-}
-</style>
 {{/frontpage_custom_content}}

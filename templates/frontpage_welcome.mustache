@@ -1,248 +1,64 @@
 {{!
-    This file is part of Moodle - http://moodle.org/
-
-    Moodle is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    Moodle is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-}}
-{{!
     @template theme_president/frontpage_welcome
-
-    Welcome section for logged-in users on frontpage.
-
-    Context variables required for this template:
-    * user_firstname - User's first name
-    * user_fullname - User's full name
-    * active_courses_count - Number of active courses
-    * pending_assignments - Number of pending assignments
-    * new_messages - Number of new messages
-    * greeting_time - Time-based greeting (Good morning, afternoon, evening)
+    Welcome section for logged-in users - Clean & Simple Design
 }}
 
-<section class="frontpage-welcome-section py-5 bg-light">
+<section class="frontpage-welcome-section py-4">
     <div class="president-container-fluid">
         <div class="row align-items-center">
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 <div class="welcome-content">
-                    <div class="welcome-greeting mb-4">
-                        <h1 class="welcome-title mb-2">
-                            {{greeting_time}}, <span class="text-gradient-primary">{{user_firstname}}</span>! 👋
-                        </h1>
-                        <p class="welcome-subtitle text-muted">
-                            Welcome back to President University eCampus
-                        </p>
-                    </div>
+                    <h2 class="welcome-title mb-2">
+                        {{greeting_time}}, {{user_firstname}}!
+                    </h2>
+                    <p class="welcome-subtitle text-muted mb-4">
+                        Welcome back to {{site_fullname}}
+                    </p>
 
-                    {{! Quick Stats in Welcome }}
-                    <div class="welcome-quick-stats">
-                        <div class="quick-stat-item d-flex align-items-center mb-3">
-                            <div class="stat-icon-mini bg-primary-light rounded-circle me-3">
-                                <i class="fa fa-book text-primary"></i>
+                    <div class="quick-stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fa fa-book"></i>
                             </div>
-                            <div>
-                                <div class="stat-label text-muted small">Active Courses</div>
-                                <div class="stat-value font-weight-bold">{{active_courses_count}} courses</div>
+                            <div class="stat-info">
+                                <div class="stat-value">{{active_courses_count}}</div>
+                                <div class="stat-label">Active Courses</div>
                             </div>
                         </div>
 
-                        <div class="quick-stat-item d-flex align-items-center mb-3">
-                            <div class="stat-icon-mini bg-warning-light rounded-circle me-3">
-                                <i class="fa fa-tasks text-warning"></i>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fa fa-tasks"></i>
                             </div>
-                            <div>
-                                <div class="stat-label text-muted small">Pending Tasks</div>
-                                <div class="stat-value font-weight-bold">{{pending_assignments}} assignments</div>
+                            <div class="stat-info">
+                                <div class="stat-value">{{pending_assignments}}</div>
+                                <div class="stat-label">Pending Tasks</div>
                             </div>
                         </div>
 
                         {{#new_messages}}
-                        <div class="quick-stat-item d-flex align-items-center mb-3">
-                            <div class="stat-icon-mini bg-danger-light rounded-circle me-3">
-                                <i class="fa fa-envelope text-danger"></i>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fa fa-envelope"></i>
                             </div>
-                            <div>
-                                <div class="stat-label text-muted small">New Messages</div>
-                                <div class="stat-value font-weight-bold">{{new_messages}} messages</div>
+                            <div class="stat-info">
+                                <div class="stat-value">{{new_messages}}</div>
+                                <div class="stat-label">New Messages</div>
                             </div>
                         </div>
                         {{/new_messages}}
                     </div>
 
                     <div class="welcome-actions mt-4">
-                        <a href="{{dashboard_url}}" class="btn btn-primary me-2">
-                            <i class="fa fa-tachometer me-2"></i>Go to Dashboard
+                        <a href="{{dashboard_url}}" class="btn btn-primary">
+                            Go to Dashboard
                         </a>
-                        <a href="{{my_courses_url}}" class="btn btn-outline-primary">
-                            <i class="fa fa-graduation-cap me-2"></i>View My Courses
+                        <a href="{{my_courses_url}}" class="btn btn-outline-secondary">
+                            View My Courses
                         </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <div class="welcome-illustration text-center">
-                    <div class="welcome-graphic">
-                        <svg class="welcome-svg" viewBox="0 0 400 300" width="100%" height="auto">
-                            {{! Simple SVG illustration }}
-                            <rect width="400" height="300" fill="#f8f9fa" rx="20"/>
-
-                            {{! Books }}
-                            <rect x="50" y="100" width="80" height="100" fill="#0f47ad" rx="8" opacity="0.8"/>
-                            <rect x="60" y="110" width="60" height="10" fill="#fff" rx="2" opacity="0.3"/>
-                            <rect x="60" y="130" width="60" height="10" fill="#fff" rx="2" opacity="0.3"/>
-                            <rect x="60" y="150" width="60" height="10" fill="#fff" rx="2" opacity="0.3"/>
-
-                            {{! Star }}
-                            <circle cx="200" cy="80" r="40" fill="#f7b731" opacity="0.9"/>
-                            <text x="200" y="95" font-size="40" text-anchor="middle" fill="#fff">★</text>
-
-                            {{! Graduation cap }}
-                            <rect x="250" y="120" width="90" height="70" fill="#e31e24" rx="8" opacity="0.7"/>
-                            <polygon points="295,115 260,125 330,125" fill="#333"/>
-
-                            {{! Decorative elements }}
-                            <circle cx="100" cy="250" r="15" fill="#0f47ad" opacity="0.2"/>
-                            <circle cx="300" cy="260" r="20" fill="#e31e24" opacity="0.2"/>
-                            <circle cx="350" cy="200" r="12" fill="#f7b731" opacity="0.2"/>
-                        </svg>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<style>
-.frontpage-welcome-section {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e8eef8 100%);
-    border-bottom: 3px solid rgba(15, 71, 173, 0.1);
-}
-
-.welcome-title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--presuniv-dark);
-    line-height: 1.2;
-}
-
-.text-gradient-primary {
-    background: linear-gradient(135deg, var(--presuniv-primary), var(--presuniv-primary-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.welcome-subtitle {
-    font-size: 1.1rem;
-}
-
-.stat-icon-mini {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-}
-
-.bg-primary-light {
-    background-color: rgba(15, 71, 173, 0.1);
-}
-
-.bg-warning-light {
-    background-color: rgba(247, 183, 49, 0.1);
-}
-
-.bg-danger-light {
-    background-color: rgba(220, 53, 69, 0.1);
-}
-
-.quick-stat-item {
-    padding: 1rem;
-    background: #fff;
-    border-radius: 12px;
-    border-left: 4px solid transparent;
-    transition: all 0.3s ease;
-}
-
-.quick-stat-item:hover {
-    transform: translateX(4px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.stat-label {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.stat-value {
-    font-size: 1.25rem;
-    color: var(--presuniv-dark);
-}
-
-.welcome-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.welcome-actions .btn {
-    font-weight: 600;
-    padding: 12px 28px;
-    border-radius: 50px;
-    transition: all 0.3s ease;
-}
-
-.welcome-actions .btn-primary {
-    background: linear-gradient(135deg, var(--presuniv-primary), var(--presuniv-primary-light));
-    border: none;
-}
-
-.welcome-actions .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(15, 71, 173, 0.3);
-}
-
-.welcome-graphic {
-    padding: 2rem;
-}
-
-.welcome-svg {
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
-}
-
-@media (max-width: 992px) {
-    .welcome-title {
-        font-size: 2rem;
-    }
-
-    .welcome-actions {
-        flex-direction: column;
-    }
-
-    .welcome-actions .btn {
-        width: 100%;
-    }
-}
-
-@media (max-width: 576px) {
-    .welcome-title {
-        font-size: 1.6rem;
-    }
-
-    .frontpage-welcome-section {
-        padding-top: 3rem !important;
-        padding-bottom: 3rem !important;
-    }
-}
-</style>

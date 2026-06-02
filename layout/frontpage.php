@@ -250,6 +250,7 @@ if (isloggedin() && !isguestuser()) {
         'greeting_time' => $greeting,
         'user_firstname' => $USER->firstname,
         'user_fullname' => fullname($USER),
+        'site_fullname' => format_string($SITE->fullname),
         'active_courses_count' => $activecoursescount,
         'pending_assignments' => $pendingassignments,
         'new_messages' => $newmessages,

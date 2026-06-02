@@ -1,133 +1,70 @@
 {{!
-    This file is part of Moodle - http://moodle.org/
-
-    Moodle is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    Moodle is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-}}
-{{!
     @template theme_president/frontpage_statistics
-
-    Key statistics section for logged-in users on frontpage.
-
-    Context variables required for this template:
-    * total_courses_completed - Total courses user has completed
-    * total_learning_hours - Total learning hours
-    * current_average_grade - Current average grade
-    * certificates_earned - Number of certificates
-    * achievements - Array of achievement data
+    Key statistics section - Clean & Simple Design
 }}
 
-<section class="frontpage-statistics-section py-5 bg-white">
+<section class="frontpage-statistics-section py-4 bg-white">
     <div class="president-container-fluid">
-        <div class="section-header text-center mb-5">
-            <span class="section-badge">Your Achievement</span>
-            <h2 class="section-title">Key Statistics & Progress</h2>
+        <div class="section-header text-center mb-4">
+            <h3 class="section-title">Your Progress</h3>
         </div>
 
-        {{! Main Statistics Grid }}
-        <div class="row mb-5">
-            {{! Courses Completed }}
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="stats-card stats-card-primary">
-                    <div class="stats-card-content">
-                        <div class="stats-icon">
-                            <i class="fa fa-graduation-cap"></i>
-                        </div>
-                        <div class="stats-value">{{total_courses_completed}}</div>
-                        <div class="stats-label">Courses Completed</div>
-                        <p class="stats-description">Keep learning to achieve more!</p>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="stats-card">
+                    <div class="stats-icon">
+                        <i class="fa fa-graduation-cap"></i>
                     </div>
-                    <div class="stats-progress">
-                        <div class="progress" style="height: 4px;">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: {{courses_completion_percentage}}%" aria-valuenow="{{courses_completion_percentage}}" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
+                    <div class="stats-value">{{total_courses_completed}}</div>
+                    <div class="stats-label">Courses Completed</div>
                 </div>
             </div>
 
-            {{! Learning Hours }}
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="stats-card stats-card-info">
-                    <div class="stats-card-content">
-                        <div class="stats-icon">
-                            <i class="fa fa-clock"></i>
-                        </div>
-                        <div class="stats-value">{{total_learning_hours}}<span class="stats-unit">h</span></div>
-                        <div class="stats-label">Learning Hours</div>
-                        <p class="stats-description">Great commitment to learning!</p>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="stats-card">
+                    <div class="stats-icon">
+                        <i class="fa fa-clock"></i>
                     </div>
-                    <div class="stats-progress">
-                        <div class="progress" style="height: 4px;">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: {{hours_progress_percentage}}%" aria-valuenow="{{hours_progress_percentage}}" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
+                    <div class="stats-value">{{total_learning_hours}}<span class="stats-unit">h</span></div>
+                    <div class="stats-label">Learning Hours</div>
                 </div>
             </div>
 
-            {{! Average Grade }}
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="stats-card stats-card-success">
-                    <div class="stats-card-content">
-                        <div class="stats-icon">
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="stats-value">{{current_average_grade}}%</div>
-                        <div class="stats-label">Average Grade</div>
-                        <p class="stats-description">Excellent performance!</p>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="stats-card">
+                    <div class="stats-icon">
+                        <i class="fa fa-star"></i>
                     </div>
-                    <div class="stats-progress">
-                        <div class="progress" style="height: 4px;">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: {{current_average_grade}}%" aria-valuenow="{{current_average_grade}}" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
+                    <div class="stats-value">{{current_average_grade}}%</div>
+                    <div class="stats-label">Average Grade</div>
                 </div>
             </div>
 
-            {{! Certificates }}
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="stats-card stats-card-warning">
-                    <div class="stats-card-content">
-                        <div class="stats-icon">
-                            <i class="fa fa-certificate"></i>
-                        </div>
-                        <div class="stats-value">{{certificates_earned}}</div>
-                        <div class="stats-label">Certificates</div>
-                        <p class="stats-description">Showcase your achievements!</p>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="stats-card">
+                    <div class="stats-icon">
+                        <i class="fa fa-certificate"></i>
                     </div>
-                    <div class="stats-progress">
-                        <div class="progress" style="height: 4px;">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{certificates_percentage}}%" aria-valuenow="{{certificates_percentage}}" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
+                    <div class="stats-value">{{certificates_earned}}</div>
+                    <div class="stats-label">Certificates</div>
                 </div>
             </div>
         </div>
 
-        {{! Achievements/Badges }}
         {{#achievements}}
-        <div class="achievements-section">
-            <h3 class="achievements-title mb-4">
-                <i class="fa fa-trophy text-warning me-2"></i>Recent Achievements
-            </h3>
+        <div class="achievements-section mt-4">
+            <h4 class="achievements-title mb-3">
+                <i class="fa fa-trophy me-2"></i>Recent Achievements
+            </h4>
             <div class="row">
                 {{#.}}
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="achievement-badge">
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="achievement-item">
                         <div class="achievement-icon">
                             {{#icon}}<i class="fa fa-{{icon}}"></i>{{/icon}}
                         </div>
                         <div class="achievement-content">
-                            <h5 class="achievement-name">{{name}}</h5>
+                            <h6 class="achievement-name">{{name}}</h6>
                             <p class="achievement-description">{{description}}</p>
                             <small class="achievement-date text-muted">{{date}}</small>
                         </div>
@@ -139,201 +76,3 @@
         {{/achievements}}
     </div>
 </section>
-
-<style>
-.frontpage-statistics-section {
-    background: #fff;
-}
-
-.stats-card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 2rem 1.5rem;
-    border: 1px solid #e8edf3;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    position: relative;
-    overflow: hidden;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.stats-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--presuniv-primary), var(--presuniv-primary-light));
-    transform: scaleX(0);
-    transition: transform 0.4s ease;
-    transform-origin: left;
-}
-
-.stats-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(15, 71, 173, 0.12);
-    border-color: rgba(15, 71, 173, 0.2);
-}
-
-.stats-card:hover::before {
-    transform: scaleX(1);
-}
-
-.stats-card-primary::before {
-    background: linear-gradient(90deg, #0f47ad, #1a5ad8);
-}
-
-.stats-card-info::before {
-    background: linear-gradient(90deg, #17a2b8, #2db3cc);
-}
-
-.stats-card-success::before {
-    background: linear-gradient(90deg, #28a745, #34c759);
-}
-
-.stats-card-warning::before {
-    background: linear-gradient(90deg, #f7b731, #ffa500);
-}
-
-.stats-card-content {
-    flex-grow: 1;
-}
-
-.stats-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: var(--presuniv-primary);
-    opacity: 0.8;
-    transition: all 0.3s ease;
-}
-
-.stats-card:hover .stats-icon {
-    font-size: 3rem;
-    opacity: 1;
-}
-
-.stats-value {
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: var(--presuniv-dark);
-    line-height: 1;
-    margin-bottom: 0.5rem;
-}
-
-.stats-unit {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--presuniv-text-light);
-}
-
-.stats-label {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--presuniv-dark);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.5rem;
-}
-
-.stats-description {
-    font-size: 0.85rem;
-    color: var(--presuniv-text-light);
-    margin-bottom: 0;
-}
-
-.stats-progress {
-    margin-top: 1.5rem;
-}
-
-.achievements-section {
-    margin-top: 3rem;
-    padding-top: 3rem;
-    border-top: 2px solid #e8edf3;
-}
-
-.achievements-title {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--presuniv-dark);
-}
-
-.achievement-badge {
-    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-    border-radius: 16px;
-    padding: 2rem;
-    border: 1px solid #e8edf3;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    transition: all 0.3s ease;
-    height: 100%;
-}
-
-.achievement-badge:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(15, 71, 173, 0.1);
-    border-color: var(--presuniv-primary);
-}
-
-.achievement-icon {
-    font-size: 2.5rem;
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, rgba(15, 71, 173, 0.1), rgba(227, 30, 36, 0.1));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--presuniv-primary);
-    flex-shrink: 0;
-}
-
-.achievement-content {
-    flex-grow: 1;
-}
-
-.achievement-name {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--presuniv-dark);
-    margin-bottom: 0.25rem;
-}
-
-.achievement-description {
-    font-size: 0.85rem;
-    color: var(--presuniv-text-light);
-    margin-bottom: 0.5rem;
-}
-
-.achievement-date {
-    font-size: 0.75rem;
-}
-
-@media (max-width: 768px) {
-    .stats-card {
-        padding: 1.5rem;
-    }
-
-    .stats-value {
-        font-size: 2rem;
-    }
-
-    .stats-icon {
-        font-size: 2rem;
-    }
-
-    .achievement-badge {
-        padding: 1.5rem;
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .achievement-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 2rem;
-    }
-}
-</style>
