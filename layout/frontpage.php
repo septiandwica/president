@@ -27,6 +27,9 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/behat/lib.php');
 require_once($CFG->dirroot . '/course/lib.php');
 
+$themesettings = new \theme_president\util\settings();
+$customcourses = $themesettings->frontpage_custom_courses();
+
 // Add block button in editing mode.
 $addblockbutton = $OUTPUT->addblockbutton();
 
@@ -45,6 +48,9 @@ if (defined('BEHAT_SITE_RUNNING') && get_user_preferences('behat_keep_drawer_clo
 $extraclasses = ['uses-drawers'];
 if ($courseindexopen) {
     $extraclasses[] = 'drawer-open-index';
+}
+if (!empty($customcourses['frontpage_courses_enable'])) {
+    $extraclasses[] = 'theme-custom-courses-enabled';
 }
 
 $blockshtml = $OUTPUT->blocks('side-pre');
@@ -133,7 +139,11 @@ $templatecontext = [
     'themepreference' => theme_president_get_theme_preference(),
 ];
 
-$themesettings = new \theme_president\util\settings();
+if (!empty($customcourses['frontpage_courses_enable'])) {
+    $templatecontext['frontpage_custom_courses_html'] = $OUTPUT->render_from_template('theme_president/custom_courses_block', $customcourses);
+} else {
+    $templatecontext['frontpage_custom_courses_html'] = '';
+}
 
 $templatecontext = array_merge($templatecontext, $themesettings->footer());
 $templatecontext = array_merge($templatecontext, $themesettings->navbar());

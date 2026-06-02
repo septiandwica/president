@@ -494,6 +494,10 @@ if ($ADMIN->fulltree) {
         // Fallback or empty if DB is not ready.
     }
 
+    // Custom Courses section.
+    $setting = new admin_setting_heading('frontpagecoursesheading', get_string('frontpage_courses_heading', 'theme_president'), '');
+    $page->add($setting);
+
     $name = 'theme_president/frontpage_courses_enable';
     $title = get_string('frontpage_courses_enable', 'theme_president');
     $description = get_string('frontpage_courses_enable_desc', 'theme_president');

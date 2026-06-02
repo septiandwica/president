@@ -250,3 +250,4 @@ $string['frontpage_courses_limit'] = 'Max Courses Limit';
 $string['frontpage_courses_limit_desc'] = 'Enter the maximum number of courses to display. Default is 12.';
 $string['nocoursesfound'] = 'No courses found.';
 $string['explorecourses'] = 'Explore Courses';
+$string['frontpage_courses_heading'] = 'Custom Courses Section';

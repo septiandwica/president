@@ -1172,13 +1172,23 @@ p#typed-text {
 /* Dark Mode overrides for recognition */
 [data-theme="dark"] .recognition-section {
     border-bottom-color: rgba(255, 255, 255, 0.05);
-    
+
     .logo-item img {
         filter: grayscale(100%) brightness(2) opacity(0.5);
-        
+
         &:hover {
             filter: brightness(1);
             opacity: 1;
         }
+    }
+}
+
+/* ==============================
+   HIDE MOODLE DEFAULT COURSE LIST WHEN CUSTOM COURSES ARE ENABLED
+   ============================== */
+body.theme-custom-courses-enabled {
+    #frontpage-available-course-list,
+    .frontpage-course-list-wrap {
+        display: none !important; /* stylelint-disable-line declaration-no-important */
     }
 }
