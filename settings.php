@@ -464,6 +464,73 @@ if ($ADMIN->fulltree) {
         $page->add($setting);
     }
 
+    // Fetch courses and categories dynamically for the multiselect settings.
+    global $DB;
+    
+    $coursechoices = [];
+    try {
+        $courses = $DB->get_records('course', [], 'fullname ASC', 'id, fullname');
+        if ($courses) {
+            foreach ($courses as $c) {
+                if ($c->id == SITEID) {
+                    continue;
+                }
+                $coursechoices[$c->id] = format_string($c->fullname);
+            }
+        }
+    } catch (\Exception $e) {
+        // Fallback or empty if DB is not ready during install/upgrade.
+    }
+    
+    $categorychoices = [];
+    try {
+        $categories = $DB->get_records('course_categories', [], 'name ASC', 'id, name');
+        if ($categories) {
+            foreach ($categories as $cat) {
+                $categorychoices[$cat->id] = format_string($cat->name);
+            }
+        }
+    } catch (\Exception $e) {
+        // Fallback or empty if DB is not ready.
+    }
+
+    $name = 'theme_president/frontpage_courses_select_mode';
+    $title = get_string('frontpage_courses_select_mode', 'theme_president');
+    $description = get_string('frontpage_courses_select_mode_desc', 'theme_president');
+    $default = 0;
+    $choices = [
+        0 => get_string('frontpage_courses_select_mode_all', 'theme_president'),
+        1 => get_string('frontpage_courses_select_mode_newest', 'theme_president'),
+        2 => get_string('frontpage_courses_select_mode_manual', 'theme_president'),
+        3 => get_string('frontpage_courses_select_mode_category', 'theme_president'),
+    ];
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $page->add($setting);
+
+    $name = 'theme_president/frontpage_courses_selected';
+    $title = get_string('frontpage_courses_selected', 'theme_president');
+    $description = get_string('frontpage_courses_selected_desc', 'theme_president');
+    $default = [];
+    $setting = new admin_setting_configmultiselect($name, $title, $description, $default, $coursechoices);
+    $page->add($setting);
+
+    $name = 'theme_president/frontpage_courses_categories';
+    $title = get_string('frontpage_courses_categories', 'theme_president');
+    $description = get_string('frontpage_courses_categories_desc', 'theme_president');
+    $default = [];
+    $setting = new admin_setting_configmultiselect($name, $title, $description, $default, $categorychoices);
+    $page->add($setting);
+
+    $name = 'theme_president/frontpage_courses_limit';
+    $title = get_string('frontpage_courses_limit', 'theme_president');
+    $description = get_string('frontpage_courses_limit_desc', 'theme_president');
+    $default = 12;
+    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
+    $page->add($setting);
+
+    $setting = new admin_setting_heading('frontpagecoursesseparator', '', '<hr>');
+    $page->add($setting);
+
     // Enable FAQ.
     $name = 'theme_president/faqcount';
     $title = get_string('faqcount', 'theme_president');

@@ -229,3 +229,17 @@ $string['redirectbtntext'] = 'If nothing is happening please click here to conti
 
 // Page
 $string['aboutus'] = 'About Us';
+
+// Frontpage Course Filtering
+$string['frontpage_courses_select_mode'] = 'Filter Front Page Courses';
+$string['frontpage_courses_select_mode_desc'] = 'Select how to display available courses on the front page.';
+$string['frontpage_courses_select_mode_all'] = 'Show all available courses';
+$string['frontpage_courses_select_mode_newest'] = 'Show newest courses first';
+$string['frontpage_courses_select_mode_manual'] = 'Show specific courses (Select manually)';
+$string['frontpage_courses_select_mode_category'] = 'Show courses from selected categories';
+$string['frontpage_courses_selected'] = 'Select Specific Courses';
+$string['frontpage_courses_selected_desc'] = 'Choose which courses you want to display on the front page (hold Ctrl/Cmd to select multiple).';
+$string['frontpage_courses_categories'] = 'Select Categories';
+$string['frontpage_courses_categories_desc'] = 'Choose which course categories you want to display on the front page (hold Ctrl/Cmd to select multiple).';
+$string['frontpage_courses_limit'] = 'Max Courses Limit';
+$string['frontpage_courses_limit_desc'] = 'Enter the maximum number of courses to display. Default is 12.';
