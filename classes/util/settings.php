@@ -205,6 +205,9 @@ class settings {
     public function frontpage_custom_courses() {
         global $PAGE;
 
+        // Ensure courses folder exists for pretty URLs
+        $this->ensure_courses_folder();
+
         $enable = get_config('theme_president', 'frontpage_courses_enable');
         // Default to enabled if not set
         if ($enable === false) {
@@ -290,12 +293,15 @@ class settings {
             ];
         }
 
+        // Generate dynamic URL based on slugified title
+        $slug = $this->slugify($title);
+
         return [
             'frontpage_courses_enable' => true,
             'frontpage_courses_title' => $title,
             'frontpage_courses' => $formattedcourses,
             'show_view_all' => $show_view_all,
-            'view_all_url' => (new \moodle_url('/' . $this->slugify($title)))->out(false),
+            'view_all_url' => (new \moodle_url('/' . $slug))->out(false),
             'total_courses' => $total,
         ];
     }
@@ -577,6 +583,34 @@ class settings {
                         $phpcontent .= "require_once(__DIR__ . '/../theme/president/view.php');\n";
                         @file_put_contents($indexfile, $phpcontent);
                     }
+                }
+            }
+    /**
+     * Ensure that physical folder exists for courses listing to enable pretty URL.
+     */
+    public function ensure_courses_folder() {
+        global $CFG;
+
+        $title = get_config('theme_president', 'frontpage_courses_title');
+        if (empty($title)) {
+            $title = get_string('frontpage_courses_title_default', 'theme_president');
+        }
+
+        if ($title) {
+            $slug = $this->slugify($title);
+            $dir = $CFG->dirroot . '/' . $slug;
+
+            // If directory doesn't exist, create it and its index.php.
+            if (!empty($slug) && !is_dir($dir)) {
+                if (@mkdir($dir, 0755, true)) {
+                    $indexfile = $dir . '/index.php';
+                    $phpcontent = "<?php\n";
+                    $phpcontent .= "require_once(__DIR__ . '/../config.php');\n";
+                    $phpcontent .= "\$_GET['view'] = '$slug';\n";
+                    $phpcontent .= "require_once(__DIR__ . '/../theme/president/view.php');\n";
+                    $phpcontent .= "?>";
+                    @file_put_contents($indexfile, $phpcontent);
+                    @chmod($indexfile, 0644);
                 }
             }
         }

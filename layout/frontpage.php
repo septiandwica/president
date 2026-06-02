@@ -30,6 +30,76 @@ require_once($CFG->dirroot . '/course/lib.php');
 $themesettings = new \theme_president\util\settings();
 $customcourses = $themesettings->frontpage_custom_courses();
 
+// Add SEO Meta Tags for frontpage
+if (!isloggedin() || isguestuser()) {
+    global $DB;
+
+    // Get site data
+    $sitename = format_string($SITE->fullname);
+    $sitesummary = strip_tags($SITE->summary);
+    if (empty($sitesummary)) {
+        $sitesummary = "PresUniv eCampus - Platform pembelajaran online President University untuk Distance Learning (PJJ) dengan berbagai program studi dan courses berkualitas.";
+    }
+
+    // Get statistics from Moodle
+    $totalcourses = $DB->count_records('course', ['visible' => 1]) - 1;
+    $totalusers = $DB->count_records('user', ['deleted' => 0, 'suspended' => 0]) - 1;
+
+    // Get logo for og:image
+    $logo = $themesettings->logo;
+    if (empty($logo)) {
+        $logo = new moodle_url('/theme/president/pix/logo.png');
+        $logo = $logo->out(true);
+    }
+
+    // Current URL
+    $currenturl = $PAGE->url->out(true);
+
+    // Build meta description
+    $metadescription = $sitesummary . " Dengan $totalcourses courses aktif dan $totalusers+ pengguna.";
+
+    // Build keywords from categories and courses
+    $categories = $DB->get_records('course_categories', ['visible' => 1], '', 'name', 0, 10);
+    $keywords = [$sitename, 'eCampus', 'Distance Learning', 'PJJ', 'President University', 'Online Learning'];
+    foreach ($categories as $cat) {
+        $keywords[] = format_string($cat->name);
+    }
+    $metakeywords = implode(', ', array_slice($keywords, 0, 15));
+
+    // Inject meta tags to page head
+    $PAGE->requires->js_init_call('M.util.set_user_preference', ['theme_president_seo_injected', '1']);
+
+    // Add meta tags via additional_html
+    $seo_meta = '
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="' . s($metadescription) . '">
+    <meta name="keywords" content="' . s($metakeywords) . '">
+    <meta name="author" content="' . s($sitename) . '">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="' . s($sitename) . '">
+    <meta property="og:description" content="' . s($metadescription) . '">
+    <meta property="og:url" content="' . s($currenturl) . '">
+    <meta property="og:image" content="' . s($logo) . '">
+    <meta property="og:site_name" content="' . s($sitename) . '">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="' . s($sitename) . '">
+    <meta name="twitter:description" content="' . s($metadescription) . '">
+    <meta name="twitter:image" content="' . s($logo) . '">
+
+    <!-- Additional Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#0f47ad">
+    <link rel="canonical" href="' . s($currenturl) . '">
+    ';
+
+    $CFG->additionalhtmlhead .= $seo_meta;
+}
+
 // Add block button in editing mode.
 $addblockbutton = $OUTPUT->addblockbutton();
 

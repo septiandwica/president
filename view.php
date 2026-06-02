@@ -17,11 +17,36 @@
 require_once(__DIR__ . '/../../config.php');
 
 $view = optional_param('view', 'programs', PARAM_ALPHANUMEXT);
+$page = optional_param('page', 0, PARAM_INT);
 
-$PAGE->set_url(new moodle_url('/theme/president/view.php', ['view' => $view]));
 $PAGE->set_context(context_system::instance());
-$PAGE->set_pagelayout('custom');
 $themesettings = new \theme_president\util\settings();
+
+// Check if this is a courses listing page (based on frontpage_courses_title setting)
+$courses_title = get_config('theme_president', 'frontpage_courses_title');
+if (empty($courses_title)) {
+    $courses_title = get_string('frontpage_courses_title_default', 'theme_president');
+}
+
+$courses_slug = '';
+if (method_exists($themesettings, 'slugify')) {
+    // Use reflection to access protected method
+    $reflection = new ReflectionClass($themesettings);
+    $method = $reflection->getMethod('slugify');
+    $method->setAccessible(true);
+    $courses_slug = $method->invoke($themesettings, $courses_title);
+}
+
+// If this matches the courses slug, show courses listing
+if ($view === $courses_slug && !empty($courses_slug)) {
+    // Include courses listing logic
+    require_once(__DIR__ . '/courses.php');
+    exit;
+}
+
+// Otherwise, show custom guest page
+$PAGE->set_url(new moodle_url('/theme/president/view.php', ['view' => $view]));
+$PAGE->set_pagelayout('custom');
 $pagetitle = $themesettings->guest_page_title($view);
 $PAGE->set_title($pagetitle);
 $PAGE->set_heading($pagetitle);
