@@ -447,13 +447,14 @@ class settings {
             $count = get_config('theme_president', 'custompage_count') ?: 3;
             for ($i = 1; $i <= $count; $i++) {
                 $title = get_config('theme_president', "custompage_title_$i");
+                $shownavbar = get_config('theme_president', "custompage_navbar_$i");
                 
                 // Fallback for default titles if not saved in DB yet.
                 if (!$title && $i <= 3) {
                     $title = ($i == 1) ? 'Programs' : (($i == 2) ? 'FAQ' : 'About Us');
                 }
 
-                if ($title) {
+                if ($title && $shownavbar) {
                     $slug = $this->slugify($title);
                     $links[] = [
                         'title' => $title,

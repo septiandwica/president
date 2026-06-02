@@ -135,6 +135,8 @@ $string['about_content'] = 'About Us Content';
 $string['about_content_desc'] = 'HTML content for the About Us page.';
 $string['custompage_count'] = 'Number of Custom Pages';
 $string['custompage_count_desc'] = 'Select how many custom guest pages you want to create (max 10). After changing this, click Save to update the fields below.';
+$string['custompage_navbar'] = 'Show in navbar';
+$string['custompage_navbar_desc'] = 'If enabled, a link to this custom page will be added automatically to the guest navbar.';
 
 
 $string['numbersfrontpage'] = 'Show site numberss';

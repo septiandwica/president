@@ -317,9 +317,19 @@ if ($ADMIN->fulltree) {
         // Title.
         $name = "theme_president/custompage_title_$i";
         $title = "Page Title";
-        $description = "Contoh: Our Programs (URL otomatis menjadi /our-programs)";
+        $titleval = get_config('theme_president', "custompage_title_$i") ?: (isset($defaults[$i]) ? $defaults[$i]['title'] : "Custom Page $i");
+        $slug = preg_replace('/-+/', '-', trim(preg_replace('/[^a-zA-Z0-9]/', '-', strtolower($titleval)), '-'));
+        $description = "<strong>URL Reference:</strong> <code>/" . $slug . "/</code><br><small>Gunakan link referensi ini jika kamu ingin menaruh link-nya di tombol/button/footer secara manual.</small>";
         $default = isset($defaults[$i]) ? $defaults[$i]['title'] : "Custom Page $i";
         $setting = new admin_setting_configtext($name, $title, $description, $default);
+        $page->add($setting);
+
+        // Show in navbar.
+        $name = "theme_president/custompage_navbar_$i";
+        $title = get_string('custompage_navbar', 'theme_president');
+        $description = get_string('custompage_navbar_desc', 'theme_president');
+        $default = 0;
+        $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
         $page->add($setting);
 
         // Content.
