@@ -1,0 +1,40 @@
+[1mdiff --git a/templates/head.mustache b/templates/head.mustache[m
+[1mindex 50c3392..cf5ad98 100644[m
+[1m--- a/templates/head.mustache[m
+[1m+++ b/templates/head.mustache[m
+[36m@@ -29,10 +29,10 @@[m
+     <script>[m
+         (function() {[m
+             const getSavedTheme = () => {[m
+[31m-                let theme = 'auto';[m
+[32m+[m[32m                let theme = 'light';[m
+                 try {[m
+[31m-                    theme = localStorage.getItem('presuniv_theme_preference') || 'auto';[m
+[31m-                    if (theme !== 'auto') return theme;[m
+[32m+[m[32m                    theme = localStorage.getItem('presuniv_theme_preference');[m
+[32m+[m[32m                    if (theme) return theme;[m
+                 } catch (e) {}[m
+                 [m
+                 const cookies = document.cookie.split(';');[m
+[36m@@ -42,7 +42,7 @@[m
+                         return c.substring('presuniv_theme_preference='.length, c.length);[m
+                     }[m
+                 }[m
+[31m-                return theme;[m
+[32m+[m[32m                return 'light';[m
+             };[m
+             const applyTheme = () => {[m
+                 const theme = getSavedTheme();[m
+[1mdiff --git a/templates/navbar.mustache b/templates/navbar.mustache[m
+[1mindex ecf0720..7662707 100644[m
+[1m--- a/templates/navbar.mustache[m
+[1m+++ b/templates/navbar.mustache[m
+[36m@@ -274,7 +274,7 @@[m
+             const serverAttr = document.documentElement.getAttribute('data-theme');[m
+             if (serverAttr) return serverAttr;[m
+ [m
+[31m-            return 'auto';[m
+[32m+[m[32m            return 'light';[m
+         };[m
+ [m
+         const savedTheme = getSavedTheme();[m

@@ -29,10 +29,10 @@
     <script>
         (function() {
             const getSavedTheme = () => {
-                let theme = 'auto';
+                let theme = 'light';
                 try {
-                    theme = localStorage.getItem('presuniv_theme_preference') || 'auto';
-                    if (theme !== 'auto') return theme;
+                    theme = localStorage.getItem('presuniv_theme_preference');
+                    if (theme) return theme;
                 } catch (e) {}
                 
                 const cookies = document.cookie.split(';');
@@ -42,7 +42,7 @@
                         return c.substring('presuniv_theme_preference='.length, c.length);
                     }
                 }
-                return theme;
+                return 'light';
             };
             const applyTheme = () => {
                 const theme = getSavedTheme();
