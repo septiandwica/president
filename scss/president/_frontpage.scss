@@ -814,6 +814,8 @@
         border: 1px solid #e8edf3;
         display: flex;
         flex-direction: column;
+        min-height: 450px;
+        height: 100%;
 
         &:hover {
             transform: translateY(-2px);
@@ -850,6 +852,7 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            min-height: 150px;
 
             .coursename {
                 font-size: 0.95rem;

@@ -17,13 +17,17 @@
 {{!
     @template theme_president/courses_page
 
-    Full courses listing page with pagination
+    Full courses listing page with pagination - Styled like frontpage
 }}
 
 <section class="custom-courses-section py-5 bg-light">
     <div class="president-container-fluid">
         <div class="section-header text-center mb-5">
-            <h2 class="section-title">{{page_title}}</h2>
+            <span class="section-badge">{{#str}}explorecourses, theme_president{{/str}}</span>
+            <h2 class="section-title"><span class="text-gradient" data-text="{{page_title}}">{{page_title}}</span></h2>
+            {{#has_courses}}
+            <p class="text-muted mt-3">Showing {{showing_start}} - {{showing_end}} of {{total_courses}} courses</p>
+            {{/has_courses}}
         </div>
 
         {{#has_courses}}
@@ -32,14 +36,6 @@
                 {{#courses}}
                     {{> theme_president/president_coursecard }}
                 {{/courses}}
-            </div>
-        </div>
-
-        <div class="row mt-3 mb-2">
-            <div class="col-12">
-                <p class="courses-count text-muted text-center">
-                    Showing {{showing_start}} - {{showing_end}} of {{total_courses}} courses
-                </p>
             </div>
         </div>
 
@@ -97,15 +93,10 @@
         {{/has_courses}}
 
         {{^has_courses}}
-        <div class="courses-empty-state">
-            <div class="empty-icon">
-                <i class="fa fa-graduation-cap"></i>
-            </div>
+        <div class="col-12 text-center text-muted py-5">
+            <i class="fa fa-graduation-cap fa-4x mb-3"></i>
             <h3>{{#str}}nocoursesfound, theme_president{{/str}}</h3>
             <p>Check back later for available courses.</p>
-            <a href="{{config.wwwroot}}" class="btn btn-primary">
-                <i class="fa fa-home me-2"></i>Back to Home
-            </a>
         </div>
         {{/has_courses}}
     </div>

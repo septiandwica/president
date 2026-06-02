@@ -42,9 +42,9 @@ $base_url = '/' . $slug;
 
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url($base_url, ['page' => $page]);
-$PAGE->set_pagelayout('standard');
-$PAGE->set_title(get_string('courses'));
-$PAGE->set_heading(get_string('courses'));
+$PAGE->set_pagelayout('frontpage');
+$PAGE->set_title($courses_title);
+$PAGE->set_heading($courses_title);
 
 $themesettings = new \theme_president\util\settings();
 $courseutil = new \theme_president\util\course_pagination();
