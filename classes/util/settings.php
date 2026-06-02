@@ -116,6 +116,27 @@ class settings {
     }
 
     /**
+     * Get title for guest pages
+     *
+     * @param string $view
+     * @return string
+     */
+    public function guest_page_title($view) {
+        $count = get_config('theme_president', 'custompage_count') ?: 3;
+        for ($i = 1; $i <= $count; $i++) {
+            $title = get_config('theme_president', "custompage_title_$i");
+            $slug = $this->slugify($title);
+            if ($slug === $view) {
+                return $title;
+            }
+        }
+        
+        // Fallback for strings that might exist in lang file
+        $string = get_string($view, 'theme_president');
+        return (strpos($string, '[[') === false) ? $string : ucfirst(str_replace('-', ' ', $view));
+    }
+
+    /**
      * Get footer settings
      *
      * @return array

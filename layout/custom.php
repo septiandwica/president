@@ -66,7 +66,7 @@ $templatecontext = array_merge($templatecontext, $themesettings->navbar());
 
 // Get the custom page content.
 $page_type = optional_param('view', '', PARAM_ALPHANUMEXT);
-$templatecontext['page_title'] = get_string($page_type, 'theme_president');
+$templatecontext['page_title'] = $themesettings->guest_page_title($page_type);
 $templatecontext['page_content'] = $themesettings->guest_page_content($page_type);
 $templatecontext['main_content'] = $OUTPUT->main_content();
 
