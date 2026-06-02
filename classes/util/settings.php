@@ -188,12 +188,155 @@ class settings {
             $this->frontpage_marketingboxes(),
             $this->frontpage_numbers(),
             $this->frontpage_recognition(),
-            $this->faq()
+            $this->faq(),
+            $this->frontpage_custom_courses()
         );
     
         $templatecontext['getAnimeScriptUrl'] = $this->getAnimeScriptUrl();
     
         return $templatecontext;
+    }
+
+    /**
+     * Get custom frontpage courses based on theme settings.
+     *
+     * @return array
+     */
+    public function frontpage_custom_courses() {
+        global $DB, $PAGE;
+
+        $enable = get_config('theme_president', 'frontpage_courses_enable');
+        // Default to enabled if not set
+        if ($enable === false) {
+            $enable = 1;
+        }
+
+        if (!$enable) {
+            return [
+                'frontpage_courses_enable' => false,
+                'frontpage_courses' => []
+            ];
+        }
+
+        $title = get_config('theme_president', 'frontpage_courses_title');
+        if (empty($title)) {
+            $title = get_string('frontpage_courses_title_default', 'theme_president');
+        }
+
+        $mode = get_config('theme_president', 'frontpage_courses_select_mode');
+        if ($mode === false) {
+            $mode = 0; // Default: Show all
+        }
+
+        $limit = get_config('theme_president', 'frontpage_courses_limit');
+        if ($limit === false || $limit === '') {
+            $limit = 12;
+        } else {
+            $limit = intval($limit);
+        }
+
+        $courses = [];
+
+        if ($mode == 0) {
+            // Show all available courses
+            $records = $DB->get_records_select('course', 'visible = 1 AND id <> :siteid', ['siteid' => SITEID], 'fullname ASC', '*', 0, $limit);
+            if ($records) {
+                $courses = $records;
+            }
+        } else if ($mode == 1) {
+            // Show newest courses first
+            $records = $DB->get_records_select('course', 'visible = 1 AND id <> :siteid', ['siteid' => SITEID], 'id DESC', '*', 0, $limit);
+            if ($records) {
+                $courses = $records;
+            }
+        } else if ($mode == 2) {
+            // Show specific courses (Select manually)
+            $selected = get_config('theme_president', 'frontpage_courses_selected');
+            if (!empty($selected)) {
+                $ids = explode(',', $selected);
+                $ids = array_filter(array_map('intval', $ids));
+                if (!empty($ids)) {
+                    list($insql, $inparams) = $DB->get_in_or_equal($ids, SQL_PARAMS_NAMED, 'param');
+                    $inparams['siteid'] = SITEID;
+                    $records = $DB->get_records_select('course', "visible = 1 AND id <> :siteid AND id $insql", $inparams, '');
+                    if ($records) {
+                        // Order to match the manual select order
+                        $ordered = [];
+                        foreach ($ids as $id) {
+                            if (isset($records[$id])) {
+                                $ordered[$id] = $records[$id];
+                            }
+                        }
+                        $courses = array_slice($ordered, 0, $limit, true);
+                    }
+                }
+            }
+        } else if ($mode == 3) {
+            // Show courses from selected categories
+            $categories = get_config('theme_president', 'frontpage_courses_categories');
+            if (!empty($categories)) {
+                $catids = explode(',', $categories);
+                $catids = array_filter(array_map('intval', $catids));
+                if (!empty($catids)) {
+                    list($insql, $inparams) = $DB->get_in_or_equal($catids, SQL_PARAMS_NAMED, 'param');
+                    $inparams['siteid'] = SITEID;
+                    $records = $DB->get_records_select('course', "visible = 1 AND id <> :siteid AND category $insql", $inparams, 'fullname ASC', '*', 0, $limit);
+                    if ($records) {
+                        $courses = $records;
+                    }
+                }
+            }
+        }
+
+        $formattedcourses = [];
+        $chelper = new \coursecat_helper();
+        $renderer = $PAGE->get_renderer('core');
+
+        foreach ($courses as $c) {
+            $courseobj = new \core_course_list_element($c);
+            $courseutil = new course($courseobj);
+            $coursecontacts = $courseutil->get_course_contacts();
+
+            $courseenrolmenticons = $courseutil->get_enrolment_icons();
+            $enrolmenticonshtml = [];
+            if (!empty($courseenrolmenticons)) {
+                foreach ($courseenrolmenticons as $icon) {
+                    $enrolmenticonshtml[] = $renderer->render($icon);
+                }
+            }
+
+            $courseprogress = $courseutil->get_progress();
+            $hasprogress = $courseprogress !== null;
+
+            if (class_exists('\local_course\output\index')) {
+                $courseurl = new \moodle_url('/local/course/index.php', ['id' => $c->id]);
+            } else {
+                $courseurl = new \moodle_url('/course/view.php', ['id' => $c->id]);
+            }
+
+            $formattedcourses[] = [
+                'id' => $c->id,
+                'fullname' => $chelper->get_course_formatted_name($courseobj),
+                'visible' => $c->visible,
+                'image' => $courseutil->get_summary_image(),
+                'summary' => $courseutil->get_summary($chelper),
+                'category' => $courseutil->get_category(),
+                'customfields' => $courseutil->get_custom_fields(),
+                'hasprogress' => $hasprogress,
+                'progress' => (int) $courseprogress,
+                'hasenrolmenticons' => !empty($enrolmenticonshtml),
+                'enrolmenticons' => $enrolmenticonshtml,
+                'hascontacts' => !empty($coursecontacts),
+                'contacts' => $coursecontacts,
+                'courseurl' => $courseurl->out(false),
+            ];
+        }
+
+        return [
+            'frontpage_courses_enable' => true,
+            'frontpage_courses_title' => $title,
+            'frontpage_courses' => $formattedcourses
+        ];
     }
 
     /**

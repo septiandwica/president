@@ -248,3 +248,5 @@ $string['frontpage_courses_categories'] = 'Select Categories';
 $string['frontpage_courses_categories_desc'] = 'Choose which course categories you want to display on the front page (hold Ctrl/Cmd to select multiple).';
 $string['frontpage_courses_limit'] = 'Max Courses Limit';
 $string['frontpage_courses_limit_desc'] = 'Enter the maximum number of courses to display. Default is 12.';
+$string['nocoursesfound'] = 'No courses found.';
+$string['explorecourses'] = 'Explore Courses';
