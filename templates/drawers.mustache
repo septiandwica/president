@@ -137,6 +137,27 @@
                 {{/hasblocks}}
             </div>
 
+            {{! ============================== }}
+            {{! WELCOME SECTION FOR LOGGED IN }}
+            {{! ============================== }}
+            {{#frontpage_welcome_html}}
+                {{{ frontpage_welcome_html }}}
+            {{/frontpage_welcome_html}}
+
+            {{! ============================== }}
+            {{! STATISTICS SECTION FOR LOGGED IN }}
+            {{! ============================== }}
+            {{#frontpage_statistics_html}}
+                {{{ frontpage_statistics_html }}}
+            {{/frontpage_statistics_html}}
+
+            {{! ============================== }}
+            {{! CUSTOM CONTENT SECTION }}
+            {{! ============================== }}
+            {{#frontpage_custom_content_html}}
+                {{{ frontpage_custom_content_html }}}
+            {{/frontpage_custom_content_html}}
+
             <div id="page-content" class="d-print-block">
                 <div id="region-main-box">
                     {{#hasregionmainsettingsmenu}}
@@ -168,6 +189,15 @@
                 </div>
             </div>
         </div>
+
+        {{! ============================== }}
+        {{! FRONT PAGE CUSTOM COURSES SECTION }}
+        {{! ============================== }}
+        {{#frontpage_custom_courses_html}}
+            <div class="custom-courses-wrapper">
+                {{{ frontpage_custom_courses_html }}}
+            </div>
+        {{/frontpage_custom_courses_html}}
 
         {{> theme_president/footer }}
     </div>

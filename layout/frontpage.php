@@ -148,6 +148,138 @@ if (!empty($customcourses['frontpage_courses_enable'])) {
 $templatecontext = array_merge($templatecontext, $themesettings->footer());
 $templatecontext = array_merge($templatecontext, $themesettings->navbar());
 
+// Generate logged-in user frontpage data.
+if (isloggedin() && !isguestuser()) {
+    global $USER, $DB;
+
+    // Welcome section data.
+    $hour = date('G');
+    if ($hour < 12) {
+        $greeting = get_string('goodmorning', 'theme_president');
+    } else if ($hour < 18) {
+        $greeting = get_string('goodafternoon', 'theme_president');
+    } else {
+        $greeting = get_string('goodevening', 'theme_president');
+    }
+
+    // Get active courses count.
+    $enrolledcourses = enrol_get_my_courses(['id', 'fullname', 'visible'], 'visible DESC, fullname ASC');
+    $activecourses = array_filter($enrolledcourses, function($course) {
+        return $course->visible == 1;
+    });
+    $activecoursescount = count($activecourses);
+
+    // Get pending assignments (simplified).
+    $pendingassignments = 0;
+    try {
+        $sql = "SELECT COUNT(DISTINCT a.id)
+                FROM {assign} a
+                JOIN {course_modules} cm ON cm.instance = a.id AND cm.module = (SELECT id FROM {modules} WHERE name = 'assign')
+                JOIN {course} c ON c.id = a.course
+                JOIN {enrol} e ON e.courseid = c.id
+                JOIN {user_enrolments} ue ON ue.enrolid = e.id AND ue.userid = :userid
+                LEFT JOIN {assign_submission} asub ON asub.assignment = a.id AND asub.userid = :userid2
+                WHERE a.duedate > :now
+                AND (asub.id IS NULL OR asub.status <> 'submitted')
+                AND cm.visible = 1";
+        $pendingassignments = $DB->count_records_sql($sql, [
+            'userid' => $USER->id,
+            'userid2' => $USER->id,
+            'now' => time()
+        ]);
+    } catch (Exception $e) {
+        // Silently fail if assign module not available.
+        $pendingassignments = 0;
+    }
+
+    // Get new messages count.
+    $newmessages = 0;
+    if (class_exists('\core_message\api')) {
+        $newmessages = \core_message\api::count_unread_conversations($USER);
+    }
+
+    // Statistics section data.
+    $coursescompleted = 0;
+    $totallearninghours = 0;
+    $averagegrade = 0;
+    $certificatesearned = 0;
+
+    // Get completed courses.
+    foreach ($enrolledcourses as $course) {
+        $completion = new \completion_info($course);
+        if ($completion->is_enabled() && $completion->is_course_complete($USER->id)) {
+            $coursescompleted++;
+        }
+    }
+
+    // Calculate learning hours (simplified estimate based on course activities).
+    $totallearninghours = count($enrolledcourses) * 40; // Rough estimate.
+
+    // Calculate average grade.
+    $gradeitems = $DB->get_records_sql(
+        "SELECT gg.id, gg.finalgrade, gi.grademax, gi.grademin
+         FROM {grade_grades} gg
+         JOIN {grade_items} gi ON gi.id = gg.itemid
+         WHERE gg.userid = :userid
+         AND gi.itemtype = 'course'
+         AND gg.finalgrade IS NOT NULL",
+        ['userid' => $USER->id]
+    );
+
+    if (!empty($gradeitems)) {
+        $totalpercentage = 0;
+        $gradecount = 0;
+        foreach ($gradeitems as $item) {
+            $percentage = (($item->finalgrade - $item->grademin) / ($item->grademax - $item->grademin)) * 100;
+            $totalpercentage += $percentage;
+            $gradecount++;
+        }
+        $averagegrade = $gradecount > 0 ? round($totalpercentage / $gradecount) : 0;
+    }
+
+    // Get certificates (if customcert module exists).
+    if ($DB->get_manager()->table_exists('customcert_issues')) {
+        $certificatesearned = $DB->count_records('customcert_issues', ['userid' => $USER->id]);
+    }
+
+    // Get custom content from settings.
+    $frontpagecustomcontent = get_config('theme_president', 'frontpage_loggedin_content');
+
+    // Build welcome context.
+    $welcomecontext = [
+        'greeting_time' => $greeting,
+        'user_firstname' => $USER->firstname,
+        'user_fullname' => fullname($USER),
+        'active_courses_count' => $activecoursescount,
+        'pending_assignments' => $pendingassignments,
+        'new_messages' => $newmessages,
+        'dashboard_url' => new moodle_url('/my/'),
+        'my_courses_url' => new moodle_url('/my/courses.php'),
+    ];
+
+    // Build statistics context.
+    $statscontext = [
+        'total_courses_completed' => $coursescompleted,
+        'courses_completion_percentage' => min(100, $coursescompleted * 10),
+        'total_learning_hours' => $totallearninghours,
+        'hours_progress_percentage' => min(100, floor($totallearninghours / 10)),
+        'current_average_grade' => $averagegrade,
+        'certificates_earned' => $certificatesearned,
+        'certificates_percentage' => min(100, $certificatesearned * 20),
+        'achievements' => [], // Can be extended with badges if needed.
+    ];
+
+    // Custom content context.
+    $customcontentcontext = [
+        'frontpage_custom_content' => !empty($frontpagecustomcontent) ? format_text($frontpagecustomcontent, FORMAT_HTML) : '',
+    ];
+
+    // Render sections.
+    $templatecontext['frontpage_welcome_html'] = $OUTPUT->render_from_template('theme_president/frontpage_welcome', $welcomecontext);
+    $templatecontext['frontpage_statistics_html'] = $OUTPUT->render_from_template('theme_president/frontpage_statistics', $statscontext);
+    $templatecontext['frontpage_custom_content_html'] = $OUTPUT->render_from_template('theme_president/frontpage_custom_content', $customcontentcontext);
+}
+
 if (isloggedin()) {
     // For logged in users on frontpage, also use normal navbar.
     $templatecontext = array_merge($templatecontext, $themesettings->navbar());

@@ -253,3 +253,10 @@ $string['frontpage_courses_per_page_desc'] = 'Number of courses per page in the 
 $string['nocoursesfound'] = 'No courses found.';
 $string['explorecourses'] = 'Explore Courses';
 $string['frontpage_courses_heading'] = 'Custom Courses Section';
+
+// Frontpage logged-in user sections.
+$string['goodmorning'] = 'Good morning';
+$string['goodafternoon'] = 'Good afternoon';
+$string['goodevening'] = 'Good evening';
+$string['frontpage_loggedin_content'] = 'Frontpage Custom Content (Logged-in Users)';
+$string['frontpage_loggedin_content_desc'] = 'Custom HTML content displayed on the frontpage for logged-in users. You can use this to display announcements, welcome messages, or any custom content. Leave empty to hide this section.';

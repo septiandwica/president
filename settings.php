@@ -567,6 +567,16 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_heading('frontpagecoursesseparator', '', '<hr>');
     $page->add($setting);
 
+    // Logged-in user custom content.
+    $name = 'theme_president/frontpage_loggedin_content';
+    $title = get_string('frontpage_loggedin_content', 'theme_president');
+    $description = get_string('frontpage_loggedin_content_desc', 'theme_president');
+    $setting = new admin_setting_confightmleditor($name, $title, $description, '');
+    $page->add($setting);
+
+    $setting = new admin_setting_heading('frontpageloggedinseparator', '', '<hr>');
+    $page->add($setting);
+
     // Enable FAQ.
     $name = 'theme_president/faqcount';
     $title = get_string('faqcount', 'theme_president');
