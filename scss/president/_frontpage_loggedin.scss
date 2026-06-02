@@ -86,6 +86,68 @@
     height: auto;
 }
 
+/* Activity Chart */
+.activity-chart-container {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.chart-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 1.5rem;
+}
+
+.activity-chart {
+    min-height: 150px;
+}
+
+.chart-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 0.5rem;
+    height: 120px;
+}
+
+.chart-bar-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.chart-bar {
+    width: 100%;
+    background: #0f47ad;
+    border-radius: 4px 4px 0 0;
+    min-height: 8px;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.chart-bar:hover {
+    background: #1a5ad8;
+}
+
+.bar-value {
+    position: absolute;
+    top: -20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #212529;
+}
+
+.bar-label {
+    font-size: 0.75rem;
+    color: #6c757d;
+    text-align: center;
+}
+
 /* ============================================
    STATISTICS SECTION
    ============================================ */

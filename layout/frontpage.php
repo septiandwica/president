@@ -89,7 +89,7 @@ if ($managementitems && !empty($managementitems['items'])) {
     $primarynav = $PAGE->primarynav;
     $managenode = $primarynav->add('Quick Management', null, \navigation_node::TYPE_CONTAINER, null, 'quick_management');
     $managenode->showinflatnavigation = true;
-    
+
     $currenturl = $PAGE->url->out_as_local_url(false);
     foreach ($managementitems['items'] as $item) {
         $node = $managenode->add($item['text'], $item['url'], \navigation_node::TYPE_SETTING);
@@ -98,6 +98,14 @@ if ($managementitems && !empty($managementitems['items'])) {
             $extraclasses[] = 'is-quick-management';
         }
     }
+}
+
+// Add My Courses to primary navigation for logged-in users.
+if (isloggedin() && !isguestuser()) {
+    $primarynav = $PAGE->primarynav;
+    $mycoursesurl = new moodle_url('/my/courses.php');
+    $mycoursesnode = $primarynav->add(get_string('mycourses'), $mycoursesurl, \navigation_node::TYPE_CUSTOM, null, 'mycourses');
+    $mycoursesnode->showinflatnavigation = true;
 }
 
 $primary = new core\navigation\output\primary($PAGE);
@@ -245,6 +253,36 @@ if (isloggedin() && !isguestuser()) {
     // Get custom content from settings.
     $frontpagecustomcontent = get_config('theme_president', 'frontpage_loggedin_content');
 
+    // Get user activity data for chart (last 7 days).
+    $activitydata = [];
+    $activitylabels = [];
+    for ($i = 6; $i >= 0; $i--) {
+        $date = strtotime("-$i days");
+        $daystart = strtotime('midnight', $date);
+        $dayend = strtotime('tomorrow', $daystart) - 1;
+
+        $sql = "SELECT COUNT(*)
+                FROM {logstore_standard_log}
+                WHERE userid = :userid
+                AND timecreated >= :start
+                AND timecreated <= :end";
+
+        try {
+            $count = $DB->count_records_sql($sql, [
+                'userid' => $USER->id,
+                'start' => $daystart,
+                'end' => $dayend
+            ]);
+        } catch (Exception $e) {
+            $count = 0;
+        }
+
+        $activitydata[] = $count;
+        $activitylabels[] = date('D', $date);
+    }
+
+    $maxactivity = !empty($activitydata) ? max($activitydata) : 1;
+
     // Build welcome context.
     $welcomecontext = [
         'greeting_time' => $greeting,
@@ -256,6 +294,9 @@ if (isloggedin() && !isguestuser()) {
         'new_messages' => $newmessages,
         'dashboard_url' => new moodle_url('/my/'),
         'my_courses_url' => new moodle_url('/my/courses.php'),
+        'activity_data' => json_encode($activitydata),
+        'activity_labels' => json_encode($activitylabels),
+        'max_activity' => $maxactivity,
     ];
 
     // Build statistics context.
