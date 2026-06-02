@@ -91,16 +91,6 @@
             {{> core/moremenu}}
         </div>
         {{/primarymoremenu}}
-        {{/is_guest}}
-
-        {{#is_guest}}
-        <div class="d-none d-md-flex align-items-center ml-2">
-            {{#guest_links}}
-                <a class="nav-link px-3 font-weight-bold guest-nav-link {{#isactive}}active{{/isactive}}" href="{{{url}}}">{{title}}</a>
-            {{/guest_links}}
-            <a href="{{{ config.wwwroot }}}/theme/president/about.php" class="nav-link px-3 font-weight-bold guest-nav-link">About Us</a>
-        </div>
-        {{/is_guest}}
 
         <ul class="navbar-nav d-none d-md-flex my-1 px-1">
             <!-- page_heading_menu -->
