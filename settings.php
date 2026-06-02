@@ -547,6 +547,20 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
     $page->add($setting);
 
+    $name = 'theme_president/frontpage_courses_preview_limit';
+    $title = get_string('frontpage_courses_preview_limit', 'theme_president');
+    $description = get_string('frontpage_courses_preview_limit_desc', 'theme_president');
+    $default = 3;
+    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
+    $page->add($setting);
+
+    $name = 'theme_president/frontpage_courses_per_page';
+    $title = get_string('frontpage_courses_per_page', 'theme_president');
+    $description = get_string('frontpage_courses_per_page_desc', 'theme_president');
+    $default = 9;
+    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
+    $page->add($setting);
+
     $page->hide_if('theme_president/frontpage_courses_title', 'theme_president/frontpage_courses_enable', 'eq', 0);
     $page->hide_if('theme_president/frontpage_courses_select_mode', 'theme_president/frontpage_courses_enable', 'eq', 0);
     $page->hide_if('theme_president/frontpage_courses_selected', 'theme_president/frontpage_courses_enable', 'eq', 0);

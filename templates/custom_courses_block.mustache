@@ -37,5 +37,16 @@
                 </div>
             {{/frontpage_courses}}
         </div>
+
+        {{#show_view_all}}
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <a href="{{view_all_url}}" class="btn btn-lg btn-primary">
+                    View All {{total_courses}} Courses
+                    <i class="fa fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+        {{/show_view_all}}
     </div>
 </section>

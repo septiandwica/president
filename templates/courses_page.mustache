@@ -1,0 +1,171 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_president/courses_page
+
+    Full courses listing page with pagination
+}}
+
+<div class="container-fluid py-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="display-4 text-center mb-3">{{page_title}}</h1>
+            {{#has_courses}}
+            <p class="text-center text-muted">
+                Showing {{showing_start}} - {{showing_end}} of {{total_courses}} courses
+            </p>
+            {{/has_courses}}
+        </div>
+    </div>
+
+    {{#has_courses}}
+    <div class="row">
+        <div class="d-flex flex-wrap justify-content-start w-100 courses-grid">
+            {{#courses}}
+                {{> theme_president/president_coursecard }}
+            {{/courses}}
+        </div>
+    </div>
+
+    {{#has_pagination}}
+    <div class="row mt-5">
+        <div class="col-12">
+            <nav aria-label="Course pagination">
+                <ul class="pagination justify-content-center">
+                    {{#pagination.has_prev}}
+                    <li class="page-item">
+                        <a class="page-link" href="{{pagination.prev_url}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    {{/pagination.has_prev}}
+
+                    {{^pagination.has_prev}}
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo;</span>
+                    </li>
+                    {{/pagination.has_prev}}
+
+                    {{#pagination.pages}}
+                        {{#ellipsis}}
+                        <li class="page-item disabled">
+                            <span class="page-link">...</span>
+                        </li>
+                        {{/ellipsis}}
+
+                        {{^ellipsis}}
+                        <li class="page-item {{#active}}active{{/active}}">
+                            <a class="page-link" href="{{url}}">{{number}}</a>
+                        </li>
+                        {{/ellipsis}}
+                    {{/pagination.pages}}
+
+                    {{#pagination.has_next}}
+                    <li class="page-item">
+                        <a class="page-link" href="{{pagination.next_url}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    {{/pagination.has_next}}
+
+                    {{^pagination.has_next}}
+                    <li class="page-item disabled">
+                        <span class="page-link">&raquo;</span>
+                    </li>
+                    {{/pagination.has_next}}
+                </ul>
+            </nav>
+        </div>
+    </div>
+    {{/has_pagination}}
+    {{/has_courses}}
+
+    {{^has_courses}}
+    <div class="row">
+        <div class="col-12 text-center py-5">
+            <i class="fa fa-graduation-cap fa-5x text-muted mb-4"></i>
+            <h3 class="text-muted">{{#str}}nocoursesfound, theme_president{{/str}}</h3>
+            <p class="text-muted">Check back later for available courses.</p>
+            <a href="{{config.wwwroot}}" class="btn btn-primary mt-3">
+                <i class="fa fa-home"></i> Back to Home
+            </a>
+        </div>
+    </div>
+    {{/has_courses}}
+</div>
+
+<style>
+.courses-grid {
+    gap: 0;
+}
+
+.pagination .page-link {
+    color: var(--presuniv-primary, #0f47ad);
+    border: 1px solid #dee2e6;
+    margin: 0 2px;
+    border-radius: 4px;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--presuniv-primary, #0f47ad);
+    border-color: var(--presuniv-primary, #0f47ad);
+    color: white;
+}
+
+.pagination .page-link:hover {
+    background-color: rgba(15, 71, 173, 0.1);
+    color: var(--presuniv-primary, #0f47ad);
+}
+</style>
+
+{{! Lazy loading images script }}
+{{#js}}
+require(['jquery'], function($) {
+    // Lazy load images
+    if ('IntersectionObserver' in window) {
+        var imageObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var img = entry.target;
+                    var bg = img.getAttribute('data-bg');
+                    if (bg) {
+                        img.style.backgroundImage = 'url(' + bg + ')';
+                        img.removeAttribute('data-bg');
+                        observer.unobserve(img);
+                    }
+                }
+            });
+        }, {
+            rootMargin: '50px 0px',
+            threshold: 0.01
+        });
+
+        // Mark all course card images for lazy loading
+        $('.dashboard-card-img').each(function() {
+            var bg = $(this).css('background-image');
+            if (bg && bg !== 'none') {
+                var url = bg.replace(/^url\(['"]?/, '').replace(/['"]?\)$/, '');
+                $(this).attr('data-bg', url);
+                $(this).css('background-image', 'none');
+                imageObserver.observe(this);
+            }
+        });
+    }
+});
+{{/js}}

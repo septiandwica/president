@@ -203,7 +203,7 @@ class settings {
      * @return array
      */
     public function frontpage_custom_courses() {
-        global $DB, $PAGE;
+        global $PAGE;
 
         $enable = get_config('theme_president', 'frontpage_courses_enable');
         // Default to enabled if not set
@@ -214,7 +214,8 @@ class settings {
         if (!$enable) {
             return [
                 'frontpage_courses_enable' => false,
-                'frontpage_courses' => []
+                'frontpage_courses' => [],
+                'show_view_all' => false,
             ];
         }
 
@@ -228,65 +229,22 @@ class settings {
             $mode = 0; // Default: Show all
         }
 
-        $limit = get_config('theme_president', 'frontpage_courses_limit');
-        if ($limit === false || $limit === '') {
-            $limit = 12;
+        // Use preview limit for frontpage (default 3)
+        $preview_limit = get_config('theme_president', 'frontpage_courses_preview_limit');
+        if ($preview_limit === false || $preview_limit === '') {
+            $preview_limit = 3;
         } else {
-            $limit = intval($limit);
+            $preview_limit = intval($preview_limit);
         }
 
-        $courses = [];
+        // Get preview courses using pagination utility
+        $courseutil = new course_pagination();
+        $courses = $courseutil->get_preview_courses($mode, $preview_limit);
 
-        if ($mode == 0) {
-            // Show all available courses
-            $records = $DB->get_records_select('course', 'visible = 1 AND id <> :siteid', ['siteid' => SITEID], 'fullname ASC', '*', 0, $limit);
-            if ($records) {
-                $courses = $records;
-            }
-        } else if ($mode == 1) {
-            // Show newest courses first
-            $records = $DB->get_records_select('course', 'visible = 1 AND id <> :siteid', ['siteid' => SITEID], 'id DESC', '*', 0, $limit);
-            if ($records) {
-                $courses = $records;
-            }
-        } else if ($mode == 2) {
-            // Show specific courses (Select manually)
-            $selected = get_config('theme_president', 'frontpage_courses_selected');
-            if (!empty($selected)) {
-                $ids = explode(',', $selected);
-                $ids = array_filter(array_map('intval', $ids));
-                if (!empty($ids)) {
-                    list($insql, $inparams) = $DB->get_in_or_equal($ids, SQL_PARAMS_NAMED, 'param');
-                    $inparams['siteid'] = SITEID;
-                    $records = $DB->get_records_select('course', "visible = 1 AND id <> :siteid AND id $insql", $inparams, '');
-                    if ($records) {
-                        // Order to match the manual select order
-                        $ordered = [];
-                        foreach ($ids as $id) {
-                            if (isset($records[$id])) {
-                                $ordered[$id] = $records[$id];
-                            }
-                        }
-                        $courses = array_slice($ordered, 0, $limit, true);
-                    }
-                }
-            }
-        } else if ($mode == 3) {
-            // Show courses from selected categories
-            $categories = get_config('theme_president', 'frontpage_courses_categories');
-            if (!empty($categories)) {
-                $catids = explode(',', $categories);
-                $catids = array_filter(array_map('intval', $catids));
-                if (!empty($catids)) {
-                    list($insql, $inparams) = $DB->get_in_or_equal($catids, SQL_PARAMS_NAMED, 'param');
-                    $inparams['siteid'] = SITEID;
-                    $records = $DB->get_records_select('course', "visible = 1 AND id <> :siteid AND category $insql", $inparams, 'fullname ASC', '*', 0, $limit);
-                    if ($records) {
-                        $courses = $records;
-                    }
-                }
-            }
-        }
+        // Get total count to determine if "View All" button should show
+        $result = $courseutil->get_courses_paginated($mode, 0, 1);
+        $total = $result['total'];
+        $show_view_all = ($total > $preview_limit);
 
         $formattedcourses = [];
         $chelper = new \coursecat_helper();
@@ -335,7 +293,10 @@ class settings {
         return [
             'frontpage_courses_enable' => true,
             'frontpage_courses_title' => $title,
-            'frontpage_courses' => $formattedcourses
+            'frontpage_courses' => $formattedcourses,
+            'show_view_all' => $show_view_all,
+            'view_all_url' => (new \moodle_url('/theme/president/courses.php'))->out(false),
+            'total_courses' => $total,
         ];
     }
 
