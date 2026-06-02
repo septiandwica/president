@@ -1182,13 +1182,3 @@ p#typed-text {
         }
     }
 }
-
-/* ==============================
-   HIDE MOODLE DEFAULT COURSE LIST WHEN CUSTOM COURSES ARE ENABLED
-   ============================== */
-body.theme-custom-courses-enabled {
-    #frontpage-available-course-list,
-    .frontpage-course-list-wrap {
-        display: none !important; /* stylelint-disable-line declaration-no-important */
-    }
-}
