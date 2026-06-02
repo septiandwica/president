@@ -265,16 +265,16 @@
                         <h2 class="section-title"><span class="text-gradient" data-text="{{frontpage_courses_title}}">{{frontpage_courses_title}}</span></h2>
                     </div>
                     <div class="row">
-                        <div class="card-deck dashboard-card-deck w-100">
-                            {{#frontpage_courses}}
+                        {{#frontpage_courses}}
+                            <div class="col-12 col-md-6 col-lg-4 mb-4">
                                 {{> theme_president/president_coursecard }}
-                            {{/frontpage_courses}}
-                            {{^frontpage_courses}}
-                                <div class="col-12 text-center text-muted">
-                                    <p>{{#str}}nocoursesfound, theme_president{{/str}}</p>
-                                </div>
-                            {{/frontpage_courses}}
-                        </div>
+                            </div>
+                        {{/frontpage_courses}}
+                        {{^frontpage_courses}}
+                            <div class="col-12 text-center text-muted">
+                                <p>{{#str}}nocoursesfound, theme_president{{/str}}</p>
+                            </div>
+                        {{/frontpage_courses}}
                     </div>
                 </div>
             </section>
