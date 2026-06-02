@@ -254,6 +254,98 @@ class course_renderer extends \core_course_renderer {
      * @return string HTML code for frontpage courses list
      */
     public function frontpage_available_courses() {
-        return '';
+        global $CFG, $DB;
+
+        // Check if our custom courses section is enabled.
+        $enabled = get_config('theme_president', 'frontpage_courses_enable');
+        if ($enabled === false || $enabled === '') {
+            $enabled = 1; // Default to enabled.
+        }
+
+        if (!$enabled) {
+            return '';
+        }
+
+        // Get custom title.
+        $title = get_config('theme_president', 'frontpage_courses_title');
+        if (empty($title)) {
+            $title = get_string('frontpage_courses_title_default', 'theme_president');
+        }
+
+        $selectmode = get_config('theme_president', 'frontpage_courses_select_mode') ?: 0;
+        $selectedcourses = get_config('theme_president', 'frontpage_courses_selected') ?: '';
+        $selectedcategories = get_config('theme_president', 'frontpage_courses_categories') ?: '';
+        $limit = get_config('theme_president', 'frontpage_courses_limit');
+        if ($limit === false || $limit === '') {
+            $limit = 12;
+        } else {
+            $limit = (int)$limit;
+        }
+
+        $chelper = new \coursecat_helper();
+        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED)
+                ->set_courses_display_option('numsections', 1)
+                ->set_courses_display_option('desc', true);
+
+        $courses = [];
+
+        if ($selectmode == 1) { // Newest courses first
+            $courses = $DB->get_records_select('course', "id <> :siteid AND visible = 1", ['siteid' => SITEID], 'id DESC', '*', 0, $limit);
+        } else if ($selectmode == 2 && !empty($selectedcourses)) { // Specific Course IDs
+            $courseids = array_map('intval', explode(',', $selectedcourses));
+            if (!empty($courseids)) {
+                list($insql, $inparams) = $DB->get_in_or_equal($courseids);
+                $records = $DB->get_records_select('course', "id $insql AND visible = 1", $inparams);
+                if (!empty($records)) {
+                    foreach ($courseids as $id) {
+                        if (isset($records[$id])) {
+                            $courses[$id] = $records[$id];
+                        }
+                    }
+                }
+                if ($limit > 0) {
+                    $courses = array_slice($courses, 0, $limit, true);
+                }
+            }
+        } else if ($selectmode == 3 && !empty($selectedcategories)) { // Specific Category IDs
+            $categoryids = array_map('intval', explode(',', $selectedcategories));
+            if (!empty($categoryids)) {
+                list($insql, $inparams) = $DB->get_in_or_equal($categoryids);
+                $courses = $DB->get_records_select('course', "category $insql AND id <> :siteid AND visible = 1", array_merge($inparams, ['siteid' => SITEID]), 'sortorder ASC', '*', 0, $limit);
+            }
+        } else { // Default: All available courses
+            $courses = get_courses('all', 'c.sortorder ASC', 'c.id,c.fullname,c.shortname,c.summary,c.summaryformat,c.idnumber,c.startdate,c.enddate,c.visible,c.category,c.sortorder');
+            if (isset($courses[SITEID])) {
+                unset($courses[SITEID]);
+            }
+            if ($limit > 0) {
+                $courses = array_slice($courses, 0, $limit, true);
+            }
+        }
+
+        $content = '';
+        if (count($courses) > 0) {
+            $content .= \html_writer::start_div('courses-section py-5 bg-light border-bottom');
+            $content .= \html_writer::start_div('president-container-fluid');
+            
+            // Section Header
+            $content .= \html_writer::start_div('section-header text-center mb-5');
+            $content .= \html_writer::tag('span', 'FEATURED PROGRAMS', ['class' => 'section-badge']);
+            
+            // Custom Title with gradient text
+            $titlehtml = \html_writer::tag('span', format_string($title), [
+                'class' => 'text-gradient',
+                'data-text' => format_string($title)
+            ]);
+            $content .= \html_writer::tag('h2', $titlehtml, ['class' => 'section-title']);
+            $content .= \html_writer::end_div(); // End section-header
+            
+            // Course lists
+            $content .= $this->coursecat_courses($chelper, $courses);
+            
+            $content .= \html_writer::end_div(); // End president-container-fluid
+            $content .= \html_writer::end_div(); // End courses-section
+        }
+        return $content;
     }
 }

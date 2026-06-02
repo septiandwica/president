@@ -543,6 +543,15 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_INT);
     $page->add($setting);
 
+    $page->hide_if('theme_president/frontpage_courses_title', 'theme_president/frontpage_courses_enable', 'eq', 0);
+    $page->hide_if('theme_president/frontpage_courses_select_mode', 'theme_president/frontpage_courses_enable', 'eq', 0);
+    $page->hide_if('theme_president/frontpage_courses_selected', 'theme_president/frontpage_courses_enable', 'eq', 0);
+    $page->hide_if('theme_president/frontpage_courses_categories', 'theme_president/frontpage_courses_enable', 'eq', 0);
+    $page->hide_if('theme_president/frontpage_courses_limit', 'theme_president/frontpage_courses_enable', 'eq', 0);
+
+    $page->hide_if('theme_president/frontpage_courses_selected', 'theme_president/frontpage_courses_select_mode', 'neq', 2);
+    $page->hide_if('theme_president/frontpage_courses_categories', 'theme_president/frontpage_courses_select_mode', 'neq', 3);
+
     $setting = new admin_setting_heading('frontpagecoursesseparator', '', '<hr>');
     $page->add($setting);
 
