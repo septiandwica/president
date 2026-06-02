@@ -73,6 +73,19 @@
     }
 }
 
+.welcome-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.welcome-icon {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+}
+
 /* ============================================
    STATISTICS SECTION
    ============================================ */

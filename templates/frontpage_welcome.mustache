@@ -1,15 +1,15 @@
 {{!
     @template theme_president/frontpage_welcome
-    Welcome section for logged-in users - Clean & Simple Design
+    Welcome section for logged-in users - Clean Design with Professional Graphics
 }}
 
-<section class="frontpage-welcome-section py-4">
+<section class="frontpage-welcome-section py-5">
     <div class="president-container-fluid">
         <div class="row align-items-center">
-            <div class="col-lg-7">
+            <div class="col-lg-6">
                 <div class="welcome-content">
-                    <h2 class="welcome-title mb-2">
-                        {{greeting_time}}, {{user_firstname}}!
+                    <h2 class="welcome-title mb-3">
+                        {{greeting_time}}, {{user_firstname}}
                     </h2>
                     <p class="welcome-subtitle text-muted mb-4">
                         Welcome back to {{site_fullname}}
@@ -57,6 +57,24 @@
                             View My Courses
                         </a>
                     </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="welcome-visual">
+                    <svg class="welcome-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background circle -->
+                        <circle cx="100" cy="100" r="90" fill="#f0f4ff" stroke="#e8eef8" stroke-width="2"/>
+
+                        <!-- Book stack -->
+                        <rect x="60" y="70" width="80" height="15" fill="#0f47ad" rx="2"/>
+                        <rect x="60" y="90" width="75" height="15" fill="#1a5ad8" rx="2"/>
+                        <rect x="60" y="110" width="70" height="15" fill="#2a6ae6" rx="2"/>
+
+                        <!-- Checkmark -->
+                        <circle cx="140" cy="140" r="20" fill="#28a745"/>
+                        <polyline points="133,140 138,145 147,135" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </div>
             </div>
         </div>

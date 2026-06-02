@@ -185,19 +185,17 @@
                         {{{ output.activity_navigation }}}
                         {{{ output.course_content_footer }}}
 
+                        {{! ============================== }}
+                        {{! CUSTOM COURSES SECTION (INSIDE MAIN) }}
+                        {{! ============================== }}
+                        {{#frontpage_custom_courses_html}}
+                            {{{ frontpage_custom_courses_html }}}
+                        {{/frontpage_custom_courses_html}}
+
                     </section>
                 </div>
             </div>
         </div>
-
-        {{! ============================== }}
-        {{! FRONT PAGE CUSTOM COURSES SECTION }}
-        {{! ============================== }}
-        {{#frontpage_custom_courses_html}}
-            <div class="custom-courses-wrapper">
-                {{{ frontpage_custom_courses_html }}}
-            </div>
-        {{/frontpage_custom_courses_html}}
 
         {{> theme_president/footer }}
     </div>
