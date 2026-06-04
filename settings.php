@@ -269,7 +269,7 @@ if ($ADMIN->fulltree) {
         $title = "Page Content";
         $description = "";
         $default = isset($defaults[$i]) ? $defaults[$i]['content'] : "No content yet.";
-        $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+        $setting = new admin_setting_configtextarea($name, $title, $description, $default, PARAM_RAW);
         $page->add($setting);
     }
 
@@ -571,7 +571,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_president/frontpage_loggedin_content';
     $title = get_string('frontpage_loggedin_content', 'theme_president');
     $description = get_string('frontpage_loggedin_content_desc', 'theme_president');
-    $setting = new admin_setting_confightmleditor($name, $title, $description, '');
+    $setting = new admin_setting_configtextarea($name, $title, $description, '', PARAM_RAW);
     $page->add($setting);
 
     $setting = new admin_setting_heading('frontpageloggedinseparator', '', '<hr>');
