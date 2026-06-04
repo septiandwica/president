@@ -66,7 +66,7 @@
                         {{#slides}}
                             <div class="carousel-item {{#active}}active{{/active}}">
                                 <div class="hero-overlay"></div>
-                                <img src="{{image}}" alt="{{slidertitle}}" class="w-100">
+                                <img src="{{image}}" alt="{{slidertitle}}" class="w-100" loading="lazy">
                             </div>
                         {{/slides}}
                     </div>
@@ -108,19 +108,19 @@
                     <div class="logo-track">
                         {{#recognitionlogos}}
                         <div class="logo-item">
-                            <img src="{{image}}" alt="Recognition Logo">
+                            <img src="{{image}}" alt="Recognition Logo" loading="lazy">
                         </div>
                         {{/recognitionlogos}}
                         {{! Duplicate for seamless loop }}
                         {{#recognitionlogos}}
                         <div class="logo-item">
-                            <img src="{{image}}" alt="Recognition Logo">
+                            <img src="{{image}}" alt="Recognition Logo" loading="lazy">
                         </div>
                         {{/recognitionlogos}}
                         {{! One more time to ensure no gaps on large screens }}
                         {{#recognitionlogos}}
                         <div class="logo-item">
-                            <img src="{{image}}" alt="Recognition Logo">
+                            <img src="{{image}}" alt="Recognition Logo" loading="lazy">
                         </div>
                         {{/recognitionlogos}}
                     </div>
@@ -202,7 +202,7 @@
                             <div class="col-12 col-sm-6 col-lg-3 mb-4">
                                 <div class="faculty-card">
                                     <div class="faculty-image">
-                                        <img src="{{{icon}}}" alt="{{{heading}}}">
+                                        <img src="{{{icon}}}" alt="{{{heading}}}" loading="lazy">
                                     </div>
                                     <div class="faculty-body">
                                         <h5>{{{heading}}}</h5>

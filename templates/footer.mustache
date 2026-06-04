@@ -39,7 +39,7 @@
                 <div class="section-html-content">
                     <center>
                         {{# output.should_display_footer_logo }}
-                        <img src="{{output.get_footer_logo}}" class="logo mr-1" alt="{{sitename}}">
+                        <img src="{{output.get_footer_logo}}" class="logo mr-1" alt="{{sitename}}" loading="lazy">
                         {{/ output.should_display_footer_logo }}
                         {{^ output.should_display_footer_logo }}
                         {{{ sitename }}}
