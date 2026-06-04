@@ -20,80 +20,70 @@
  * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-define(['core/ajax', 'core/modal', 'core/custom_interaction_events', 'core/notification', 'core/modal_registry'],
-function(Ajax, Modal, CustomEvents, Notification, ModalRegistry) {
+define(['core/ajax', 'core/modal', 'core/custom_interaction_events', 'core/notification'],
+function(Ajax, Modal, CustomEvents, Notification) {
 
-    var AccessibilityModal = function(root) {
-        Modal.call(this, root);
+    class AccessibilityModal extends Modal {
+        constructor(root) {
+            super(root);
+            var request = Ajax.call([{
+                methodname: 'theme_president_getthemesettings',
+                args: {}
+            }]);
 
-        var request = Ajax.call([{
-            methodname: 'theme_president_getthemesettings',
-            args: {}
-        }]);
-
-        request[0].done(function(result) {
-            var fontTypeElement = document.getElementById('fonttype');
-            if (fontTypeElement) {
-                fontTypeElement.value = result.fonttype;
-            }
-
-            if (result.enableaccessibilitytoolbar) {
-                var toolbarElement = document.getElementById('enableaccessibilitytoolbar');
-                if (toolbarElement) {
-                    toolbarElement.checked = true;
+            request[0].done(function(result) {
+                var fontTypeElement = document.getElementById('fonttype');
+                if (fontTypeElement) {
+                    fontTypeElement.value = result.fonttype;
                 }
-            }
-        });
-    };
+
+                if (result.enableaccessibilitytoolbar) {
+                    var toolbarElement = document.getElementById('enableaccessibilitytoolbar');
+                    if (toolbarElement) {
+                        toolbarElement.checked = true;
+                    }
+                }
+            });
+        }
+
+        registerEventListeners() {
+            super.registerEventListeners();
+
+            this.getModal().on(CustomEvents.events.activate, '[data-action="save"]', (e) => {
+                var request = Ajax.call([{
+                    methodname: 'theme_president_savethemesettings',
+                    args: {
+                        formdata: this.getBody().find('form').serialize()
+                    }
+                }]);
+
+                request[0].done(() => {
+                    document.location.reload(true);
+                }).fail((error) => {
+                    var message = error.message;
+                    if (!message) {
+                        message = error.error;
+                    }
+
+                    Notification.addNotification({
+                        message: message,
+                        type: 'error'
+                    });
+
+                    this.hide();
+                    this.destroy();
+                });
+            });
+
+            this.getModal().on(CustomEvents.events.activate, '[data-action="cancel"]', (e) => {
+                this.hide();
+                this.destroy();
+            });
+        }
+    }
 
     AccessibilityModal.TYPE = "theme_president/themesettings_modal";
     AccessibilityModal.TEMPLATE = "theme_president/accessibilitysettings_modal";
-
-    ModalRegistry.register(AccessibilityModal.TYPE, AccessibilityModal, AccessibilityModal.TEMPLATE);
-
-    AccessibilityModal.prototype = Object.create(Modal.prototype);
-    AccessibilityModal.prototype.constructor = AccessibilityModal;
-
-    /**
-     * Set up all of the event handling for the modal.
-     */
-    AccessibilityModal.prototype.registerEventListeners = function() {
-        // Apply parent event listeners.
-        Modal.prototype.registerEventListeners.call(this);
-
-        this.getModal().on(CustomEvents.events.activate, '[data-action="save"]', function() {
-            var request = Ajax.call([{
-                methodname: 'theme_president_savethemesettings',
-                args: {
-                    formdata: this.getBody().find('form').serialize()
-                }
-            }]);
-
-            request[0].done(function() {
-                document.location.reload(true);
-            }).fail(function(error) {
-                var message = error.message;
-
-                if (!message) {
-                    message = error.error;
-                }
-
-                Notification.addNotification({
-                    message: message,
-                    type: 'error'
-                });
-
-                this.hide();
-
-                this.destroy();
-            }.bind(this));
-        }.bind(this));
-
-        this.getModal().on(CustomEvents.events.activate, '[data-action="cancel"]', function() {
-            this.hide();
-            this.destroy();
-        }.bind(this));
-    };
 
     return AccessibilityModal;
 });
