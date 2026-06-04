@@ -21,13 +21,15 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(['theme_president/accessibilitysettings_modal', 'jquery'], function(AccessibilitySettingsModal, $) {
+define(['theme_president/accessibilitysettings_modal', 'core/modal_factory', 'jquery'], function(AccessibilitySettingsModal, ModalFactory, $) {
     return {
         init: function() {
             $('#accessibilitysettings-control').click(function(e) {
                 e.preventDefault();
 
-                AccessibilitySettingsModal.create({}).then(function(modal) {
+                ModalFactory.create({
+                    type: AccessibilitySettingsModal.TYPE
+                }).then(function(modal) {
                     modal.show();
                 });
             });

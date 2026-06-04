@@ -20,8 +20,8 @@
  * @copyright 2025 Septian Dwi Cahyo(@septian.dwica) - https://samastanuswantara.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-define(['core/ajax', 'core/modal', 'core/custom_interaction_events', 'core/notification'],
-function(Ajax, Modal, CustomEvents, Notification) {
+define(['core/ajax', 'core/modal', 'core/custom_interaction_events', 'core/notification', 'core/modal_registry'],
+function(Ajax, Modal, CustomEvents, Notification, ModalRegistry) {
 
     var AccessibilityModal = function(root) {
         Modal.call(this, root);
@@ -48,6 +48,8 @@ function(Ajax, Modal, CustomEvents, Notification) {
 
     AccessibilityModal.TYPE = "theme_president/themesettings_modal";
     AccessibilityModal.TEMPLATE = "theme_president/accessibilitysettings_modal";
+
+    ModalRegistry.register(AccessibilityModal.TYPE, AccessibilityModal, AccessibilityModal.TEMPLATE);
 
     AccessibilityModal.prototype = Object.create(Modal.prototype);
     AccessibilityModal.prototype.constructor = AccessibilityModal;
