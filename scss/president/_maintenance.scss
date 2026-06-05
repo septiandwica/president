@@ -1,0 +1,73 @@
+/* Maintenance Page Styling for President Theme */
+
+.president-maintenance-page {
+    background-color: var(--presuniv-gray-bg, #f4f7fb);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', 'Roboto', 'Segoe UI', sans-serif;
+    color: var(--presuniv-text, #2d3748);
+    margin: 0;
+    padding: 20px;
+}
+
+/* Hide default Moodle elements if they appear */
+.president-maintenance-page #page-header, 
+.president-maintenance-page #page-footer, 
+.president-maintenance-page .navbar, 
+.president-maintenance-page .fixed-top {
+    display: none !important;
+}
+
+.president-maintenance-container {
+    background-color: #ffffff;
+    border-radius: var(--presuniv-radius, 16px);
+    padding: 50px 40px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--presuniv-shadow, 0 4px 24px rgba(15, 71, 173, 0.08));
+    border-top: 5px solid var(--presuniv-primary, #0f47ad);
+}
+
+.president-maintenance-icon {
+    font-size: 64px;
+    color: var(--presuniv-accent, #f7b731);
+    margin-bottom: 25px;
+    display: inline-block;
+}
+
+.president-maintenance-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--presuniv-primary-dark, #0a3580);
+}
+
+.president-maintenance-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--presuniv-text-light, #718096);
+    margin-bottom: 30px;
+}
+
+.president-maintenance-content p {
+    margin-bottom: 15px;
+}
+
+.president-maintenance-content h1, 
+.president-maintenance-content h2, 
+.president-maintenance-content h3 {
+    color: var(--presuniv-primary, #0f47ad);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.president-maintenance-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 0.85rem;
+    color: var(--presuniv-text-light, #718096);
+}
