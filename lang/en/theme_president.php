@@ -77,6 +77,9 @@ $string['navbartype_normal'] = 'Normal (Default)';
 $string['navbartype_floating'] = 'Floating (Modern)';
 $string['navbartype_sticky'] = 'Sticky (Fixed on Top)';
 
+$string['maintenancedatetime'] = 'Maintenance Countdown Time';
+$string['maintenancedatetime_desc'] = 'Set the estimated end time for the maintenance. Format: YYYY-MM-DD HH:MM:SS (e.g. 2026-12-31 23:59:59). Leave blank to disable the countdown.';
+
 // Advanced settings tab.
 $string['advancedsettings'] = 'Advanced';
 $string['rawscsspre'] = 'Raw initial SCSS';

@@ -182,6 +182,13 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
+    // Maintenance countdown.
+    $name = 'theme_president/maintenancedatetime';
+    $title = get_string('maintenancedatetime', 'theme_president');
+    $description = get_string('maintenancedatetime_desc', 'theme_president');
+    $setting = new admin_setting_configtext($name, $title, $description, '', PARAM_TEXT);
+    $page->add($setting);
+
     // Must add the page after definiting all the settings!
     $settings->add($page);
 
