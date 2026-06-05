@@ -182,13 +182,6 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
-    // Maintenance countdown.
-    $name = 'theme_president/maintenancedatetime';
-    $title = get_string('maintenancedatetime', 'theme_president');
-    $description = get_string('maintenancedatetime_desc', 'theme_president');
-    $setting = new admin_setting_configtext($name, $title, $description, '', PARAM_TEXT);
-    $page->add($setting);
-
     // Must add the page after definiting all the settings!
     $settings->add($page);
 
@@ -279,6 +272,38 @@ if ($ADMIN->fulltree) {
         $setting = new admin_setting_configtextarea($name, $title, $description, $default, PARAM_RAW);
         $page->add($setting);
     }
+
+    $settings->add($page);
+
+    /*
+    * -----------------------
+    * Maintenance tab
+    * -----------------------
+    */
+    $page = new admin_settingpage('theme_president_maintenance', get_string('maintenancesettings', 'theme_president'));
+
+    // Enable maintenance (Core setting).
+    $name = 'maintenance_enabled';
+    $title = get_string('enablemaintenance', 'theme_president');
+    $description = get_string('enablemaintenance_desc', 'theme_president');
+    $default = 0;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $page->add($setting);
+
+    // Maintenance message (Core setting).
+    $name = 'maintenance_message';
+    $title = get_string('maintenancemessage', 'theme_president');
+    $description = get_string('maintenancemessage_desc', 'theme_president');
+    $default = '';
+    $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+    $page->add($setting);
+
+    // Maintenance countdown (Theme setting).
+    $name = 'theme_president/maintenancedatetime';
+    $title = get_string('maintenancedatetime', 'theme_president');
+    $description = get_string('maintenancedatetime_desc', 'theme_president');
+    $setting = new admin_setting_configtext($name, $title, $description, '', PARAM_TEXT);
+    $page->add($setting);
 
     $settings->add($page);
 

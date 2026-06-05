@@ -77,6 +77,12 @@ $string['navbartype_normal'] = 'Normal (Default)';
 $string['navbartype_floating'] = 'Floating (Modern)';
 $string['navbartype_sticky'] = 'Sticky (Fixed on Top)';
 
+// Maintenance settings tab.
+$string['maintenancesettings'] = 'Maintenance Mode';
+$string['enablemaintenance'] = 'Enable maintenance mode';
+$string['enablemaintenance_desc'] = 'Turning this on will enable Moodle\'s maintenance mode. Only administrators will be able to log in.';
+$string['maintenancemessage'] = 'Maintenance message';
+$string['maintenancemessage_desc'] = 'This message will be displayed to users when maintenance mode is active.';
 $string['maintenancedatetime'] = 'Maintenance Countdown Time';
 $string['maintenancedatetime_desc'] = 'Set the estimated end time for the maintenance. Format: YYYY-MM-DD HH:MM:SS (e.g. 2026-12-31 23:59:59). Leave blank to disable the countdown.';
 
