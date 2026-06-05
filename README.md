@@ -94,3 +94,7 @@ To maintain a high-end look on your custom pages, you can use the **Premium Cust
 ## 🛑 License
 
 This theme is open-source and available for use and modification under the [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.html).
+
+## Development & Support
+
+Developed and maintained by [Septian Dwi Cahyo](https://samastanuswantara.com).
