@@ -38,4 +38,9 @@ $templatecontext = [
     'maintenanceimg' => (new moodle_url('/theme/president/pix/maintenance.png'))->out()
 ];
 
-echo $OUTPUT->render_from_template('theme_president/maintenance', $templatecontext);
+$templatename = 'theme_president/maintenance';
+if ($PAGE->pagetype === 'maintenance-message') {
+    $templatename = 'theme_president/maintenance_message';
+}
+
+echo $OUTPUT->render_from_template($templatename, $templatecontext);

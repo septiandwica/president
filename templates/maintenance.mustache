@@ -9,83 +9,23 @@
 <body {{{ output.body_attributes }}}>
     {{{ output.standard_top_of_body_html }}}
 
-    <div class="president-maintenance-page" id="page" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; background-image: url('{{{loginbgimg}}}'); background-size: cover; background-position: center;">
-        
-        <!-- Overlay -->
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--presuniv-primary); opacity: 0.85; z-index: 1;"></div>
-
-        <div class="president-maintenance-container shadow-lg" style="position: relative; z-index: 2; background: #fff; padding: 3rem 2rem; border-radius: 16px; text-align: center; max-width: 600px; width: 90%; margin: 2rem auto;">
-            
-            <img src="{{{maintenanceimg}}}" alt="Maintenance" style="max-width: 250px; margin-bottom: 1.5rem; animation: float 3s ease-in-out infinite;">
-            
-            <h1 class="president-maintenance-title" style="font-size: 1.8rem; font-weight: 700; color: var(--presuniv-dark); margin-bottom: 1rem;">{{{sitename}}}</h1>
-            
-            <div class="president-maintenance-content text-muted" style="font-size: 1.1rem; margin-bottom: 1.5rem; line-height: 1.6;">
-                {{{ output.main_content }}}
+    <div id="page" class="container pb-3 mt-4">
+        <div class="row">
+            <div class="col-12 py-3 page-header-headings">
+                <h1>{{{ sitename }}}</h1>
             </div>
-            
-            {{#maintenancedatetime}}
-            <div class="president-maintenance-countdown p-3 mt-4" style="background: rgba(15, 71, 173, 0.05); border-radius: 12px; border: 1px solid rgba(15, 71, 173, 0.1);">
-                <h4 class="text-muted mb-2" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600;">Estimated Completion In</h4>
-                <div id="maintenance-timer" style="font-size: 2rem; font-weight: 800; color: var(--presuniv-primary); font-variant-numeric: tabular-nums;">
-                    --:--:--:--
+        </div>
+
+        <div id="page-content" class="row">
+            <div id="region-main" class="col-12">
+                <span id="user-notifications"></span>
+                <div role="main">
+                    <span id="maincontent"></span>
+                    {{{ output.main_content }}}
                 </div>
-            </div>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    var countDownDate = new Date("{{maintenancedatetime}}").getTime();
-                    var timerElement = document.getElementById("maintenance-timer");
-
-                    if (!isNaN(countDownDate)) {
-                        var x = setInterval(function() {
-                            var now = new Date().getTime();
-                            var distance = countDownDate - now;
-
-                            if (distance < 0) {
-                                clearInterval(x);
-                                timerElement.innerHTML = "Maintenance Expected to End Soon";
-                                return;
-                            }
-
-                            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                            
-                            var display = "";
-                            if (days > 0) display += days + "d ";
-                            display += hours.toString().padStart(2, '0') + "h " 
-                                     + minutes.toString().padStart(2, '0') + "m " 
-                                     + seconds.toString().padStart(2, '0') + "s";
-
-                            timerElement.innerHTML = display;
-                        }, 1000);
-                    } else {
-                        timerElement.parentElement.style.display = 'none';
-                    }
-                });
-            </script>
-            {{/maintenancedatetime}}
-            
-            <div class="president-maintenance-footer mt-4 pt-3 border-top" style="font-size: 0.85rem; color: #888;">
-                We are currently performing scheduled maintenance. Please check back soon.<br>
-                President University &copy; 2026
             </div>
         </div>
     </div>
-    
-    <style>
-        /* Hide the duplicate H2 from Moodle core main_content */
-        .president-maintenance-content h2 {
-            display: none !important;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-    </style>
 
     {{{ output.standard_end_of_body_html }}}
 </body>
