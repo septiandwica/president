@@ -24,10 +24,18 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$theme = theme_config::load('president');
+$loginbgimg = $theme->setting_file_url('loginbgimg', 'loginbgimg');
+if (!$loginbgimg) {
+    $loginbgimg = (new moodle_url('/theme/president/pix/login-bg.jpg'))->out();
+}
+
 $templatecontext = [
-    'sitename' => format_string($SITE->shortname, true, ['context' => \core\context\course::instance(SITEID), "escape" => false]),
+    'sitename' => format_string($SITE->fullname, true, ['context' => \core\context\course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
-    'maintenancedatetime' => get_config('theme_president', 'maintenancedatetime')
+    'maintenancedatetime' => get_config('theme_president', 'maintenancedatetime'),
+    'loginbgimg' => $loginbgimg,
+    'maintenanceimg' => (new moodle_url('/theme/president/pix/maintenance.png'))->out()
 ];
 
 echo $OUTPUT->render_from_template('theme_president/maintenance', $templatecontext);
