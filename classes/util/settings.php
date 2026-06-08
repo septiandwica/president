@@ -336,10 +336,17 @@ class settings {
 
         $templatecontext['slidersingleslide'] = $this->slidercount == 1;
         
-        $templatecontext['slidercta1text'] = $this->slidercta1text ?: 'Apply Now';
-        $templatecontext['slidercta1url'] = $this->slidercta1url ?: 'https://admission.president.ac.id/join';
-        $templatecontext['slidercta2text'] = $this->slidercta2text ?: 'Explore Programs';
-        $templatecontext['slidercta2url'] = $this->slidercta2url ?: 'https://president.ac.id';
+        $cta1text = get_config('theme_president', 'slidercta1text');
+        $templatecontext['slidercta1text'] = ($cta1text !== false) ? $cta1text : 'Apply Now';
+        
+        $cta1url = get_config('theme_president', 'slidercta1url');
+        $templatecontext['slidercta1url'] = ($cta1url !== false) ? $cta1url : 'https://admission.president.ac.id/join';
+        
+        $cta2text = get_config('theme_president', 'slidercta2text');
+        $templatecontext['slidercta2text'] = ($cta2text !== false) ? $cta2text : 'Explore Programs';
+        
+        $cta2url = get_config('theme_president', 'slidercta2url');
+        $templatecontext['slidercta2url'] = ($cta2url !== false) ? $cta2url : 'https://president.ac.id';
 
         return $templatecontext;
     }
