@@ -14,6 +14,12 @@
    ============================== */
 
 .path-login {
+    /* Hide Data retention summary link on login pages */
+    a[href*="dataprivacy"],
+    .tool_dataprivacy,
+    .dataprivacysummary {
+        display: none !important;
+    }
 
     /* Full viewport background */
     #page {
