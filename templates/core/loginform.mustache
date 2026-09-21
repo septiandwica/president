@@ -165,6 +165,18 @@
                 </div>
             {{/cansignup}}
         </form>
+
+        <!-- Presola PJJ Portal SSO Login Button -->
+        <div class="presola-sso-login-box mt-3 mb-3 text-center">
+            <div class="d-flex align-items-center justify-content-center mb-3">
+                <hr style="flex-grow: 1; border: 0; border-top: 1px solid #cbd5e1; margin: 0 10px;" />
+                <span style="color: #64748b; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Or Sign In With Presola</span>
+                <hr style="flex-grow: 1; border: 0; border-top: 1px solid #cbd5e1; margin: 0 10px;" />
+            </div>
+            <a href="/local/pjjpresuniv_sso/sso.php" class="btn btn-block btn-lg font-weight-bold" style="background: linear-gradient(135deg, #102b52 0%, #1e40af 100%); color: #ffffff; border-radius: 12px; box-shadow: 0 4px 14px rgba(16, 43, 82, 0.25); display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none;">
+                <span>Sign In with Presola PJJ Portal (SSO)</span>
+            </a>
+        </div>
         {{^hastwocolumns}}
             {{#hasidentityproviders}}
                 <div class="login-identityproviders mt-3">

@@ -10,10 +10,10 @@
 }
 
 /* ==============================
-   Login Page - Centered Floating Card
+   Login & Forgot Password Pages - Centered Floating Card
    ============================== */
 
-#page-login-index {
+.path-login {
 
     /* Full viewport background */
     #page {
@@ -131,7 +131,7 @@
 
 /* Medium+ screens */
 @include media-breakpoint-up(md) {
-    #page-login-index {
+    .path-login {
         .login-panel {
             max-width: 480px;
             padding: 3rem 2.5rem;
@@ -149,7 +149,7 @@
 
 /* Small screens */
 @include media-breakpoint-down(md) {
-    #page-login-index {
+    .path-login {
         #page {
             padding-top: 0;
         }
