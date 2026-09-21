@@ -166,6 +166,20 @@
             {{/cansignup}}
         </form>
         {{^hastwocolumns}}
+            {{#hasidentityproviders}}
+                <div class="login-identityproviders mt-3">
+                    <p class="login-heading text-center">{{#str}}signinwith, theme_president{{/str}}</p>
+                    {{#identityproviders}}
+                        <a class="btn login-identityprovider-btn btn-block {{#isfacebook}}facebook{{/isfacebook}}" href="{{url}}">
+                            {{#iconurl}}
+                                <img src="{{iconurl}}" alt="" width="24" height="24"/>
+                            {{/iconurl}}
+                            {{name}}
+                        </a>
+                    {{/identityproviders}}
+                </div>
+                <div class="login-divider"></div>
+            {{/hasidentityproviders}}
             {{#canloginasguest}}
                 <form action="{{loginurl}}" method="post" id="guestlogin" class="mt-2">
                     <input type="hidden" name="logintoken" value="{{logintoken}}">
