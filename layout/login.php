@@ -26,14 +26,11 @@ defined('MOODLE_INTERNAL') || die();
 
 $bodyattributes = $OUTPUT->body_attributes(['president-login']);
 
-$pjjportalurl = get_config('local_pjjpresuniv_sso', 'portal_url') ?: 'http://localhost:8000/login';
-
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => \core\context\course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
     'bodyattributes' => $bodyattributes,
     'themepreference' => theme_president_get_theme_preference(),
-    'pjjportalurl' => $pjjportalurl,
 ];
 
 echo $OUTPUT->render_from_template('theme_president/login', $templatecontext);
